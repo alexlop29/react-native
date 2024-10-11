@@ -1,12 +1,16 @@
-# react-native
-Contains a series of coding snippets developed while leveraging the react native framework 
-
-### 🏄 Getting Started
+### Step 1: Configure React Native Firebase
+Install Dependencies.
 ```
-nvm use 20.18.0
-npx create-expo-app@latest
-cd app
-- npm run android
-- npm run ios
-- npm run web
+nvm use 20.17.0
+npm install --save @react-native-firebase/app
+```
+
+Generate Android directory.
+```
+npx expo run:android
+```
+
+Generate Android credentials.
+```
+cd android && ./gradlew signingReport
 ```
