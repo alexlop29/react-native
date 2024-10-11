@@ -200,3 +200,12 @@ Alias: AndroidDebugKey
 Error: Missing keystore
 ----------
 ```
+
+```
+Add SHAs to Android App in Firebase.
+https://console.firebase.google.com/u/0/project/my-app-e0ecb/settings/general/android:com.alexlop29.app
+```
+
+```
+Download the google-services.json file and place it inside of your project at the following location: /android/app/google-services.json.
+```
