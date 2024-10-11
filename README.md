@@ -12,5 +12,7 @@ npx expo run:android
 
 Generate Android credentials.
 ```
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+...
 cd android && ./gradlew signingReport
 ```
