@@ -209,3 +209,25 @@ https://console.firebase.google.com/u/0/project/my-app-e0ecb/settings/general/an
 ```
 Download the google-services.json file and place it inside of your project at the following location: /android/app/google-services.json.
 ```
+
+Configure Firebase with Android credentials
+```
+/android/build.gradle
+buildscript {
+  dependencies {
+    // ... other dependencies
+    // NOTE: if you are on react-native 0.71 or below, you must not update
+    //       the google-services plugin past version 4.3.15 as it requires gradle >= 7.3.0
+    classpath 'com.google.gms:google-services:4.4.2'
+    // Add me --- /\
+  }
+}
+...
+/android/app/build.gradle:
+apply plugin: 'com.google.gms.google-services' // <- Add this line
+```
+
+### Defintions
+> Gradle is a build tool that we use for Android development to automate the process of building and publishing apps.
+
+> Gradle reads the app’s build configuration file (build.gradle) which contains information about the dependencies, build types, etc.
