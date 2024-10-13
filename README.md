@@ -227,7 +227,49 @@ buildscript {
 apply plugin: 'com.google.gms.google-services' // <- Add this line
 ```
 
+```
+Generate ios files
+npx expo run:ios
+...
+ npx expo run:ios
+✔ Created native directory
+✔ Updated package.json | no changes
+✔ Finished prebuild
+⚠️  Something went wrong running `pod install` in the `ios` directory.
+Command `pod install` failed.
+└─ Cause: The following Swift pods cannot yet be integrated as static libraries:
+
+The Swift pod `FirebaseCoreInternal` depends upon `GoogleUtilities`, which does not define modules. To opt into those targets generating module maps (which is necessary to import them from Swift when building as static libraries), you may set `use_modular_headers!` globally in your Podfile, or specify `:modular_headers => true` for particular dependencies.
+
+pod install --repo-update --ansi exited with non-zero code: 1
+› Planning build
+
+› 0 error(s), and 0 warning(s)
+
+CommandError: Failed to build iOS project. "xcodebuild" exited with error code 65.
+To view more error logs, try building the app with Xcode directly, by opening /Users/alexanderlopez/Desktop/Github/react-native/app/ios/app.xcodeproj.
+
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project /Users/alexanderlopez/Desktop/Github/react-native/app/ios/app.xcodeproj -configuration Debug -scheme app -destination id=4B289012-0F41-4B56-B834-E6F7B37A1E6B
+
+User defaults from command line:
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Prepare packages
+
+Computing target dependency graph and provisioning inputs
+
+Create build description
+Build description signature: 0e0f1667c4d8fbfcee8475b1becef980
+Build description path: /Users/alexanderlopez/Library/Developer/Xcode/DerivedData/app-geeikuooxjbyqogmcwbpyhczkwsv/Build/Intermediates.noindex/XCBuildData/0e0f1667c4d8fbfcee8475b1becef980.xcbuilddata
+
+```
+
 ### Defintions
 > Gradle is a build tool that we use for Android development to automate the process of building and publishing apps.
 
 > Gradle reads the app’s build configuration file (build.gradle) which contains information about the dependencies, build types, etc.
+
+### LEFT OFF
+- Setup IOS
+https://rnfirebase.io/#3-react-native-cli---ios-setup
