@@ -1,9 +1,50 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, Button, Text } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import {useAuth0, Auth0Provider} from 'react-native-auth0';
+
+const LoginButton = () => {
+  const {authorize} = useAuth0();
+
+  const onPress = async () => {
+      try {
+          await authorize();
+      } catch (e) {
+          console.log(e);
+      }
+  };
+
+  return <Button onPress={onPress} title="Log in" />
+};
+
+const LogoutButton = () => {
+  const {clearSession} = useAuth0();
+
+  const onPress = async () => {
+      try {
+          await clearSession();
+      } catch (e) {
+          console.log(e);
+      }
+  };
+
+  return <Button onPress={onPress} title="Log out" />
+};
+
+const Profile = () => {
+  const {user, error} = useAuth0();
+
+  return (
+      <>
+          {user && <Text>Logged in as {user.name}</Text>}
+          {!user && <Text>Not logged in</Text>}
+          {error && <Text>{error.message}</Text>}
+      </>
+  )
+}
 
 export default function HomeScreen() {
   return (
@@ -46,6 +87,9 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+      <LoginButton />
+      <LogoutButton />
+      <Profile />
     </ParallaxScrollView>
   );
 }
