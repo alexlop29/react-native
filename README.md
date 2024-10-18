@@ -14,3 +14,9 @@ cd app
 #### 📱 Generating mobile files
 npx expo run:android
 npx expo run:ios
+
+### 🔥 Running the app
+```
+npx expo run:ios
+npx expo run:android
+```
