@@ -1,5 +1,5 @@
 # react-native
-Contains a series of coding snippets developed while leveraging the react native framework 
+Demonstrates implementing Auth0 user authentication in an Expo app
 
 ### 🏄 Getting Started
 ```
@@ -12,8 +12,10 @@ cd app
 ```
 
 #### 📱 Generating mobile files
+```
 npx expo run:android
 npx expo run:ios
+```
 
 ### 🔥 Running the app
 ```
