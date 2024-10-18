@@ -27,7 +27,11 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "react-native-auth0",
+      {
+        "domain": "dev-xxn2763opsyx3347.us.auth0.com"
+      }
     ],
     "experiments": {
       "typedRoutes": true
