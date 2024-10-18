@@ -22,3 +22,14 @@ npx expo run:ios
 npx expo run:ios
 npx expo run:android
 ```
+
+### Troubleshooting
+#### 🐛 Android
+```
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+...
+Add the following to app/android/gradle.properties:
+org.gradle.java.home=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+...
+cd android && ./gradlew signingReport
+```
