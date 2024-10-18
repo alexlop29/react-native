@@ -111,6 +111,9 @@ android {
 
     namespace 'com.alexlop29.app'
     defaultConfig {
+// @generated begin react-native-auth0-manifest-placeholder - expo prebuild (DO NOT MODIFY) sync-88647d32fb8695d19938418229bd18dca86c7a6b
+manifestPlaceholders = [auth0Domain: "dev-xxn2763opsyx3347.us.auth0.com", auth0Scheme: "com.alexlop29.app.auth0"]
+// @generated end react-native-auth0-manifest-placeholder
         applicationId 'com.alexlop29.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
