@@ -10,3 +10,7 @@ cd app
 - npm run ios
 - npm run web
 ```
+
+#### 📱 Generating mobile files
+npx expo run:android
+npx expo run:ios
