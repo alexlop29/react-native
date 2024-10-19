@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
-
-import firestore from '@react-native-firebase/firestore';
+import firestore from "@react-native-firebase/firestore";
 
 type Exercise = {
-    name: string;
+  name: string;
 };
 
 const ExerciseView = () => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
   useEffect(() => {
-    const fetchExercises = async () => {
-      try {
-        const querySnapshot = await firestore()
-          .collection('Exercises')
-          .get();
+    const unsubscribe = firestore()
+      .collection("Exercises")
+      .onSnapshot(
+        (querySnapshot) => {
+          const exerciseList: Exercise[] = querySnapshot.docs.map((documentSnapshot) =>
+            documentSnapshot.data() as Exercise
+          );
 
-        const exerciseList: Exercise[] = querySnapshot.docs.map(documentSnapshot => 
-          documentSnapshot.data() as Exercise
-        );
+          setExercises(exerciseList);
+        },
+        (error) => {
+          console.error("Error fetching exercises: ", error);
+        }
+      );
 
-        setExercises(exerciseList);
-      } catch (error) {
-        console.error("Error fetching exercises: ", error);
-      }
-    };
-
-    fetchExercises();
+    return () => unsubscribe();
   }, []);
 
   return (
