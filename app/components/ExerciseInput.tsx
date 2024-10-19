@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { View, TextInput } from "react-native";
-
 import firestore from "@react-native-firebase/firestore";
+import { styled } from "nativewind";
 
 type Exercise = {
   name: string;
 };
 
+const StyledTextInput = styled(TextInput);
+
 const ExerciseInput = () => {
   const [exercise, setExercise] = useState<Exercise>({ name: "" });
 
-  const handleInput = async (exercise: string) => {
+  const handleInput = async (exerciseName: string) => {
     try {
       await firestore().collection("Exercises").add({
-        name: exercise,
+        name: exerciseName,
       });
-      setExercise({name: exercise});
+      setExercise({ name: "" });
     } catch (error) {
       console.error(error);
     }
@@ -23,7 +25,12 @@ const ExerciseInput = () => {
 
   return (
     <View>
-      <TextInput onBlur={() => handleInput} value={exercise.name ?? ""} />
+      <StyledTextInput
+        className="flex border"
+        onBlur={() => handleInput(exercise.name)}
+        value={exercise.name ?? ""}
+        onChangeText={(text) => setExercise({ name: text })}
+      />
     </View>
   );
 };
