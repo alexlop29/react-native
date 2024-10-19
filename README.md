@@ -1,5 +1,5 @@
 ### About
-Demonstrates a mobile application with built-in real-time streaming using React Native, Expo, and Firebase Cloud Firestore
+Demonstrates a mobile application with real-time streaming using React Native, Expo, and Firebase Cloud Firestore
 
 ### 🏄 Getting Started
 ```
