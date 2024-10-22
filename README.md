@@ -1,12 +1,6 @@
-# react-native
-Contains a series of coding snippets developed while leveraging the react native framework 
 
-### 🏄 Getting Started
 ```
-nvm use 20.18.0
-npx create-expo-app@latest
-cd app
-- npm run android
-- npm run ios
-- npm run web
+npx expo install expo-notifications
+npx expo install expo-device
+npx expo install expo-constants
 ```
