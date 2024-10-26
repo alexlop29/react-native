@@ -15,7 +15,13 @@ Working on:
   - Install Gluestack UI
 ```
 npx gluestack-ui init
+npx gluestack-ui add select
+npx gluestack-ui add icon
+npm install lucide-react-native
 ```
+- Create Select Component with Mock Data
+- Create exercise table schema in Firebase Cloud FireStore
+- Use tanstack query to retrieve data from Firestore
 
 
 - Create UI Components to Track A Workout

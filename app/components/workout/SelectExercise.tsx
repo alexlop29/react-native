@@ -15,7 +15,9 @@ import {
   SelectDragIndicator,
   SelectItem,
 } from "@/components/ui/select";
-import { Icon } from "@/components/ui/icon";
+
+// icons
+import { ChevronDown } from 'lucide-react-native';
 
 const SelectExercise = () => {
   // may be able to use prop to associate back to the parent workout!
@@ -27,11 +29,12 @@ const SelectExercise = () => {
     <View>
       {/* Need to add drop down */}
       {/* Will need option to add a new exercise */}
+      {/* May also want a search icon to quickly cycle through the search options */}
+      {/* ??? */}
       <Select>
         <SelectTrigger variant="outline" size="md">
           <SelectInput placeholder="Select option" />
-          <SelectIcon className="mr-3" as={ChevronDownIcon} />
-          <Icon as={EditIcoChn} size="md" />
+          <SelectIcon className="mr-3" as={ChevronDown} />
         </SelectTrigger>
         <SelectPortal>
           <SelectBackdrop />
@@ -45,6 +48,7 @@ const SelectExercise = () => {
               label="Cross Platform Development Process"
               value="Cross Platform Development Process"
             />
+            {/* Could use disabled as a separator between exercises??? */}
             <SelectItem label="UI Designing" value="ui" isDisabled={true} />
             <SelectItem label="Backend Development" value="backend" />
           </SelectContent>
