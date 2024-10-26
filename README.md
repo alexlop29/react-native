@@ -11,7 +11,7 @@ npx expo run:ios
 
 ### 🚧 To Do
 Working on:
-- Select Exercise Component:
+Select Exercise Component:
   - Install Gluestack UI
 ```
 npx gluestack-ui init
@@ -19,7 +19,8 @@ npx gluestack-ui add select
 npx gluestack-ui add icon
 npm install lucide-react-native
 ```
-- Create Select Component with Mock Data
+[DONE] Create Select Component with Mock Data
+[IN-PROGRESS] Test by adding to any page
 - Create exercise table schema in Firebase Cloud FireStore
 - Use tanstack query to retrieve data from Firestore
 

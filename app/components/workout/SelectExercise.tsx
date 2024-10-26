@@ -19,7 +19,12 @@ import {
 // icons
 import { ChevronDown } from 'lucide-react-native';
 
-const SelectExercise = () => {
+
+// can make select a headless comp and allow re-use
+
+// May want to split into two components
+// Add new and select
+export const SelectExercise = () => {
   // may be able to use prop to associate back to the parent workout!
 
   // can use react query to retrieve list of exercises from database in firebase cloud storage
@@ -48,8 +53,6 @@ const SelectExercise = () => {
               label="Cross Platform Development Process"
               value="Cross Platform Development Process"
             />
-            {/* Could use disabled as a separator between exercises??? */}
-            <SelectItem label="UI Designing" value="ui" isDisabled={true} />
             <SelectItem label="Backend Development" value="backend" />
           </SelectContent>
         </SelectPortal>
@@ -60,4 +63,3 @@ const SelectExercise = () => {
 
 // Should handle new set in a different component
 
-export default SelectExercise;
