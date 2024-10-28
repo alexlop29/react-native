@@ -20,9 +20,76 @@ npx gluestack-ui add icon
 npm install lucide-react-native
 ```
 [DONE] Create Select Component with Mock Data
-[IN-PROGRESS] Test by adding to any page
-- Create exercise table schema in Firebase Cloud FireStore
+[DONE] Test by adding to any page
+[INPROGRESS] Create exercise table schema in Firebase Cloud FireStore
+  - Search for proposed backend schema for exercise
+
+Did not like the exercise schema
+creating new schema
+
+workout:
+- id
+- name
+- date
+- duration
+
+- log ?? 
+
+exercise:
+- id
+- name
+- category
+- description
+
+set:
+- id
+- exerciseId
+- weight
+- reps
+
+- Would like something similar to the gab
+Group: Weight Lifting
+Block: Exercise Log
+- Group Attribute: Set
+- Block Attribute: Exercise, Rep, Set
+
+Block - Weight Lifting
+
+org/groups/group_id/blocks/block_id/
+
+user/groups/weight_lifting_id/blocks/exercise_log_id
+
+group_attributes: exerise_name
+block_attributes: {rep, weight}
+
+NOT ONE SINGLE ARCHITECTURE FITS EVERY PROBLEM
+HOWEVER, THIS DOES PREVENT NESTED DOCUEMTS
+ALSO ALLOWS FOR LONG-TERM GROWTH OF DATA SETS
+
+Could leverage table structure to hold the data as opposed to tracking as group and block attributes
+
+// GOOD: user/groups/weight_lifting_id/blocks/exercise_log_id
+
+Groups:
+- Weight Lifting
+- Exercise
+
+Group Attributes:
+- Weight Lifting
+- Exercise
+  - Sets
+    - Exercise Name
+    - Reps
+    - Weight
+
+Block Attributes: 
+ - Set
+
+  - Create schema for exercise
+  - Create a couple of sample exercises
+
 - Use tanstack query to retrieve data from Firestore
+- Perform UI Update to Select Exercise Component
 
 
 - Create UI Components to Track A Workout
