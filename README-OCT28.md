@@ -13,3 +13,7 @@ Steps:
 npm i @tanstack/react-query
 ```
 
+### References
+- [Tanstack - React Query for React Native] https://tanstack.com/query/latest/docs/framework/react/react-native
+- []()
+

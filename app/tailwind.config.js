@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const gluestackPlugin = require('@gluestack-ui/nativewind-utils/tailwind-plugin');
 
 /** @type {import('tailwindcss').Config} */
@@ -196,3 +197,14 @@ module.exports = {
   },
   plugins: [gluestackPlugin],
 };
+=======
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./App.{js,jsx,ts,tsx}", "./app/components/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+>>>>>>> react-native-with-firebase-cloud-firestore
