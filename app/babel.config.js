@@ -13,5 +13,7 @@ module.exports = function (api) {
         "tailwind.config": "./tailwind.config.js"
       }
     }]]
+    // presets: ['babel-preset-expo'],
+    // plugins: ["nativewind/babel"],
   };
 };

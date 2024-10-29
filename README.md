@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### 🏄 Getting Started
 ```
 nvm use 20.18.0
@@ -112,6 +113,12 @@ Demonstrates a mobile application with real-time streaming using React Native, E
 nvm use 20.18.0
 cd app
 npx expo run:ios
+=======
+```
+npm install nativewind
+npm install --save-dev tailwindcss@3.3.2
+npx tailwindcss init
+>>>>>>> react-native-with-native-wind
 ```
 
 ### 📝 Notes
