@@ -1,30 +1,18 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet} from 'react-native';
+import { View } from "react-native";
 
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+// import { styled } from "nativewind";
 
-// comps
-import { SelectExercise } from "@/components/workout";
+// const StyledView = styled(View);
 
-export default function TabTwoScreen() {
+// components
+import { ExerciseInput } from '@/components/ExerciseInput';
+import { ExerciseView } from '@/components/ExerciseView';
+
+export default function ExploreScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-      <SelectExercise />
-    </ParallaxScrollView>
+    <View>
+        <ExerciseView />
+        <ExerciseInput />
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});
