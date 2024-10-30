@@ -28,8 +28,14 @@ cd ios/ && pod install
 (Avoids the use of firestore subscription and the useEffect() hook)
 - Expo Specific Client ??? https://github.com/expo/dev-plugins/tree/main/packages/react-query
 (Can be its own project!!!) - Configure today and move to own code base
+// Still Needs Tansack Query Installation
+```
+npm i @tanstack/react-query
+npx expo install @dev-plugins/react-query
+```
+- Running without errors
 
-- [BACKLOG] Add Firebase List of Exercises to SelectExercise Comp
+- [BACKLOG] Add Firebase List of Exercises to SelectExercise Comp using Tanstack Query!
 
 ### Overall Session Goal:
 ```

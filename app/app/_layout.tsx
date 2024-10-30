@@ -9,10 +9,16 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+// react query with expo config
+import { useReactQueryDevTools } from '@dev-plugins/react-query';
+import { QueryClient} from '@tanstack/react-query';
+const queryClient = new QueryClient();
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  useReactQueryDevTools(queryClient);
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
