@@ -1,12 +1,10 @@
 # react-native
 Contains a series of coding snippets developed while leveraging the react native framework 
 
-### 🏄 Getting Started
+### To Do
+- Setup GlueStack UI
+- Rebuild SelectExercise component.
 ```
-nvm use 20.18.0
-npx create-expo-app@latest
-cd app
-- npm run android
-- npm run ios
-- npm run web
+npx gluestack-ui add select
+npm install lucide-react-native
 ```
