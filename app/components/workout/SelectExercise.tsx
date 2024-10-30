@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 
 // deps
+import { useQuery } from '@tanstack/react-query';
 import firestore from "@react-native-firebase/firestore";
 /*
   better to use tanstack to avoid the useEffect on the subscription;
@@ -41,16 +42,46 @@ export const SelectExercise = () => {
   // may be able to use prop to associate back to the parent workout!
 
   // can use react query to retrieve list of exercises from database in firebase cloud storage
-  const [exercise, setExercise] = useState<Exercise[]>([]);
+  // const [exercise, setExercise] = useState<Exercise[]>([]);
+  const {
+    data: exercises = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["exercises"],
+    queryFn: () =>
+      new Promise<Exercise[]>((resolve, reject) => {
+        const unsubscribe = firestore()
+          .collection("Exercises")
+          .onSnapshot(
+            (snapshot) => {
+              const updatedExercises = snapshot.docs.map((doc) =>
+                doc.data() as Exercise
+              );
+              resolve(updatedExercises);
+            },
+            (err) => {
+              console.error("Failed to retrieve exercises:", err);
+              reject(err);
+            }
+          );
 
-  const handleGetExercises = async () => {
-    // may want some sort of pagination here
-    // maybe retrieve x amount, and allow the user to search for more (trie?);
-    const exercises = await firestore().collection("exercises").get();
-    return exercises.docs.map((documentSnapshot) =>
-      documentSnapshot.data() as Exercise
-    );
-  };
+        return unsubscribe;
+      }),
+    staleTime: Infinity,
+  });
+  console.log(exercises);
+
+  // const handleGetExercises = async () => {
+  //   // may want some sort of pagination here
+  //   // maybe retrieve x amount, and allow the user to search for more (trie?);
+  //   const exercises = await firestore().collection("Exercises").get();
+  //   console.log(exercises);
+  //   return exercises.docs.map((documentSnapshot) =>
+  //     documentSnapshot.data() as Exercise
+  //   );
+  // };
 
   return (
     <View>
@@ -69,13 +100,20 @@ export const SelectExercise = () => {
             <SelectDragIndicatorWrapper>
               <SelectDragIndicator />
             </SelectDragIndicatorWrapper>
-            <SelectItem label="UX Research" value="ux" />
+
+            <>
+            {exercises.map((exercise) => (
+              <SelectItem key={exercise.name} label={exercise.name} value={exercise.name} />
+            ))}
+            </>
+
+            {/* <SelectItem label="UX Research" value="ux" />
             <SelectItem label="Web Development" value="web" />
             <SelectItem
               label="Cross Platform Development Process"
               value="Cross Platform Development Process"
             />
-            <SelectItem label="Backend Development" value="backend" />
+            <SelectItem label="Backend Development" value="backend" /> */}
           </SelectContent>
         </SelectPortal>
       </Select>
