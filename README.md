@@ -8,4 +8,14 @@ Contains a series of coding snippets developed while leveraging the react native
 npx gluestack-ui add select
 npm install lucide-react-native
 ```
-- Configure React Native Firebase.
+- Configure React Native Firebase default config.
+https://rnfirebase.io/
+```
+npm install --save @react-native-firebase/app
+```
+- Configure React Native Firebase Firestore.
+```
+npm isntall @react-native-firebase/app
+npm install @react-native-firebase/firestore
+cd ios/ && pod install
+```
