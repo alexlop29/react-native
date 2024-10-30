@@ -16,8 +16,21 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
+// deps
+import firestore from "@react-native-firebase/firestore";
+/*
+  better to use tanstack to avoid the useEffect on the subscription;
+*/
+
 // icons
 import { ChevronDown } from 'lucide-react-native';
+
+//types
+
+// could move to a separate file
+type Exercise = {
+  name: string;
+};
 
 
 // can make select a headless comp and allow re-use
@@ -28,7 +41,16 @@ export const SelectExercise = () => {
   // may be able to use prop to associate back to the parent workout!
 
   // can use react query to retrieve list of exercises from database in firebase cloud storage
-  const [exercise, setExercise] = useState("");
+  const [exercise, setExercise] = useState<Exercise[]>([]);
+
+  const handleGetExercises = async () => {
+    // may want some sort of pagination here
+    // maybe retrieve x amount, and allow the user to search for more (trie?);
+    const exercises = await firestore().collection("exercises").get();
+    return exercises.docs.map((documentSnapshot) =>
+      documentSnapshot.data() as Exercise
+    );
+  };
 
   return (
     <View>
