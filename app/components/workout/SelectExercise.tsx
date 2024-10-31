@@ -1,6 +1,5 @@
 // core
 import { View } from "react-native";
-import { useState } from "react";
 
 // comps
 import {
@@ -106,14 +105,6 @@ export const SelectExercise = () => {
               <SelectItem key={exercise.name} label={exercise.name} value={exercise.name} />
             ))}
             </>
-
-            {/* <SelectItem label="UX Research" value="ux" />
-            <SelectItem label="Web Development" value="web" />
-            <SelectItem
-              label="Cross Platform Development Process"
-              value="Cross Platform Development Process"
-            />
-            <SelectItem label="Backend Development" value="backend" /> */}
           </SelectContent>
         </SelectPortal>
       </Select>
