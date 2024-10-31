@@ -1,37 +1,38 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Image, Platform } from "react-native";
+import { useState } from "react";
+import { View, Text } from "react-native";
 
-import { Collapsible } from "@/components/Collapsible";
-import { ExternalLink } from "@/components/ExternalLink";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-
-import { SelectExercise, AddNewExercise } from "@/components/workout";
+// comps
+import { Button, ButtonText } from "@/components/ui/button";
 
 export default function TabTwoScreen() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleStart = () => {
+    setIsLoading(true);
+    // Create workout document in Firestore
+    // Navigate to workout/[id] screen
+  };
+
+  if (isLoading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
-      headerImage={
-        <Ionicons size={310} name="code-slash" style={styles.headerImage} />
-      }
-    >
-      <SelectExercise />
-      <AddNewExercise />
-    </ParallaxScrollView>
+    <View>
+      <Button
+        size="md"
+        variant="solid"
+        action="primary"
+        onPress={() => handleStart()}
+      >
+        <ButtonText>
+          <Text>Start New Workout</Text>
+        </ButtonText>
+      </Button>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-});

@@ -39,8 +39,16 @@ npx expo install @dev-plugins/react-query
 
 - [DONE] Add Firebase List of Exercises to SelectExercise Comp using Tanstack Query!
 
-- [NOW] Add a new exercise
+- [DONE] Add a new exercise
+```
+npx gluestack-ui add input
+```
+ 
+ - [IN-PROGRESS] Add ability to save sets and workouts
+ Creating screen transitions and comps!
 
+- [BACKLOG] Add categories to exercises
+- [BACKLOG] Add transition between Select Exercise and Add Exercise Component
 - [BACKLOG] TanStack Query is not automically receiving backend updates!
 - [BACKLOG] Add functionality to search for exercises
 - [BACKLOG] Add functionality to categorize exercises (e.g. biceps, triceps)
