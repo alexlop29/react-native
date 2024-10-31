@@ -24,9 +24,11 @@ cd ios/ && pod install
 (Is Tanstack necessary? React Native Firebase Firestore has subscriptions.)
 (NEEDED!)
 
-- [NOW] Configure Tanstack Query - React Native
+- [DONE] Configure Tanstack Query - React Native
 (Avoids the use of firestore subscription and the useEffect() hook)
 - Expo Specific Client ??? https://github.com/expo/dev-plugins/tree/main/packages/react-query
+https://github.com/expo/dev-plugins/blob/main/packages/react-query/README.md
+https://tanstack.com/query/latest/docs/framework/react/installation
 (Can be its own project!!!) - Configure today and move to own code base
 // Still Needs Tansack Query Installation
 ```
@@ -35,7 +37,9 @@ npx expo install @dev-plugins/react-query
 ```
 - Running without errors
 
-- [BACKLOG] Add Firebase List of Exercises to SelectExercise Comp using Tanstack Query!
+- [DONE] Add Firebase List of Exercises to SelectExercise Comp using Tanstack Query!
+
+- [NEXT] TanStack Query is not automically receiving backend updates!
 
 ### Overall Session Goal:
 ```

@@ -69,7 +69,7 @@ export const SelectExercise = () => {
 
         return unsubscribe;
       }),
-    staleTime: Infinity,
+    // staleTime: Infinity,
   });
   console.log(exercises);
 
