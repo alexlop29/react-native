@@ -33,6 +33,7 @@ const AddNewExercise = () => {
   const handleSave = async () => {
     // Transition component to loading state if desired
     // Add validation to ensure exercise name is unique
+    console.log("Saving exercise...");
     try {
       await firestore().collection("Exercises").add({
         name: exercise.name,
@@ -60,16 +61,13 @@ const AddNewExercise = () => {
         />
       </Input>
       {/* Add a loading indicator after the save button is pressed */}
-      <Pressable onPress={handleSave}>
-        <ButtonGroup>
-          <Button size="md" variant="solid" action="primary">
-            <ButtonText>
-              <Text>Save</Text>
-            </ButtonText>
-            <ButtonIcon />
-          </Button>
-        </ButtonGroup>
-      </Pressable>
+      {/* <Pressable onPress={() => handleSave()}> */}
+        <Button size="md" variant="solid" action="primary" onPress={() => handleSave()}>
+          <ButtonText>
+            <Text>Save</Text>
+          </ButtonText>
+        </Button>
+      {/* </Pressable> */}
       {/* After saving the new exercise, navigate back to the select exercise component */}
     </View>
   );
