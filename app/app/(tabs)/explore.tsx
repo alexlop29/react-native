@@ -25,6 +25,7 @@ export default function TabTwoScreen() {
         user: null,
       });
       router.push(`/workout/${doc.id}`);
+      setIsLoading(false);
     } catch (error) {
       // Replace with a toast or alert
       console.log(error);
