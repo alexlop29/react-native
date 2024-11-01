@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 // comps
 import { Button, ButtonText } from "@/components/ui/button";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+
+// icons
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,14 +19,24 @@ export default function TabTwoScreen() {
 
   if (isLoading) {
     return (
-      <View>
+      <ParallaxScrollView
+        headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
+        headerImage={
+          <Ionicons size={310} name="code-slash" style={styles.headerImage} />
+        }
+      >
         <Text>Loading...</Text>
-      </View>
+      </ParallaxScrollView>
     );
   }
 
   return (
-    <View>
+    <ParallaxScrollView
+      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
+      headerImage={
+        <Ionicons size={310} name="code-slash" style={styles.headerImage} />
+      }
+    >
       <Button
         size="md"
         variant="solid"
@@ -33,6 +47,19 @@ export default function TabTwoScreen() {
           <Text>Start New Workout</Text>
         </ButtonText>
       </Button>
-    </View>
+    </ParallaxScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  headerImage: {
+    color: "#808080",
+    bottom: -90,
+    left: -35,
+    position: "absolute",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    gap: 8,
+  },
+});
