@@ -19,6 +19,7 @@
     "@expo/html-elements": "^0.4.2",
     "@expo/vector-icons": "^14.0.2",
     "@gluestack-ui/actionsheet": "^0.2.45",
+    "@gluestack-ui/alert-dialog": "^0.1.31",
     "@gluestack-ui/button": "^1.0.7",
     "@gluestack-ui/input": "^0.1.31",
     "@gluestack-ui/nativewind-utils": "^1.0.23",
