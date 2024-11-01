@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import { router } from "expo-router";
 
 // comps
 import { Button, ButtonText } from "@/components/ui/button";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
+
+// deps
+import firestore from "@react-native-firebase/firestore";
 
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -11,10 +15,20 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleStart = () => {
+  const handleStart = async () => {
     setIsLoading(true);
-    // Create workout document in Firestore
-    // Navigate to workout/[id] screen
+    try {
+      let doc = await firestore().collection("Workouts").add({
+        name: "",
+        timeStarted: new Date().toJSON(),
+        timeEnded: null,
+        user: null,
+      });
+      router.push(`/workout/${doc.id}`);
+    } catch (error) {
+      // Replace with a toast or alert
+      console.log(error);
+    }
   };
 
   if (isLoading) {

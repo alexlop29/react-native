@@ -46,6 +46,19 @@ npx gluestack-ui add input
  
  - [IN-PROGRESS] Add ability to save sets and workouts
  Creating screen transitions and comps!
+ Build screen to start a workout
+   /*
+Plan the schema for the workout collection
+{
+    name: string;
+    // date: date new Date().toJSON().slice(0, 10);
+    timeStarted: string; new Date().toJSON();
+    timeEnded: string; new Date().toJSON();
+    user: string; // will add later
+}
+*/
+
+ Can repurpose as a screent to start a template too
 
 - [BACKLOG] Add categories to exercises
 - [BACKLOG] Add transition between Select Exercise and Add Exercise Component
