@@ -3,7 +3,7 @@ import { usePathname } from "expo-router";
 import { useState } from "react";
 import { router } from "expo-router";
 
-// comps
+// ext. comps
 import { Input, InputField } from "@/components/ui/input";
 import { Button, ButtonText } from "@/components/ui/button";
 import {
@@ -15,6 +15,9 @@ import {
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 import { Heading } from "@/components/ui/heading";
+
+// int. comps
+import { SelectExercise } from "@/components/workout";
 
 // deps
 import firestore from "@react-native-firebase/firestore";
@@ -72,6 +75,7 @@ const Workout = () => {
       {/* Convert to allow the user to select the exercise and create a set */}
       <>
         <Button onPress={() => setShowAlertDialog(true)}>
+          {/* Works well / Present ability to select an exercise and create a set */}
           <ButtonText>Open Dialog</ButtonText>
         </Button>
         <AlertDialog isOpen={showAlertDialog} onClose={handleClose} size="md">
@@ -79,14 +83,12 @@ const Workout = () => {
           <AlertDialogContent>
             <AlertDialogHeader>
               <Heading className="text-typography-950 font-semibold" size="md">
-                Are you sure you want to delete this post?
+                Select an Exercise
               </Heading>
             </AlertDialogHeader>
             <AlertDialogBody className="mt-3 mb-4">
-              <Text>
-                Deleting the post will remove it permanently and cannot be
-                undone. Please confirm if you want to proceed.
-              </Text>
+              <SelectExercise workout={id} />
+ {/* Will need the abilit to display adding additonal sets to the workout // could be in explore comp */}
             </AlertDialogBody>
             <AlertDialogFooter className="">
               <Button
