@@ -174,7 +174,9 @@ const Workout = () => {
                   {({ isExpanded }) => {
                     return (
                       <>
-                        <AccordionTitleText>{set?.exerciseName}</AccordionTitleText>
+                        <AccordionTitleText>
+                          {set?.exerciseName}
+                        </AccordionTitleText>
                         {isExpanded ? (
                           <AccordionIcon as={ChevronUp} className="ml-3" />
                         ) : (
@@ -191,41 +193,38 @@ const Workout = () => {
                   {/* DONE */}
 
                   {/* Update handleQuery to also group all of the sets by exercise and display ordered by set number */}
-                  
 
                   {/* // need to add the func to add another set
 
                   {/*       // before this, need to add the func to add another set
       // need to update this query to also group all of the sets by exercise */}
 
-<Box className="rounded-lg overflow-hidden w-full">
-      <Table className="w-full">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Set</TableHead>
-            <TableHead>Weight</TableHead>
-            <TableHead>Reps</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableData>Rajesh Kumar</TableData>
-            <TableData>rajesh@example.com</TableData>
-            <TableData>1234567890</TableData>
-          </TableRow>
-          <TableRow>
-            <TableData>Priya Sharma</TableData>
-            <TableData>priya@example.com</TableData>
-            <TableData>1234567890</TableData>
-          </TableRow>
-        </TableBody>
-        <TableCaption>
-          Add another set / Convert into pressable button
-        </TableCaption>
-      </Table>
-    </Box>
-
-
+                  <Box className="rounded-lg overflow-hidden w-full">
+                    <Table className="w-full">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Set</TableHead>
+                          <TableHead>Weight</TableHead>
+                          <TableHead>Reps</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        <TableRow>
+                          <TableData>Rajesh Kumar</TableData>
+                          <TableData>rajesh@example.com</TableData>
+                          <TableData>1234567890</TableData>
+                        </TableRow>
+                        <TableRow>
+                          <TableData>Priya Sharma</TableData>
+                          <TableData>priya@example.com</TableData>
+                          <TableData>1234567890</TableData>
+                        </TableRow>
+                      </TableBody>
+                      <TableCaption>
+                        Add another set / Convert into pressable button
+                      </TableCaption>
+                    </Table>
+                  </Box>
                 </AccordionContentText>
               </AccordionContent>
             </AccordionItem>
