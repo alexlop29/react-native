@@ -26,6 +26,16 @@ import {
   AccordionTitleText,
 } from "@/components/ui/accordion";
 import { Divider } from "@/components/ui/divider";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableData,
+  TableRow,
+  TableCaption,
+} from "@/components/ui/table";
+import { Box } from "@/components/ui/box";
 
 // icons
 import { ChevronDown } from "lucide-react-native";
@@ -148,10 +158,6 @@ const Workout = () => {
         />
       </Input>
 
-      {/*     // with the useeffect in place, add the functionality to display list of tracked exercises and sets as follows
-  // accordion with exercise names
-  // inside accordion, display the sets as a data table */}
-
       <Accordion
         size="md"
         variant="filled"
@@ -181,8 +187,45 @@ const Workout = () => {
               </AccordionHeader>
               <AccordionContent>
                 <AccordionContentText>
-                  Placeholder : Data Table
-                  {/* Replace accordianitems with exercises, and Add a placeholder for the data table to display the sets */}
+                  {/* Add data tale to display the first set */}
+                  {/* DONE */}
+
+                  {/* Update handleQuery to also group all of the sets by exercise and display ordered by set number */}
+                  
+
+                  {/* // need to add the func to add another set
+
+                  {/*       // before this, need to add the func to add another set
+      // need to update this query to also group all of the sets by exercise */}
+
+<Box className="rounded-lg overflow-hidden w-full">
+      <Table className="w-full">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Set</TableHead>
+            <TableHead>Weight</TableHead>
+            <TableHead>Reps</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableData>Rajesh Kumar</TableData>
+            <TableData>rajesh@example.com</TableData>
+            <TableData>1234567890</TableData>
+          </TableRow>
+          <TableRow>
+            <TableData>Priya Sharma</TableData>
+            <TableData>priya@example.com</TableData>
+            <TableData>1234567890</TableData>
+          </TableRow>
+        </TableBody>
+        <TableCaption>
+          Add another set / Convert into pressable button
+        </TableCaption>
+      </Table>
+    </Box>
+
+
                 </AccordionContentText>
               </AccordionContent>
             </AccordionItem>
