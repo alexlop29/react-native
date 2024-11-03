@@ -28,8 +28,8 @@ import {
 import { Divider } from "@/components/ui/divider";
 
 // icons
-import { ChevronDown } from 'lucide-react-native';
-import { ChevronUp } from 'lucide-react-native';
+import { ChevronDown } from "lucide-react-native";
+import { ChevronUp } from "lucide-react-native";
 
 // int. comps
 import { SelectExercise } from "@/components/workout";
@@ -46,6 +46,14 @@ type Set = {
   reps: number;
 };
 
+type SetWithExerciseDetails = Set & {
+  exerciseName?: string;
+};
+
+type Exercise = {
+  name: string;
+};
+
 const Workout = () => {
   const pathname = usePathname();
   const id = pathname.split("/")[2];
@@ -54,21 +62,38 @@ const Workout = () => {
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const handleClose = () => setShowAlertDialog(false);
 
-  const [sets, setSets] = useState<Set[]>([]);
+  const [sets, setSets] = useState<SetWithExerciseDetails[]>([]);
+  console.log(sets);
 
-  // create a useeffect similar to select exercise to get the sets tracked in the workout
   useEffect(() => {
     const unsubscribe = firestore()
-      .collection("Exercises")
+      .collection("Sets")
+      .where("workout", "==", id)
       .onSnapshot(
-        (querySnapshot) => {
-          const returnedSets: Set[] = querySnapshot.docs.map(
-            (documentSnapshot) =>
-              ({
-                ...documentSnapshot.data(),
-              } as Set)
-          );
+        async (querySnapshot) => {
+          const returnedSets: SetWithExerciseDetails[] = await Promise.all(
+            querySnapshot.docs.map(async (documentSnapshot) => {
+              const data = documentSnapshot.data() as Set;
+              try {
+                const exerciseRef = firestore()
+                  .collection("Exercises")
+                  .doc(data.exercise);
 
+                const exerciseSnapshot = await exerciseRef.get();
+                if (exerciseSnapshot.exists) {
+                  const exerciseSnapshotData =
+                    exerciseSnapshot.data() as Exercise;
+                  return {
+                    ...data,
+                    exerciseName: exerciseSnapshotData?.name,
+                  };
+                }
+              } catch (error) {
+                console.error("Error fetching exercise details: ", error);
+              }
+              return data;
+            })
+          );
           setSets(returnedSets);
         },
         (error) => {
@@ -135,66 +160,37 @@ const Workout = () => {
         isDisabled={false}
         className="m-5 w-[90%] border border-outline-200"
       >
-        {/* Replace accordianitems with exercises, and Add a placeholder for the data table to display the sets */}
-        <AccordionItem value="a">
-          <AccordionHeader>
-            <AccordionTrigger>
-              {({ isExpanded }) => {
-                return (
-                  <>
-                    <AccordionTitleText>
-                      How do I place an order?
-                    </AccordionTitleText>
-                    {isExpanded ? (
-                      <AccordionIcon as={ChevronUp} className="ml-3" />
-                    ) : (
-                      <AccordionIcon as={ChevronDown} className="ml-3" />
-                    )}
-                  </>
-                );
-              }}
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent>
-            <AccordionContentText>
-              To place an order, simply select the products you want, proceed to
-              checkout, provide shipping and payment information, and finalize
-              your purchase.
-            </AccordionContentText>
-          </AccordionContent>
-        </AccordionItem>
-        <Divider />
-        <AccordionItem value="b">
-          <AccordionHeader>
-            <AccordionTrigger>
-              {({ isExpanded }) => {
-                return (
-                  <>
-                    <AccordionTitleText>
-                      What payment methods do you accept?
-                    </AccordionTitleText>
-                    {isExpanded ? (
-                      <AccordionIcon as={ChevronUp} className="ml-3" />
-                    ) : (
-                      <AccordionIcon as={ChevronDown} className="ml-3" />
-                    )}
-                  </>
-                );
-              }}
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent>
-            <AccordionContentText>
-              We accept all major credit cards, including Visa, Mastercard, and
-              American Express. We also support payments through PayPal.
-            </AccordionContentText>
-          </AccordionContent>
-        </AccordionItem>
+        {sets.map((set, index) => (
+          <View key={index}>
+            <AccordionItem value="a">
+              <AccordionHeader>
+                <AccordionTrigger>
+                  {({ isExpanded }) => {
+                    return (
+                      <>
+                        <AccordionTitleText>{set?.exerciseName}</AccordionTitleText>
+                        {isExpanded ? (
+                          <AccordionIcon as={ChevronUp} className="ml-3" />
+                        ) : (
+                          <AccordionIcon as={ChevronDown} className="ml-3" />
+                        )}
+                      </>
+                    );
+                  }}
+                </AccordionTrigger>
+              </AccordionHeader>
+              <AccordionContent>
+                <AccordionContentText>
+                  Placeholder : Data Table
+                  {/* Replace accordianitems with exercises, and Add a placeholder for the data table to display the sets */}
+                </AccordionContentText>
+              </AccordionContent>
+            </AccordionItem>
+            <Divider />
+          </View>
+        ))}
       </Accordion>
 
-      {/* Should only show dialog when the user is first starting the workout */}
-      {/* otherwise display an add exercise or add exercise button */}
-      {/* Convert to allow the user to select the exercise and create a set */}
       <>
         <Button onPress={() => setShowAlertDialog(true)}>
           {/* Works well / Present ability to select an exercise and create a set */}
