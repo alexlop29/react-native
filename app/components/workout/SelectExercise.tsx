@@ -89,6 +89,10 @@ Plan the schema for the set collection
     }
   };
 
+  // with the useeffect in place, add the functionality to display list of tracked exercises and sets as follows
+  // accordion with exercise names
+  // inside accordion, display the sets as a data table
+
   return (
     <View>
       {/* Need to add drop down */}
