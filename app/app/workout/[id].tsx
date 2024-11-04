@@ -57,7 +57,11 @@ type Set = {
 };
 
 type SetWithExerciseDetails = Set & {
-  exerciseName?: string;
+  exerciseName: string;
+};
+
+type SetsGroupedByExercise = {
+  [exerciseName: string]: SetWithExerciseDetails[];
 };
 
 type Exercise = {
@@ -72,7 +76,7 @@ const Workout = () => {
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const handleClose = () => setShowAlertDialog(false);
 
-  const [sets, setSets] = useState<SetWithExerciseDetails[]>([]);
+  const [sets, setSets] = useState<SetsGroupedByExercise>({});
   console.log(sets);
 
   useEffect(() => {
@@ -81,6 +85,7 @@ const Workout = () => {
       .where("workout", "==", id)
       .onSnapshot(
         async (querySnapshot) => {
+          //@ts-ignore
           const returnedSets: SetWithExerciseDetails[] = await Promise.all(
             querySnapshot.docs.map(async (documentSnapshot) => {
               const data = documentSnapshot.data() as Set;
@@ -97,6 +102,8 @@ const Workout = () => {
                     ...data,
                     exerciseName: exerciseSnapshotData?.name,
                   };
+                } else {
+                  return null;
                 }
               } catch (error) {
                 console.error("Error fetching exercise details: ", error);
@@ -104,7 +111,18 @@ const Workout = () => {
               return data;
             })
           );
-          setSets(returnedSets);
+
+          const groupedSets: SetsGroupedByExercise = {};
+          returnedSets
+            .filter((set): set is SetWithExerciseDetails => !!set)
+            .forEach((set) => {
+              if (!groupedSets[set.exerciseName]) {
+                groupedSets[set.exerciseName] = [];
+              }
+              groupedSets[set.exerciseName].push(set);
+            });
+
+          setSets(groupedSets);
         },
         (error) => {
           console.error("Error fetching exercises: ", error);
@@ -114,8 +132,6 @@ const Workout = () => {
     return () => unsubscribe();
   }, []);
 
-  // can create into a class to handle the logic of updating a class
-
   const handleNameChange = async () => {
     try {
       await firestore().collection("Workouts").doc(id).update({
@@ -123,7 +139,6 @@ const Workout = () => {
       });
       console.log("Name updated successfully!");
     } catch (error) {
-      // chang to toast or alert
       console.log(error);
     }
   };
@@ -136,7 +151,6 @@ const Workout = () => {
       console.log("Workout ended successfully!");
       router.back();
     } catch (error) {
-      // chang to toast or alert
       console.log(error);
     }
   };
@@ -166,39 +180,25 @@ const Workout = () => {
         isDisabled={false}
         className="m-5 w-[90%] border border-outline-200"
       >
-        {sets.map((set, index) => (
+        {Object.entries(sets).map(([exerciseName, exerciseSets], index) => (
           <View key={index}>
-            <AccordionItem value="a">
+            <AccordionItem value={exerciseName}>
               <AccordionHeader>
                 <AccordionTrigger>
-                  {({ isExpanded }) => {
-                    return (
-                      <>
-                        <AccordionTitleText>
-                          {set?.exerciseName}
-                        </AccordionTitleText>
-                        {isExpanded ? (
-                          <AccordionIcon as={ChevronUp} className="ml-3" />
-                        ) : (
-                          <AccordionIcon as={ChevronDown} className="ml-3" />
-                        )}
-                      </>
-                    );
-                  }}
+                  {({ isExpanded }) => (
+                    <>
+                      <AccordionTitleText>{exerciseName}</AccordionTitleText>
+                      {isExpanded ? (
+                        <AccordionIcon as={ChevronUp} className="ml-3" />
+                      ) : (
+                        <AccordionIcon as={ChevronDown} className="ml-3" />
+                      )}
+                    </>
+                  )}
                 </AccordionTrigger>
               </AccordionHeader>
               <AccordionContent>
                 <AccordionContentText>
-                  {/* Add data tale to display the first set */}
-                  {/* DONE */}
-
-                  {/* Update handleQuery to also group all of the sets by exercise and display ordered by set number */}
-
-                  {/* // need to add the func to add another set
-
-                  {/*       // before this, need to add the func to add another set
-      // need to update this query to also group all of the sets by exercise */}
-
                   <Box className="rounded-lg overflow-hidden w-full">
                     <Table className="w-full">
                       <TableHeader>
@@ -209,16 +209,13 @@ const Workout = () => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        <TableRow>
-                          <TableData>Rajesh Kumar</TableData>
-                          <TableData>rajesh@example.com</TableData>
-                          <TableData>1234567890</TableData>
-                        </TableRow>
-                        <TableRow>
-                          <TableData>Priya Sharma</TableData>
-                          <TableData>priya@example.com</TableData>
-                          <TableData>1234567890</TableData>
-                        </TableRow>
+                        {exerciseSets.map((set) => (
+                          <TableRow key={set.set_number}>
+                            <TableData>{set.set_number}</TableData>
+                            <TableData>{set.weight}</TableData>
+                            <TableData>{set.reps}</TableData>
+                          </TableRow>
+                        ))}
                       </TableBody>
                       <TableCaption>
                         Add another set / Convert into pressable button
@@ -233,52 +230,36 @@ const Workout = () => {
         ))}
       </Accordion>
 
-      <>
-        <Button onPress={() => setShowAlertDialog(true)}>
-          {/* Works well / Present ability to select an exercise and create a set */}
-          <ButtonText>Add Exercise</ButtonText>
-        </Button>
-        <AlertDialog isOpen={showAlertDialog} onClose={handleClose} size="md">
-          <AlertDialogBackdrop />
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <Heading className="text-typography-950 font-semibold" size="md">
-                Select an Exercise
-              </Heading>
-            </AlertDialogHeader>
-            <AlertDialogBody className="mt-3 mb-4">
-              <SelectExercise workout={id} />
-              {/* Will need the abilit to display adding additonal sets to the workout // could be in explore comp */}
-            </AlertDialogBody>
-            <AlertDialogFooter className="">
-              <Button
-                variant="outline"
-                action="secondary"
-                onPress={handleClose}
-                size="sm"
-              >
-                <ButtonText>Cancel</ButtonText>
-              </Button>
-              <Button size="sm" onPress={handleClose}>
-                <ButtonText>Delete</ButtonText>
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </>
+      <Button onPress={() => setShowAlertDialog(true)}>
+        <ButtonText>Add Exercise</ButtonText>
+      </Button>
+      <AlertDialog isOpen={showAlertDialog} onClose={handleClose} size="md">
+        <AlertDialogBackdrop />
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <Heading className="text-typography-950 font-semibold" size="md">
+              Select an Exercise
+            </Heading>
+          </AlertDialogHeader>
+          <AlertDialogBody className="mt-3 mb-4">
+            <SelectExercise workout={id} />
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button variant="outline" onPress={handleClose} size="sm">
+              <ButtonText>Cancel</ButtonText>
+            </Button>
+            <Button size="sm" onPress={handleClose}>
+              <ButtonText>Delete</ButtonText>
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-      {/* Need to add functionality to track a set, including selecting the exercise */}
-      <Button
-        size="md"
-        variant="solid"
-        action="primary"
-        onPress={() => handleFinish()}
-      >
+      <Button size="md" variant="solid" onPress={handleFinish}>
         <ButtonText>
           <Text>Finish</Text>
         </ButtonText>
       </Button>
-      {/* test finish functionality */}
     </View>
   );
 };
