@@ -6,10 +6,7 @@ import { Input, InputField } from "@/components/ui/input";
 import {
   Button,
   ButtonText,
-  ButtonIcon,
-  ButtonGroup,
 } from "@/components/ui/button";
-import { Pressable } from "@/components/ui/pressable";
 
 // deps
 import firestore from "@react-native-firebase/firestore";

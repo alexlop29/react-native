@@ -1,6 +1,8 @@
-class WorkoutRepository {
+import { BaseRepository } from "./BaseRepository";
+
+class WorkoutRepository extends BaseRepository {
     constructor(){
-        
+        super();
     }
 };
 

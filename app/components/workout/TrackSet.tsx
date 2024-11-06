@@ -13,7 +13,8 @@ Plan the schema for the workout collection
 {
     name: string;
     date: string;
-    timeSpent: string;
+    timeStarted: string;
+    timeEnded: string;
     user: string;
 }
 */
