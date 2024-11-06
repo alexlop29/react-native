@@ -1,2 +1,2 @@
-export * from './ExerciseService';
-export * from './WorkoutService';
+export * from "./ExerciseService";
+export * from "./WorkoutService";

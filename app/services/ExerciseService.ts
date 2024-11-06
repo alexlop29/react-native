@@ -4,21 +4,24 @@ import { ExerciseRepository } from "@/repositories/ExerciseRepository";
 
 // types
 type Exercise = {
-    name: string;
+  name: string;
 };
 
 class ExerciseService extends BaseService {
-    exerciseRepository: ExerciseRepository;
+  exerciseRepository: ExerciseRepository;
 
-    constructor() {
-        super();
-        this.exerciseRepository = new ExerciseRepository();
-    };
+  constructor() {
+    super();
+    this.exerciseRepository = new ExerciseRepository();
+  }
 
-    create(exercise: Exercise) {
-        return this.exerciseRepository.createExercise(exercise);
-    }
+  _throwError(error?: string | undefined): void {
+    super._throwError("ExerciseService", error);
+  }
 
-};
+  create(exercise: Exercise) {
+    return this.exerciseRepository.createExercise(exercise);
+  }
+}
 
 export { ExerciseService };
