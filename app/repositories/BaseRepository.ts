@@ -7,10 +7,7 @@ class BaseRepository {
         this.db = firestore();
     };
 
-    // Is the return type correct?
-    // can switch any to an array of potential types
-    // once type definitions are created
-    create(collection: string, data: any): Promise<FirebaseFirestoreTypes.DocumentReference> {
+    async create(collection: string, data: any): Promise<any> {
         return this.db.collection(collection).add(data);
     };
 };
