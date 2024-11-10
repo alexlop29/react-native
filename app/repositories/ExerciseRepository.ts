@@ -13,6 +13,10 @@ class ExerciseRepository extends BaseRepository {
 
   async createExercise(exercise: Exercise) {
     return super.create(COLLECTION, exercise);
+  };
+
+  async findExerciseById(id: string) {
+    return super.findById(COLLECTION, id);
   }
 }
 

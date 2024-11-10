@@ -25,3 +25,5 @@ class ExerciseService extends BaseService {
 }
 
 export { ExerciseService };
+
+// write tests before continuinng and move to separate repo to demonstrate in portfolio
