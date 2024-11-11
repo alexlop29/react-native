@@ -3,37 +3,24 @@ import { View } from "react-native";
 import { useState, useEffect } from "react";
 
 // comps
-import {
-  Select,
-  SelectTrigger,
-  SelectInput,
-  SelectIcon,
-  SelectPortal,
-  SelectBackdrop,
-  SelectContent,
-  SelectDragIndicatorWrapper,
-  SelectDragIndicator,
-  SelectItem,
-} from "@/components/ui/select";
+import { SelectDropDown } from "../layout";
+import { AddNewExercise } from "./AddNewExercise";
 
 // deps
-import { useQuery } from '@tanstack/react-query';
 import firestore from "@react-native-firebase/firestore";
-// icons
-import { ChevronDown } from 'lucide-react-native';
 
 // types
 type Exercise = {
-  id: string;    // Add id field to capture the document ID
+  id: string; // Add id field to capture the document ID
   name: string;
 };
 
 type InputProps = {
   workout: string;
-}
+};
 
 // can make select a headless comp and allow re-use
-// would like to be able to reuse for more than the first set 
+// would like to be able to reuse for more than the first set
 
 // May want to split into two components
 // Add new and select
@@ -46,10 +33,13 @@ export const SelectExercise = ({ workout }: InputProps) => {
       .collection("Exercises")
       .onSnapshot(
         (querySnapshot) => {
-          const exerciseList: Exercise[] = querySnapshot.docs.map((documentSnapshot) => ({
-            id: documentSnapshot.id,           // Capture the document ID
-            ...documentSnapshot.data(),         // Spread the remaining data (like name)
-          } as Exercise));
+          const exerciseList: Exercise[] = querySnapshot.docs.map(
+            (documentSnapshot) =>
+              ({
+                id: documentSnapshot.id, // Capture the document ID
+                ...documentSnapshot.data(), // Spread the remaining data (like name)
+              } as Exercise)
+          );
 
           setExercises(exerciseList);
         },
@@ -61,17 +51,22 @@ export const SelectExercise = ({ workout }: InputProps) => {
     return () => unsubscribe();
   }, []);
 
-  const handleSave = async (exercise: Exercise) => {
-    console.log("Saving set...");
+  // create Set service and repository
+  const handleSave = async (exerciseName: string) => {
+    let exercise: Exercise | undefined = exercises.find(
+      (exercise) => exercise.name === exerciseName
+    );
+
     try {
       await firestore().collection("Sets").add({
         workout: workout,
-        exercise: exercise.id, // Save the exercise ID
+        exercise: exercise?.id, // Save the exercise ID
         set_number: 1,
         weight: null,
         reps: null,
       });
-{/* /*
+      {
+        /* /*
 Plan the schema for the set collection
 {
     workout: string;
@@ -80,7 +75,8 @@ Plan the schema for the set collection
     weight: number;
     reps: number;
 }
- */}
+ */
+      }
       console.log(exercise);
       console.log("Set added successfully!");
       // Should navigate user back to the previous screen
@@ -94,28 +90,13 @@ Plan the schema for the set collection
       {/* Need to add drop down */}
       {/* Will need option to add a new exercise */}
       {/* May also want a search icon to quickly cycle through the search options */}
-      <Select>
-        <SelectTrigger variant="outline" size="md">
-          <SelectInput placeholder="Select option" />
-          <SelectIcon className="mr-3" as={ChevronDown} />
-        </SelectTrigger>
-        <SelectPortal>
-          <SelectBackdrop />
-          <SelectContent>
-            <SelectDragIndicatorWrapper>
-              <SelectDragIndicator />
-            </SelectDragIndicatorWrapper>
-            {exercises.map((exercise, index) => (
-              <SelectItem
-                key={index}                       // Use the id as the key
-                label={exercise.name}
-                value={exercise.name}
-                onPress={() => handleSave(exercise)}    // Pass full exercise (with id)
-              />
-            ))}
-          </SelectContent>
-        </SelectPortal>
-      </Select>
+
+      <SelectDropDown
+        values={exercises.map((exercise) => exercise.name)}
+        handleSelect={handleSave}
+      />
+      <AddNewExercise />
+      {/* test above */}
     </View>
   );
 };

@@ -11,6 +11,9 @@ import {
 // deps
 import firestore from "@react-native-firebase/firestore";
 
+// services
+import { ExerciseService } from "@/services";
+
 // types
 type Exercise = {
   name: string;
@@ -28,18 +31,25 @@ const AddNewExercise = () => {
   };
 
   const handleSave = async () => {
-    // Transition component to loading state if desired
-    // Add validation to ensure exercise name is unique
-    console.log("Saving exercise...");
     try {
-      await firestore().collection("Exercises").add({
-        name: exercise.name,
-      });
-      console.log("Exercise added successfully!");
-      // Should navigate user back to the previous screen
+      let exerciseService = new ExerciseService();
+      return exerciseService.create(exercise);
     } catch (error) {
       console.log(error);
     }
+
+    // // Transition component to loading state if desired
+    // // Add validation to ensure exercise name is unique
+    // console.log("Saving exercise...");
+    // try {
+    //   await firestore().collection("Exercises").add({
+    //     name: exercise.name,
+    //   });
+    //   console.log("Exercise added successfully!");
+    //   // Should navigate user back to the previous screen
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
