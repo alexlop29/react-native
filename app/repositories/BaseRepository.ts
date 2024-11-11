@@ -4,6 +4,9 @@ class BaseRepository {
     protected db: FirebaseFirestoreTypes.Module;
 
     constructor() {
+        // if (process.env.NODE_ENV === "test" || location.hostname === "localhost") {
+        //     firestore().useEmulator("127.0.0.1", 8080);
+        // }
         this.db = firestore();
     };
 
