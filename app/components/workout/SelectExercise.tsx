@@ -65,20 +65,6 @@ export const SelectExercise = ({ workout }: InputProps) => {
         weight: null,
         reps: null,
       });
-      {
-        /* /*
-Plan the schema for the set collection
-{
-    workout: string;
-    exercise: string;
-    set_number: number;
-    weight: number;
-    reps: number;
-}
- */
-      }
-      console.log(exercise);
-      console.log("Set added successfully!");
       // Should navigate user back to the previous screen
     } catch (error) {
       console.log(error);
@@ -91,10 +77,10 @@ Plan the schema for the set collection
       {/* Will need option to add a new exercise */}
       {/* May also want a search icon to quickly cycle through the search options */}
 
-      <SelectDropDown
+      {/* <SelectDropDown
         values={exercises.map((exercise) => exercise.name)}
         handleSelect={handleSave}
-      />
+      /> */}
       <AddNewExercise />
       {/* test above */}
     </View>

@@ -43,6 +43,7 @@ import {
   TableCaption,
 } from "@/components/ui/table";
 import { Box } from "@/components/ui/box";
+import { ShowAlertDialog } from "@/components/layout";
 
 // icons
 import { ChevronDown } from "lucide-react-native";
@@ -236,6 +237,14 @@ const Workout = () => {
           </View>
         ))}
       </Accordion>
+
+      {/* <ShowAlertDialog
+        openPrompt="Add Exercise"
+        actionPrompt="Select Exercise"
+        isOpen={showAlertDialog} // can rename
+        handleOpen={handleClose} // can rename
+        children={<SelectExercise workout={id} />}
+      /> */}
 
       <Button onPress={() => setShowAlertDialog(true)}>
         <ButtonText>Add Exercise</ButtonText>
