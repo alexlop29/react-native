@@ -3,7 +3,6 @@ import { usePathname } from "expo-router";
 import { useState, useEffect } from "react";
 import { router } from "expo-router";
 
-// ext. comps
 import { Input, InputField } from "@/components/ui/input";
 import { Button, ButtonText } from "@/components/ui/button";
 import {
@@ -242,8 +241,10 @@ const Workout = () => {
       <Button onPress={() => setShowAlertDialog(true)}>
         <ButtonText>Add Exercise</ButtonText>
       </Button>
+      {/* Can add transition here */}
       <AlertDialog isOpen={showAlertDialog} onClose={handleClose} size="md">
         <AlertDialogBackdrop />
+        {/* Change the content depending on a state variable ??? */}
         <AlertDialogContent>
           <AlertDialogHeader>
             <Heading className="text-typography-950 font-semibold" size="md">

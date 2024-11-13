@@ -8,9 +8,6 @@ import {
   ButtonText,
 } from "@/components/ui/button";
 
-// deps
-import firestore from "@react-native-firebase/firestore";
-
 // services
 import { ExerciseService } from "@/services";
 
