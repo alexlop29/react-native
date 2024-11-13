@@ -18,7 +18,13 @@ class BaseRepository {
   }
 
   async getAll(collection: string): Promise<any> {
-    return this.db.collection(collection).get();
+    let data = await this.db.collection(collection).get();
+    return data.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
   }
 }
 

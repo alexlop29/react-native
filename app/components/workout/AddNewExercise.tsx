@@ -1,23 +1,32 @@
 import { View, Text } from "react-native";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 // comps
 import { Input, InputField } from "@/components/ui/input";
-import {
-  Button,
-  ButtonText,
-} from "@/components/ui/button";
+import { Button, ButtonText } from "@/components/ui/button";
+import { SelectDropDown } from "../layout";
 
 // services
-import { ExerciseService } from "@/services";
+import { ExerciseService, MuscleGroupService } from "@/services";
 
 // types
 type Exercise = {
   name: string;
 };
 
-// Can reduce comps by removing useState and just sending onChangeText to handleSave
 const AddNewExercise = () => {
+  const { data: muscleGroups } = useQuery({
+    queryKey: ["muscleGroups"],
+    queryFn: () => {
+      const muscleGroups = new MuscleGroupService();
+      return muscleGroups.getAll();
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  // should incorporate zod for validation
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>("");
   const [exercise, setExercise] = useState<Exercise>({
     name: "",
   });
@@ -36,32 +45,35 @@ const AddNewExercise = () => {
     }
   };
 
-  // muslce groups, equipment required
-
   return (
     <View>
-      {/* Add a dropdown for muscle groups and a text input for exercise name in the future */}
-      <Input
-        // variant="rounded"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
+      {/* should show a loading indicator while the data is being fetched */}
+
+      {/* works ... need to create scrollable select dropdown */}
+      {muscleGroups && (
+        <SelectDropDown
+          values={muscleGroups?.map((muscleGroup) => muscleGroup.name)}
+          handleSelect={setSelectedMuscleGroup}
+        />
+      )}
+
+      <Input size="sm" isDisabled={false} isInvalid={false} isReadOnly={false}>
         <InputField
           placeholder="Enter Exercise Name"
           onChangeText={handleBlur}
         />
       </Input>
       {/* Add a loading indicator after the save button is pressed */}
-      {/* <Pressable onPress={() => handleSave()}> */}
-        <Button size="md" variant="solid" action="primary" onPress={() => handleSave()}>
-          <ButtonText>
-            <Text>Save</Text>
-          </ButtonText>
-        </Button>
-      {/* </Pressable> */}
-      {/* After saving the new exercise, navigate back to the select exercise component */}
+      <Button
+        size="md"
+        variant="solid"
+        action="primary"
+        onPress={() => handleSave()}
+      >
+        <ButtonText>
+          <Text>Save</Text>
+        </ButtonText>
+      </Button>
     </View>
   );
 };

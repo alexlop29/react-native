@@ -15,7 +15,7 @@ import firestore from "@react-native-firebase/firestore";
 
 // types
 type Exercise = {
-  id: string; // Add id field to capture the document ID
+  id: string;
   name: string;
 };
 
