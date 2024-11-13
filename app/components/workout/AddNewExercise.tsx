@@ -37,20 +37,9 @@ const AddNewExercise = () => {
     } catch (error) {
       console.log(error);
     }
-
-    // // Transition component to loading state if desired
-    // // Add validation to ensure exercise name is unique
-    // console.log("Saving exercise...");
-    // try {
-    //   await firestore().collection("Exercises").add({
-    //     name: exercise.name,
-    //   });
-    //   console.log("Exercise added successfully!");
-    //   // Should navigate user back to the previous screen
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
+
+  // muslce groups, equipment required
 
   return (
     <View>

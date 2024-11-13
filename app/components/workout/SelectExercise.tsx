@@ -1,10 +1,14 @@
 // core
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { useState, useEffect } from "react";
 
 // comps
 import { SelectDropDown } from "../layout";
 import { AddNewExercise } from "./AddNewExercise";
+import {
+  Button,
+  ButtonText,
+} from "@/components/ui/button";
 
 // deps
 import firestore from "@react-native-firebase/firestore";
@@ -19,14 +23,12 @@ type InputProps = {
   workout: string;
 };
 
-// can make select a headless comp and allow re-use
-// would like to be able to reuse for more than the first set
+type ScreenView = "select" | "add";
 
-// May want to split into two components
-// Add new and select
 export const SelectExercise = ({ workout }: InputProps) => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selected, setSelected] = useState<Exercise | null>(null);
+  const [screenView, setScreenView] = useState<ScreenView>("select");
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -73,18 +75,22 @@ export const SelectExercise = ({ workout }: InputProps) => {
 
   return (
     <View>
-      {/* Need to add drop down */}
-      {/* Will need option to add a new exercise */}
-      {/* May also want a search icon to quickly cycle through the search options */}
+      {screenView === "select" &&
+        <SelectDropDown
+          values={exercises.map((exercise) => exercise.name)}
+          handleSelect={handleSave}
+        />
+      }
 
-      {/* <SelectDropDown
-        values={exercises.map((exercise) => exercise.name)}
-        handleSelect={handleSave}
-      /> */}
-      <AddNewExercise />
-      {/* test above */}
+      {screenView === "add" && 
+        <AddNewExercise />
+      }
+
+      <Button onPress={() => screenView === "select" ? setScreenView("add") : setScreenView("select")}>
+        <ButtonText>
+          <Text>{screenView === "select" ? "Add new exercise" : "Select an existing exercise"}</Text>
+        </ButtonText>
+      </Button>
     </View>
   );
 };
-
-// Should handle new set in a different component

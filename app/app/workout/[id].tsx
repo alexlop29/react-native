@@ -1,10 +1,3 @@
-/*
-  Take a quick pause to work on cleaning up the UI and the backend
-
-  To Do:
-  - Create repositories and services to faciliate interactions with each collection
-*/
-
 import { View, Text } from "react-native";
 import { usePathname } from "expo-router";
 import { useState, useEffect } from "react";
