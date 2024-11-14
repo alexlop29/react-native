@@ -46,6 +46,7 @@ import { SelectExercise } from "@/components/workout";
 
 // deps
 import firestore from "@react-native-firebase/firestore";
+import { WorkoutService } from "@/services";
 
 // types
 type Set = {
@@ -77,7 +78,6 @@ const Workout = () => {
   const handleClose = () => setShowAlertDialog(false);
 
   const [sets, setSets] = useState<SetsGroupedByExercise>({});
-  console.log(sets);
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -134,10 +134,8 @@ const Workout = () => {
 
   const handleNameChange = async () => {
     try {
-      await firestore().collection("Workouts").doc(id).update({
-        name: name,
-      });
-      console.log("Name updated successfully!");
+      const workoutService = new WorkoutService;
+      await workoutService.update(id, {name: name});
     } catch (error) {
       console.log(error);
     }
@@ -145,10 +143,8 @@ const Workout = () => {
 
   const handleFinish = async () => {
     try {
-      await firestore().collection("Workouts").doc(id).update({
-        timeEnded: new Date().toJSON(),
-      });
-      console.log("Workout ended successfully!");
+      const workoutService = new WorkoutService;
+      await workoutService.update(id, {timeEnded: new Date().toJSON()});
       router.back();
     } catch (error) {
       console.log(error);
