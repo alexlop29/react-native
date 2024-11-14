@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 // comps
 import { Input, InputField } from "@/components/ui/input";
+import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { SelectDropDown } from "../layout";
 
@@ -62,38 +63,52 @@ const AddNewExercise = () => {
   // Add loading and error states
   return (
     <View>
+      <Box className="gap-y-2">
+        {muscleGroups && (
+          <Box className="flex flex-row items-center justify-between">
+            <Text>Muscle Group</Text>
+            <SelectDropDown
+              values={muscleGroups?.map((muscleGroup) => muscleGroup.name)}
+              handleSelect={setSelectedMuscleGroup}
+            />
+          </Box>
+        )}
+        {equipment && (
+          <Box className="flex flex-row items-center justify-between">
+            <Text>Equipment</Text>
+            <SelectDropDown
+              values={equipment?.map((equipment) => equipment.name)}
+              handleSelect={setSelectedEquipment}
+            />
+          </Box>
+        )}
 
-      {muscleGroups && (
-        <SelectDropDown
-          values={muscleGroups?.map((muscleGroup) => muscleGroup.name)}
-          handleSelect={setSelectedMuscleGroup}
-        />
-      )}
+        <Box className="gap-y-2">
+          <Text>Exercise Name</Text>
+          <Input
+            size="sm"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField
+              placeholder="Enter Exercise Name"
+              onChangeText={handleBlur}
+            />
+          </Input>
+        </Box>
 
-      {equipment && (
-        <SelectDropDown
-          values={equipment?.map((equipment) => equipment.name)}
-          handleSelect={setSelectedEquipment}
-        />
-      )}
-
-      <Input size="sm" isDisabled={false} isInvalid={false} isReadOnly={false}>
-        <InputField
-          placeholder="Enter Exercise Name"
-          onChangeText={handleBlur}
-        />
-      </Input>
-
-      <Button
-        size="md"
-        variant="solid"
-        action="primary"
-        onPress={() => handleSave()}
-      >
-        <ButtonText>
-          <Text>Save</Text>
-        </ButtonText>
-      </Button>
+        <Button
+          size="md"
+          variant="solid"
+          action="primary"
+          onPress={() => handleSave()}
+        >
+          <ButtonText>
+            <Text>Save</Text>
+          </ButtonText>
+        </Button>
+      </Box>
     </View>
   );
 };
