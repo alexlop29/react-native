@@ -1,20 +1,20 @@
 import { BaseRepository } from "./BaseRepository";
 
 type Equipment = {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 };
 
 const COLLECTION = "Equipment";
 
 class EquipmentRepository extends BaseRepository {
-    constructor(){
-        super();
-    };
+  constructor() {
+    super();
+  }
 
-    async getAllEquipment(): Promise<Equipment[]> {
-        return super.getAll(COLLECTION);
-    };
-};
+  async getAllEquipment(): Promise<Equipment[]> {
+    return super.getAll(COLLECTION);
+  }
+}
 
 export { EquipmentRepository };
