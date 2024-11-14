@@ -1,11 +1,11 @@
 import { BaseRepository } from "./BaseRepository";
 
-const COLLECTION = "MuscleGroups";
-
 type MuscleGroup = {
   id: string;
   name: string;
 };
+
+const COLLECTION = "MuscleGroups";
 
 class MuscleGroupRepostiory extends BaseRepository {
   constructor() {

@@ -50,7 +50,6 @@ const AddNewExercise = () => {
     <View>
       {/* should show a loading indicator while the data is being fetched */}
 
-      {/* Need to add a style to limit size */}
       {muscleGroups && (
         <SelectDropDown
           values={muscleGroups?.map((muscleGroup) => muscleGroup.name)}
