@@ -8,8 +8,11 @@ import { Button, ButtonText } from "@/components/ui/button";
 import { SelectDropDown } from "../layout";
 
 // services
-import { ExerciseService, MuscleGroupService } from "@/services";
-import { Box } from "../ui/box";
+import {
+  ExerciseService,
+  MuscleGroupService,
+  EquipmentService,
+} from "@/services";
 
 // types
 type Exercise = {
@@ -26,8 +29,18 @@ const AddNewExercise = () => {
     refetchOnWindowFocus: false,
   });
 
+  const { data: equipment } = useQuery({
+    queryKey: ["equipment"],
+    queryFn: () => {
+      const equipment = new EquipmentService();
+      return equipment.getAll();
+    },
+    refetchOnWindowFocus: false,
+  });
+
   // should incorporate zod for validation
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string>("");
+  const [selectedEquipment, setSelectedEquipment] = useState<string>("");
   const [exercise, setExercise] = useState<Exercise>({
     name: "",
   });
@@ -46,14 +59,21 @@ const AddNewExercise = () => {
     }
   };
 
+  // Add loading and error states
   return (
     <View>
-      {/* should show a loading indicator while the data is being fetched */}
 
       {muscleGroups && (
         <SelectDropDown
           values={muscleGroups?.map((muscleGroup) => muscleGroup.name)}
           handleSelect={setSelectedMuscleGroup}
+        />
+      )}
+
+      {equipment && (
+        <SelectDropDown
+          values={equipment?.map((equipment) => equipment.name)}
+          handleSelect={setSelectedEquipment}
         />
       )}
 
@@ -63,7 +83,7 @@ const AddNewExercise = () => {
           onChangeText={handleBlur}
         />
       </Input>
-      {/* Add a loading indicator after the save button is pressed */}
+
       <Button
         size="md"
         variant="solid"
