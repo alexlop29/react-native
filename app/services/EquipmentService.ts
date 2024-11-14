@@ -16,6 +16,6 @@ class EquipmentService extends BaseService {
   getAll() {
     return this.equipmentRepository.getAllEquipment();
   }
-};
+}
 
 export { EquipmentService };

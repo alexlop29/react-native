@@ -1,7 +1,21 @@
 import { BaseService } from "./BaseService";
+import { WorkoutRepository } from "@/repositories";
 
-class ExerciseService extends BaseService {
+class WorkoutService extends BaseService {
+  workoutRepository: WorkoutRepository;
+
   constructor() {
     super();
+    this.workoutRepository = new WorkoutRepository();
+  }
+
+  _throwError(message: string, error?: string): void {
+    super._throwError("WorkoutService", error);
+  }
+
+  update(id: string, data: any) {
+    return this.workoutRepository.updateWorkoutById(id, data);
   }
 }
+
+export { WorkoutService };
