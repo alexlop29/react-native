@@ -26,6 +26,10 @@ class BaseRepository {
       };
     });
   }
+
+  async updateById(collection: string, id: string, data: any): Promise<any> {
+    return this.db.collection(collection).doc(id).update(data);
+  }
 }
 
 export { BaseRepository };
