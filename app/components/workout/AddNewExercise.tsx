@@ -9,6 +9,7 @@ import { SelectDropDown } from "../layout";
 
 // services
 import { ExerciseService, MuscleGroupService } from "@/services";
+import { Box } from "../ui/box";
 
 // types
 type Exercise = {
@@ -49,7 +50,7 @@ const AddNewExercise = () => {
     <View>
       {/* should show a loading indicator while the data is being fetched */}
 
-      {/* works ... need to create scrollable select dropdown */}
+      {/* Need to add a style to limit size */}
       {muscleGroups && (
         <SelectDropDown
           values={muscleGroups?.map((muscleGroup) => muscleGroup.name)}
