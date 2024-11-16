@@ -1,6 +1,14 @@
 import { BaseService } from "./BaseService";
 import { SetRepository, ExerciseRepository } from "@/repositories";
 
+type Set = {
+  workout: string;
+  exercise: string;
+  set_number: number;
+  weight: number | null;
+  reps: number | null;
+};
+
 class SetService extends BaseService {
   setRepostiory: SetRepository;
   exerciseRepository: ExerciseRepository;
@@ -13,6 +21,10 @@ class SetService extends BaseService {
 
   _throwError(message: string, error?: string): void {
     super._throwError("SetService", error);
+  }
+
+  async create(set: Set) {
+    return this.setRepostiory.createSet(set);
   }
 
   async getAllByWorkoutId(id: string) {

@@ -7,6 +7,10 @@ class SetRepository extends BaseRepository {
     super();
   }
 
+  async createSet(set: any) {
+    return super.create(COLLECTION, set);
+  }
+
   async getAllSetsByWorkoutId(id: string) {
     // while avoid setting up firestore subscription for now
     // will leverage tanstack query and query key to refresh instead

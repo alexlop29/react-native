@@ -1,6 +1,6 @@
 // core
 import { View, Text } from "react-native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // comps
 import { SelectDropDown } from "../layout";
@@ -8,9 +8,10 @@ import { AddNewExercise } from "./AddNewExercise";
 import { Button, ButtonText } from "@/components/ui/button";
 
 // deps
-import firestore from "@react-native-firebase/firestore";
-import { ExerciseService } from "@/services";
-import { useQuery } from "@tanstack/react-query";
+import { ExerciseService, SetService } from "@/services";
+import { useQuery, useMutation, QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 // types
 type Exercise = {
@@ -27,7 +28,6 @@ type ScreenView = "select" | "add";
 export const SelectExercise = ({ workout }: InputProps) => {
   const [screenView, setScreenView] = useState<ScreenView>("select");
 
-  // NOTE: (will need to bust cache when adding new exercises)
   const { data: exercises } = useQuery({
     queryKey: ["exercises"],
     queryFn: async () => {
@@ -36,26 +36,35 @@ export const SelectExercise = ({ workout }: InputProps) => {
     },
   });
 
-  // create Set service and repository
-  const handleSave = async (exerciseName: string) => {
-    let exercise: Exercise | undefined = exercises?.find(
-      (exercise) => exercise.name === exerciseName
-    );
+  const { mutate } = useMutation({
+    mutationFn: async (exerciseName: string) => {
+      const exercise: Exercise | undefined = exercises?.find(
+        (exercise) => exercise.name === exerciseName
+      );
 
-    try {
-      await firestore().collection("Sets").add({
+      if (!exercise) {
+        throw new Error("Exercise not found");
+      }
+
+      const setService = new SetService();
+      return await setService.create({
         workout: workout,
-        exercise: exercise?.id, // Save the exercise ID
+        exercise: exercise?.id,
         set_number: 1,
         weight: null,
         reps: null,
       });
-      // queryClient.invalidateQueries({ queryKey: ["sets"] });
-      // the above does not work. need to convert useMutation();
-      // Should navigate user back to the previous screen
-    } catch (error) {
-      console.log(error);
-    }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sets"] });
+    },
+    onError: (error) => {
+      console.error("Error saving exercise:", error);
+    },
+  });
+
+  const handleSave = (exerciseName: string) => {
+    mutate(exerciseName);
   };
 
   return (
