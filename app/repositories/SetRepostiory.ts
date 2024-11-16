@@ -10,7 +10,7 @@ class SetRepository extends BaseRepository {
   async getAllSetsByWorkoutId(id: string) {
     // while avoid setting up firestore subscription for now
     // will leverage tanstack query and query key to refresh instead
-    return this.db.collection(COLLECTION).where("workout", "==", id);
+    return this.db.collection(COLLECTION).where("workout", "==", id).get();
   }
 }
 

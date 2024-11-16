@@ -46,7 +46,8 @@ import { SelectExercise } from "@/components/workout";
 
 // deps
 import firestore from "@react-native-firebase/firestore";
-import { WorkoutService } from "@/services";
+import { useQuery } from "@tanstack/react-query";
+import { SetService, WorkoutService } from "@/services";
 
 // types
 type Set = {
@@ -77,8 +78,17 @@ const Workout = () => {
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const handleClose = () => setShowAlertDialog(false);
 
-  const [sets, setSets] = useState<SetsGroupedByExercise>({});
+  // const { data: sets } = useQuery({
+  //   queryKey: ["sets"],
+  //   queryFn: async() => {
+  //     const sets = new SetService();
+  //     console.log(await sets.getAllByWorkoutId(id));
+  //     return await sets.getAllByWorkoutId(id) as SetsGroupedByExercise;
+  //   },
+  //   refetchOnWindowFocus: false,
+  // });
 
+  const [sets, setSets] = useState<SetsGroupedByExercise>({});
   useEffect(() => {
     const unsubscribe = firestore()
       .collection("Sets")
@@ -176,7 +186,7 @@ const Workout = () => {
         isDisabled={false}
         className="m-5 w-[90%] border border-outline-200"
       >
-        {Object.entries(sets).map(([exerciseName, exerciseSets], index) => (
+        {sets && Object.entries(sets).map(([exerciseName, exerciseSets], index) => (
           <View key={index}>
             <AccordionItem value={exerciseName}>
               <AccordionHeader>

@@ -1,20 +1,49 @@
 import { BaseService } from "./BaseService";
-import { SetRepository } from "@/repositories";
+import { SetRepository, ExerciseRepository } from "@/repositories";
 
 class SetService extends BaseService {
-    setRepostiory: SetRepository;
+  setRepostiory: SetRepository;
+  exerciseRepository: ExerciseRepository;
 
-    constructor(){
-        super();
-        this.setRepostiory = new SetRepository();
-    };
+  constructor() {
+    super();
+    this.setRepostiory = new SetRepository();
+    this.exerciseRepository = new ExerciseRepository();
+  }
 
-    _throwError(message: string, error?: string): void {
-        super._throwError("SetService", error);
-    };
+  _throwError(message: string, error?: string): void {
+    super._throwError("SetService", error);
+  }
 
-    async getAllByWorkoutId(id: string){
-        let data = await this.setRepostiory.getAllSetsByWorkoutId(id);
-        // perform additional parsing here!
-    }
+  async getAllByWorkoutId(id: string) {
+    // Retrieves all sets matching the provided workout id
+    let data = await this.setRepostiory.getAllSetsByWorkoutId(id);
+    let sets = data.docs.map((doc) => doc.data());
+
+    // Retrieves the exercise name for each set
+    let setsWithExerciseNames = await Promise.all(
+      sets.map(async (set: any) => {
+        let exercise = await this.exerciseRepository.findExerciseById(
+          set.exercise
+        );
+        return {
+          ...set,
+          exerciseName: exercise.name,
+        };
+      })
+    );
+
+    // Group the sets by exercise name
+    let groupedSets: any = {};
+    setsWithExerciseNames.forEach((set) => {
+      if (!groupedSets[set.exerciseName]) {
+        groupedSets[set.exerciseName] = [];
+      }
+      groupedSets[set.exerciseName].push(set);
+    });
+
+    return groupedSets;
+  }
 }
+
+export { SetService };

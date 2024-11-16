@@ -12,6 +12,9 @@ import {
 
 // deps
 import firestore from "@react-native-firebase/firestore";
+import { useQueryClient } from '@tanstack/react-query'
+
+const queryClient = useQueryClient()
 
 // types
 type Exercise = {
@@ -67,6 +70,8 @@ export const SelectExercise = ({ workout }: InputProps) => {
         weight: null,
         reps: null,
       });
+      // queryClient.invalidateQueries({ queryKey: ["sets"] });
+      // the above does not work. need to convert useMutation();
       // Should navigate user back to the previous screen
     } catch (error) {
       console.log(error);
