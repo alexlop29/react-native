@@ -18,6 +18,10 @@ class ExerciseRepository extends BaseRepository {
   async findExerciseById(id: string) {
     return super.findById(COLLECTION, id);
   }
+
+  async getAllExercises() {
+    return super.getAll(COLLECTION);
+  }
 }
 
 export { ExerciseRepository };

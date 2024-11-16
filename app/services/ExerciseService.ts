@@ -7,6 +7,10 @@ type Exercise = {
   name: string;
 };
 
+type ExerciseWithId = Exercise & {
+  id: string;
+};
+
 class ExerciseService extends BaseService {
   exerciseRepository: ExerciseRepository;
 
@@ -17,10 +21,14 @@ class ExerciseService extends BaseService {
 
   _throwError(error?: string | undefined): void {
     super._throwError("ExerciseService", error);
-  }
+  };
 
   create(exercise: Exercise) {
     return this.exerciseRepository.createExercise(exercise);
+  };
+
+  getAll(): Promise<ExerciseWithId[]> {
+    return this.exerciseRepository.getAllExercises();
   }
 }
 
