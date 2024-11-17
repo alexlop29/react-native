@@ -3,7 +3,7 @@ import { Input, InputField } from "@/components/ui/input";
 
 type InputProps = {
   placeholder: string;
-  handleOnChange: () => void;
+  handleOnChange: (text: string) => void;
   handleOnBlur: () => void;
 };
 

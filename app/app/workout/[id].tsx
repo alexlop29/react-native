@@ -44,6 +44,7 @@ import { ChevronUp } from "lucide-react-native";
 // deps
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { WorkoutService, SetService } from "@/services";
+import { TextInput } from "@/components/layout";
 
 // types
 type Set = {
@@ -110,20 +111,11 @@ const Workout = () => {
 
   return (
     <View>
-      {/* Title */}
-      <Input
-        variant="outline"
-        size="md"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          placeholder="Enter The Workout Name..."
-          onChangeText={(text) => setName(text)}
-          onBlur={() => handleNameChange()}
-        />
-      </Input>
+      <TextInput
+        handleOnChange={(text) => setName(text)}
+        handleOnBlur={handleNameChange}
+        placeholder="Enter the workout name"
+      />
 
       <Accordion
         size="md"
