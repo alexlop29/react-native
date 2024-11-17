@@ -43,7 +43,7 @@ import { ChevronUp } from "lucide-react-native";
 
 // deps
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {WorkoutService, SetService } from "@/services";
+import { WorkoutService, SetService } from "@/services";
 
 // types
 type Set = {
@@ -69,12 +69,9 @@ type Exercise = {
 const Workout = () => {
   const pathname = usePathname();
   const id = pathname.split("/")[2];
-  const [name, setName] = useState("");
-  // should update to get from backend
-  // need to create get workout by id function in workout service
-
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const handleClose = () => setShowAlertDialog(false);
+  const [name, setName] = useState("");
 
   const { data: sets } = useQuery({
     queryKey: ["sets", id],

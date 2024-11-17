@@ -7,9 +7,13 @@ class WorkoutRepository extends BaseRepository {
     super();
   }
 
-  updateWorkoutById(id: string, data: any) {
+  async findWorkoutById(id: string) {
+    return super.findById(COLLECTION, id);
+  };
+
+  async updateWorkoutById(id: string, data: any) {
     return super.updateById(COLLECTION, id, data);
-  }
+  };
 }
 
 export { WorkoutRepository };
