@@ -1,8 +1,8 @@
 import { View, Text } from "react-native";
-import { usePathname } from "expo-router";
-import { useState, useEffect } from "react";
-import { router } from "expo-router";
+import { usePathname, router } from "expo-router";
+import { useState } from "react";
 
+// comps
 import { Input, InputField } from "@/components/ui/input";
 import { Button, ButtonText } from "@/components/ui/button";
 import {
@@ -35,16 +35,14 @@ import {
   TableCaption,
 } from "@/components/ui/table";
 import { Box } from "@/components/ui/box";
+import { SelectExercise } from "@/components/workout";
 
 // icons
 import { ChevronDown } from "lucide-react-native";
 import { ChevronUp } from "lucide-react-native";
 
-// int. comps
-import { SelectExercise } from "@/components/workout";
-
 // deps
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {WorkoutService, SetService } from "@/services";
 
 // types
@@ -72,6 +70,8 @@ const Workout = () => {
   const pathname = usePathname();
   const id = pathname.split("/")[2];
   const [name, setName] = useState("");
+  // should update to get from backend
+  // need to create get workout by id function in workout service
 
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const handleClose = () => setShowAlertDialog(false);
@@ -87,77 +87,28 @@ const Workout = () => {
     refetchOnWindowFocus: false,
   });
 
-  // const [sets, setSets] = useState<SetsGroupedByExercise>({});
-  // useEffect(() => {
-  //   const unsubscribe = firestore()
-  //     .collection("Sets")
-  //     .where("workout", "==", id)
-  //     .onSnapshot(
-  //       async (querySnapshot) => {
-  //         //@ts-ignore
-  //         const returnedSets: SetWithExerciseDetails[] = await Promise.all(
-  //           querySnapshot.docs.map(async (documentSnapshot) => {
-  //             const data = documentSnapshot.data() as Set;
-  //             try {
-  //               const exerciseRef = firestore()
-  //                 .collection("Exercises")
-  //                 .doc(data.exercise);
-
-  //               const exerciseSnapshot = await exerciseRef.get();
-  //               if (exerciseSnapshot.exists) {
-  //                 const exerciseSnapshotData =
-  //                   exerciseSnapshot.data() as Exercise;
-  //                 return {
-  //                   ...data,
-  //                   exerciseName: exerciseSnapshotData?.name,
-  //                 };
-  //               } else {
-  //                 return null;
-  //               }
-  //             } catch (error) {
-  //               console.error("Error fetching exercise details: ", error);
-  //             }
-  //             return data;
-  //           })
-  //         );
-
-  //         const groupedSets: SetsGroupedByExercise = {};
-  //         returnedSets
-  //           .filter((set): set is SetWithExerciseDetails => !!set)
-  //           .forEach((set) => {
-  //             if (!groupedSets[set.exerciseName]) {
-  //               groupedSets[set.exerciseName] = [];
-  //             }
-  //             groupedSets[set.exerciseName].push(set);
-  //           });
-
-  //         setSets(groupedSets);
-  //       },
-  //       (error) => {
-  //         console.error("Error fetching exercises: ", error);
-  //       }
-  //     );
-
-  //   return () => unsubscribe();
-  // }, []);
-
-  const handleNameChange = async () => {
-    try {
+  const { mutate: handleNameChange } = useMutation({
+    mutationFn: async () => {
       const workoutService = new WorkoutService;
       await workoutService.update(id, {name: name});
-    } catch (error) {
-      console.log(error);
+    },
+    onError: (error) => {
+      console.log("Error updating exercise name", error);
     }
-  };
+  });
 
-  const handleFinish = async () => {
-    try {
+  const { mutate } = useMutation({
+    mutationFn: async () => {
       const workoutService = new WorkoutService;
       await workoutService.update(id, {timeEnded: new Date().toJSON()});
       router.back();
-    } catch (error) {
-      console.log(error);
+    },
+    onError: (error) => {
+      console.log("Error finishing workout", error);
     }
+  });
+  const handleFinish = () => {
+    mutate();
   };
 
   return (
