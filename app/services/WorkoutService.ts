@@ -11,15 +11,15 @@ class WorkoutService extends BaseService {
 
   _throwError(message: string, error?: string): void {
     super._throwError("WorkoutService", error);
-  };
+  }
 
   findById(id: string) {
     return this.workoutRepository.findWorkoutById(id);
-  };
+  }
 
   update(id: string, data: any) {
     return this.workoutRepository.updateWorkoutById(id, data);
-  };
+  }
 }
 
 export { WorkoutService };

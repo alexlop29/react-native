@@ -3,26 +3,32 @@ import { View } from "react-native";
 
 // components
 import {
-    AlertDialog,
-    AlertDialogBackdrop,
-    AlertDialogContent,
-    AlertDialogHeader,
-    AlertDialogBody,
-    AlertDialogFooter,
-  } from "@/components/ui/alert-dialog";
+  AlertDialog,
+  AlertDialogBackdrop,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+} from "@/components/ui/alert-dialog";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 
 // types
 type InputProps = {
-    children: ReactNode;
-    openPrompt: string;
-    actionPrompt: string;
-    isOpen: boolean;
-    handleOpen: () => void;
-}
+  children: ReactNode;
+  openPrompt: string;
+  actionPrompt: string;
+  isOpen: boolean;
+  handleOpen: () => void;
+};
 
-const ShowAlertDialog = ({children, openPrompt, actionPrompt, isOpen, handleOpen}: InputProps) => {
+const ShowAlertDialog = ({
+  children,
+  openPrompt,
+  actionPrompt,
+  isOpen,
+  handleOpen,
+}: InputProps) => {
   return (
     <View>
       <Button onPress={handleOpen}>

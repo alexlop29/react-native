@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useContext } from 'react';
+import React, { createContext, useMemo, useContext } from "react";
 import {
   tableStyle,
   tableHeaderStyle,
@@ -8,7 +8,7 @@ import {
   tableRowStyleStyle,
   tableDataStyle,
   tableCaptionStyle,
-} from './styles';
+} from "./styles";
 
 const TableHeaderContext = createContext<any>({});
 const TableFooterContext = createContext<any>({});
@@ -121,14 +121,14 @@ const TableCaption = React.forwardRef(
   }
 );
 
-Table.displayName = 'Table';
-TableHeader.displayName = 'TableHeader';
-TableBody.displayName = 'TableBody';
-TableFooter.displayName = 'TableFooter';
-TableHead.displayName = 'TableHead';
-TableRow.displayName = 'TableRow';
-TableData.displayName = 'TableData';
-TableCaption.displayName = 'TableCaption';
+Table.displayName = "Table";
+TableHeader.displayName = "TableHeader";
+TableBody.displayName = "TableBody";
+TableFooter.displayName = "TableFooter";
+TableHead.displayName = "TableHead";
+TableRow.displayName = "TableRow";
+TableData.displayName = "TableData";
+TableCaption.displayName = "TableCaption";
 
 export {
   Table,

@@ -75,10 +75,10 @@ const Workout = () => {
 
   const { data: sets } = useQuery({
     queryKey: ["sets", id],
-    queryFn: async() => {
+    queryFn: async () => {
       const sets = new SetService();
       console.log(await sets.getAllByWorkoutId(id));
-      return await sets.getAllByWorkoutId(id) as SetsGroupedByExercise;
+      return (await sets.getAllByWorkoutId(id)) as SetsGroupedByExercise;
     },
     enabled: !!id,
     refetchOnWindowFocus: false,
@@ -86,23 +86,23 @@ const Workout = () => {
 
   const { mutate: handleNameChange } = useMutation({
     mutationFn: async () => {
-      const workoutService = new WorkoutService;
-      await workoutService.update(id, {name: name});
+      const workoutService = new WorkoutService();
+      await workoutService.update(id, { name: name });
     },
     onError: (error) => {
       console.log("Error updating exercise name", error);
-    }
+    },
   });
 
   const { mutate } = useMutation({
     mutationFn: async () => {
-      const workoutService = new WorkoutService;
-      await workoutService.update(id, {timeEnded: new Date().toJSON()});
+      const workoutService = new WorkoutService();
+      await workoutService.update(id, { timeEnded: new Date().toJSON() });
       router.back();
     },
     onError: (error) => {
       console.log("Error finishing workout", error);
-    }
+    },
   });
   const handleFinish = () => {
     mutate();
@@ -133,54 +133,55 @@ const Workout = () => {
         isDisabled={false}
         className="m-5 w-[90%] border border-outline-200"
       >
-        {sets && Object.entries(sets).map(([exerciseName, exerciseSets], index) => (
-          <View key={index}>
-            <AccordionItem value={exerciseName}>
-              <AccordionHeader>
-                <AccordionTrigger>
-                  {({ isExpanded }) => (
-                    <>
-                      <AccordionTitleText>{exerciseName}</AccordionTitleText>
-                      {isExpanded ? (
-                        <AccordionIcon as={ChevronUp} className="ml-3" />
-                      ) : (
-                        <AccordionIcon as={ChevronDown} className="ml-3" />
-                      )}
-                    </>
-                  )}
-                </AccordionTrigger>
-              </AccordionHeader>
-              <AccordionContent>
-                <AccordionContentText>
-                  <Box className="rounded-lg overflow-hidden w-full">
-                    <Table className="w-full">
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Set</TableHead>
-                          <TableHead>Weight</TableHead>
-                          <TableHead>Reps</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {exerciseSets.map((set) => (
-                          <TableRow key={set.set_number}>
-                            <TableData>{set.set_number}</TableData>
-                            <TableData>{set.weight}</TableData>
-                            <TableData>{set.reps}</TableData>
+        {sets &&
+          Object.entries(sets).map(([exerciseName, exerciseSets], index) => (
+            <View key={index}>
+              <AccordionItem value={exerciseName}>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {({ isExpanded }) => (
+                      <>
+                        <AccordionTitleText>{exerciseName}</AccordionTitleText>
+                        {isExpanded ? (
+                          <AccordionIcon as={ChevronUp} className="ml-3" />
+                        ) : (
+                          <AccordionIcon as={ChevronDown} className="ml-3" />
+                        )}
+                      </>
+                    )}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionContent>
+                  <AccordionContentText>
+                    <Box className="rounded-lg overflow-hidden w-full">
+                      <Table className="w-full">
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Set</TableHead>
+                            <TableHead>Weight</TableHead>
+                            <TableHead>Reps</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                      <TableCaption>
-                        Add another set / Convert into pressable button
-                      </TableCaption>
-                    </Table>
-                  </Box>
-                </AccordionContentText>
-              </AccordionContent>
-            </AccordionItem>
-            <Divider />
-          </View>
-        ))}
+                        </TableHeader>
+                        <TableBody>
+                          {exerciseSets.map((set) => (
+                            <TableRow key={set.set_number}>
+                              <TableData>{set.set_number}</TableData>
+                              <TableData>{set.weight}</TableData>
+                              <TableData>{set.reps}</TableData>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                        <TableCaption>
+                          Add another set / Convert into pressable button
+                        </TableCaption>
+                      </Table>
+                    </Box>
+                  </AccordionContentText>
+                </AccordionContent>
+              </AccordionItem>
+              <Divider />
+            </View>
+          ))}
       </Accordion>
 
       {/* <ShowAlertDialog

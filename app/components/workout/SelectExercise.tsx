@@ -25,7 +25,7 @@ type ScreenView = "select" | "add";
 
 export const SelectExercise = ({ workout }: InputProps) => {
   const [screenView, setScreenView] = useState<ScreenView>("select");
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const { data: exercises } = useQuery({
     queryKey: ["exercises"],
@@ -46,7 +46,6 @@ export const SelectExercise = ({ workout }: InputProps) => {
       }
 
       const setService = new SetService();
-      
 
       // NOTE: (alopez) Improve error handling. If a set matching the exercise already exists, don't create a new one.
       return await setService.create({
@@ -59,7 +58,7 @@ export const SelectExercise = ({ workout }: InputProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sets"] });
-      console.log("successfully saved")
+      console.log("successfully saved");
     },
     onError: (error) => {
       console.error("Error saving exercise:", error);
