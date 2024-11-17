@@ -31,6 +31,7 @@ class SetService extends BaseService {
     // Retrieves all sets matching the provided workout id
     let data = await this.setRepostiory.getAllSetsByWorkoutId(id);
     let sets = data.docs.map((doc) => doc.data());
+    console.log(`alex viewing sets`, sets);
 
     // Retrieves the exercise name for each set
     let setsWithExerciseNames = await Promise.all(
@@ -38,12 +39,14 @@ class SetService extends BaseService {
         let exercise = await this.exerciseRepository.findExerciseById(
           set.exercise
         );
+        console.log(`alex viewing exercise`, exercise._data.name);
         return {
           ...set,
-          exerciseName: exercise.name,
+          exerciseName: exercise._data.name,
         };
       })
     );
+    console.log(`alex viewing sets with exercise names`, setsWithExerciseNames);
 
     // Group the sets by exercise name
     let groupedSets: any = {};
@@ -53,6 +56,7 @@ class SetService extends BaseService {
       }
       groupedSets[set.exerciseName].push(set);
     });
+    console.log(`alex viewing grouped sets`, groupedSets);
 
     return groupedSets;
   }

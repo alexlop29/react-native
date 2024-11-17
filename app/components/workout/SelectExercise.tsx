@@ -46,6 +46,9 @@ export const SelectExercise = ({ workout }: InputProps) => {
       }
 
       const setService = new SetService();
+      
+
+      // NOTE: (alopez) Improve error handling. If a set matching the exercise already exists, don't create a new one.
       return await setService.create({
         workout: workout,
         exercise: exercise?.id,
