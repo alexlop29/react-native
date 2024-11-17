@@ -35,7 +35,6 @@ import {
   TableCaption,
 } from "@/components/ui/table";
 import { Box } from "@/components/ui/box";
-import { ShowAlertDialog } from "@/components/layout";
 
 // icons
 import { ChevronDown } from "lucide-react-native";
@@ -45,9 +44,8 @@ import { ChevronUp } from "lucide-react-native";
 import { SelectExercise } from "@/components/workout";
 
 // deps
-import firestore from "@react-native-firebase/firestore";
 import { useQuery } from "@tanstack/react-query";
-import { SetService, WorkoutService } from "@/services";
+import {WorkoutService, SetService } from "@/services";
 
 // types
 type Set = {
@@ -78,69 +76,70 @@ const Workout = () => {
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const handleClose = () => setShowAlertDialog(false);
 
-  // const { data: sets } = useQuery({
-  //   queryKey: ["sets"],
-  //   queryFn: async() => {
-  //     const sets = new SetService();
-  //     console.log(await sets.getAllByWorkoutId(id));
-  //     return await sets.getAllByWorkoutId(id) as SetsGroupedByExercise;
-  //   },
-  //   refetchOnWindowFocus: false,
-  // });
+  const { data: sets } = useQuery({
+    queryKey: ["sets", id],
+    queryFn: async() => {
+      const sets = new SetService();
+      console.log(await sets.getAllByWorkoutId(id));
+      return await sets.getAllByWorkoutId(id) as SetsGroupedByExercise;
+    },
+    enabled: !!id,
+    refetchOnWindowFocus: false,
+  });
 
-  const [sets, setSets] = useState<SetsGroupedByExercise>({});
-  useEffect(() => {
-    const unsubscribe = firestore()
-      .collection("Sets")
-      .where("workout", "==", id)
-      .onSnapshot(
-        async (querySnapshot) => {
-          //@ts-ignore
-          const returnedSets: SetWithExerciseDetails[] = await Promise.all(
-            querySnapshot.docs.map(async (documentSnapshot) => {
-              const data = documentSnapshot.data() as Set;
-              try {
-                const exerciseRef = firestore()
-                  .collection("Exercises")
-                  .doc(data.exercise);
+  // const [sets, setSets] = useState<SetsGroupedByExercise>({});
+  // useEffect(() => {
+  //   const unsubscribe = firestore()
+  //     .collection("Sets")
+  //     .where("workout", "==", id)
+  //     .onSnapshot(
+  //       async (querySnapshot) => {
+  //         //@ts-ignore
+  //         const returnedSets: SetWithExerciseDetails[] = await Promise.all(
+  //           querySnapshot.docs.map(async (documentSnapshot) => {
+  //             const data = documentSnapshot.data() as Set;
+  //             try {
+  //               const exerciseRef = firestore()
+  //                 .collection("Exercises")
+  //                 .doc(data.exercise);
 
-                const exerciseSnapshot = await exerciseRef.get();
-                if (exerciseSnapshot.exists) {
-                  const exerciseSnapshotData =
-                    exerciseSnapshot.data() as Exercise;
-                  return {
-                    ...data,
-                    exerciseName: exerciseSnapshotData?.name,
-                  };
-                } else {
-                  return null;
-                }
-              } catch (error) {
-                console.error("Error fetching exercise details: ", error);
-              }
-              return data;
-            })
-          );
+  //               const exerciseSnapshot = await exerciseRef.get();
+  //               if (exerciseSnapshot.exists) {
+  //                 const exerciseSnapshotData =
+  //                   exerciseSnapshot.data() as Exercise;
+  //                 return {
+  //                   ...data,
+  //                   exerciseName: exerciseSnapshotData?.name,
+  //                 };
+  //               } else {
+  //                 return null;
+  //               }
+  //             } catch (error) {
+  //               console.error("Error fetching exercise details: ", error);
+  //             }
+  //             return data;
+  //           })
+  //         );
 
-          const groupedSets: SetsGroupedByExercise = {};
-          returnedSets
-            .filter((set): set is SetWithExerciseDetails => !!set)
-            .forEach((set) => {
-              if (!groupedSets[set.exerciseName]) {
-                groupedSets[set.exerciseName] = [];
-              }
-              groupedSets[set.exerciseName].push(set);
-            });
+  //         const groupedSets: SetsGroupedByExercise = {};
+  //         returnedSets
+  //           .filter((set): set is SetWithExerciseDetails => !!set)
+  //           .forEach((set) => {
+  //             if (!groupedSets[set.exerciseName]) {
+  //               groupedSets[set.exerciseName] = [];
+  //             }
+  //             groupedSets[set.exerciseName].push(set);
+  //           });
 
-          setSets(groupedSets);
-        },
-        (error) => {
-          console.error("Error fetching exercises: ", error);
-        }
-      );
+  //         setSets(groupedSets);
+  //       },
+  //       (error) => {
+  //         console.error("Error fetching exercises: ", error);
+  //       }
+  //     );
 
-    return () => unsubscribe();
-  }, []);
+  //   return () => unsubscribe();
+  // }, []);
 
   const handleNameChange = async () => {
     try {

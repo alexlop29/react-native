@@ -9,9 +9,7 @@ import { Button, ButtonText } from "@/components/ui/button";
 
 // deps
 import { ExerciseService, SetService } from "@/services";
-import { useQuery, useMutation, QueryClient } from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 // types
 type Exercise = {
@@ -27,6 +25,7 @@ type ScreenView = "select" | "add";
 
 export const SelectExercise = ({ workout }: InputProps) => {
   const [screenView, setScreenView] = useState<ScreenView>("select");
+  const queryClient = useQueryClient()
 
   const { data: exercises } = useQuery({
     queryKey: ["exercises"],
@@ -57,6 +56,7 @@ export const SelectExercise = ({ workout }: InputProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sets"] });
+      console.log("successfully saved")
     },
     onError: (error) => {
       console.error("Error saving exercise:", error);
