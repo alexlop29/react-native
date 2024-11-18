@@ -13,6 +13,9 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
+// expo - auth0 config
+import {Auth0Provider} from 'react-native-auth0';
+
 // react query with expo config
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -22,6 +25,9 @@ const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const authDomain = process.env.EXPO_PUBLIC_AUTH0_DOMAIN ?? "";
+  const auth0ClientId = process.env.EXPO_PUBLIC_AUTH0_CLIENT_ID ?? "";
+
   useReactQueryDevTools(queryClient);
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -39,6 +45,7 @@ export default function RootLayout() {
   }
 
   return (
+    <Auth0Provider domain={authDomain} clientId={auth0ClientId}>
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode="light">
         <ThemeProvider
@@ -51,5 +58,6 @@ export default function RootLayout() {
         </ThemeProvider>
       </GluestackUIProvider>
     </QueryClientProvider>
+    </Auth0Provider>
   );
 }
