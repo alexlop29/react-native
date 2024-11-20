@@ -6,6 +6,8 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
 import { useAuth0 } from "react-native-auth0";
+import { UserService } from "@/services/UserService";
+import { useQuery } from "@tanstack/react-query";
 
 const LoginButton = () => {
   const { authorize } = useAuth0();
@@ -13,7 +15,6 @@ const LoginButton = () => {
   const onPress = async () => {
     try {
       await authorize();
-      // to do something after login
     } catch (e) {
       console.log(e);
     }
@@ -37,8 +38,28 @@ const LogoutButton = () => {
 };
 
 const Profile = () => {
+  const userService = new UserService();
   const { user, error } = useAuth0();
-  if (user) console.log(JSON.stringify(user));
+
+  const { data } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      if (!user) return;
+      if (!user.sub) return;
+      const data = await userService.findByAuth0Id(user.sub);
+      if (!user.name || !user.email) return;
+      if (data._docs.length === 0){
+        await userService.create({
+          email: user.email,
+          name: user.name,
+          auth_token_identifier: user.sub,
+        });
+        console.log("created user");
+      }
+      return data;
+    },
+    enabled: !!user,
+  });
 
   return (
     <>

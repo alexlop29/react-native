@@ -1,11 +1,10 @@
 import { BaseRepository } from "./BaseRepository";
 
-/*
- Outline Schema for the User Model
- email: string;
- name: string;
- auth_token_identifier: string;
-*/
+type User = {
+  email: string;
+  name: string;
+  auth_token_identifier: string;
+};
 
 const COLLECTION = "Users";
 
@@ -14,15 +13,16 @@ class UserRepository extends BaseRepository {
     super();
   }
 
-  // will need to create a new user if they don't exist
+  async createUser(user: User) {
+    return super.create(COLLECTION, user);
+  };
 
-  // analyze return statement;
   async findByAuth0Id(auth0Id: string): Promise<any> {
     return this.db
       .collection(COLLECTION)
       .where("auth_token_identifier", "==", auth0Id)
       .get();
-  }
+  };
 }
 
 export { UserRepository };
