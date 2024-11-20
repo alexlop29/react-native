@@ -19,13 +19,13 @@ class UserService extends BaseService {
     super._throwError("UserService", error);
   }
 
-  async create(user: User){
+  async create(user: User) {
     return this.userRepository.createUser(user);
-  };
+  }
 
   async findByAuth0Id(auth0Id: string) {
     return this.userRepository.findByAuth0Id(auth0Id);
-  };
+  }
 }
 
 export { UserService };
