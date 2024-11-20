@@ -2,9 +2,20 @@ import { BaseRepository } from "./BaseRepository";
 
 const COLLECTION = "Workouts";
 
+type Workout = {
+  name: string;
+  timeStarted: string;
+  timeEnded: string;
+  user: string;
+};
+
 class WorkoutRepository extends BaseRepository {
   constructor() {
     super();
+  }
+
+  async createWorkout(workout: Workout) {
+    return super.create(COLLECTION, workout);
   }
 
   async findWorkoutById(id: string) {

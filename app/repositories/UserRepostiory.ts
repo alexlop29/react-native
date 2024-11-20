@@ -15,14 +15,14 @@ class UserRepository extends BaseRepository {
 
   async createUser(user: User) {
     return super.create(COLLECTION, user);
-  };
+  }
 
   async findByAuth0Id(auth0Id: string): Promise<any> {
     return this.db
       .collection(COLLECTION)
       .where("auth_token_identifier", "==", auth0Id)
       .get();
-  };
+  }
 }
 
 export { UserRepository };
