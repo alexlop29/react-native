@@ -13,6 +13,7 @@ const LoginButton = () => {
   const onPress = async () => {
     try {
       await authorize();
+      // to do something after login
     } catch (e) {
       console.log(e);
     }
@@ -37,6 +38,7 @@ const LogoutButton = () => {
 
 const Profile = () => {
   const { user, error } = useAuth0();
+  if (user) console.log(JSON.stringify(user));
 
   return (
     <>

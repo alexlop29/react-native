@@ -3,3 +3,4 @@ export * from "./MuscleGroupRepository";
 export * from "./EquipmentRepository";
 export * from "./WorkoutRepository";
 export * from "./SetRepostiory";
+export * from "./UserRepostiory";
