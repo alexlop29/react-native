@@ -4,7 +4,7 @@ import { WorkoutRepository } from "@/repositories";
 type Workout = {
   name: string;
   timeStarted: string;
-  timeEnded: string;
+  timeEnded: string | null;
   user: string;
 };
 

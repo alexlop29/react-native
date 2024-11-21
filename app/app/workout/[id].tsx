@@ -44,7 +44,7 @@ import { ChevronUp } from "lucide-react-native";
 // deps
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { WorkoutService, SetService } from "@/services";
-import { TextInput } from "@/components/layout";
+import { TextInput } from "@/components/reusables";
 
 // types
 type Set = {

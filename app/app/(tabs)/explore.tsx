@@ -8,28 +8,71 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 
 // deps
 import firestore from "@react-native-firebase/firestore";
+import { WorkoutService } from "@/services";
 
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useMutation } from "@tanstack/react-query";
+
+type Workout = {
+  name: string;
+  timeStarted: string;
+  timeEnded: string | null;
+  user: string;
+};
 
 export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleStart = async () => {
-    setIsLoading(true);
-    try {
-      let doc = await firestore().collection("Workouts").add({
+  // get user details - make available globally ??
+  // tanstack has built in cache. Will need get user details from auth
+
+  const { mutate: handleStart } = useMutation({
+    mutationFn: async (data: Workout) => {
+      setIsLoading(true);
+      const workoutService = new WorkoutService();
+      let doc = await workoutService.create({
         name: "",
         timeStarted: new Date().toJSON(),
         timeEnded: null,
-        user: null,
+        user: null, // need to pass user details
       });
       router.push(`/workout/${doc.id}`);
       setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    },
+    onError: (error) => {
+      console.log("Error creating workout", error);
+    },
+  });
+
+  /*
+    const { mutate } = useMutation({
+    mutationFn: async () => {
+      const workoutService = new WorkoutService();
+      await workoutService.update(id, { timeEnded: new Date().toJSON() });
+      router.back();
+    },
+    onError: (error) => {
+      console.log("Error finishing workout", error);
+    },
+  });
+  */
+
+  // const handleStart = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     let doc = await firestore().collection("Workouts").add({
+  //       name: "",
+  //       timeStarted: new Date().toJSON(),
+  //       timeEnded: null,
+  //       user: null,
+  //     });
+  //     router.push(`/workout/${doc.id}`);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   if (isLoading) {
     return (

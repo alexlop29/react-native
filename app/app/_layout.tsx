@@ -13,8 +13,8 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
-// expo - auth0 config
-import {Auth0Provider} from 'react-native-auth0';
+// providers
+import { AuthenticationProvider, ContextProvider } from "@/providers";
 
 // react query with expo config
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
@@ -25,8 +25,8 @@ const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const authDomain = process.env.EXPO_PUBLIC_AUTH0_DOMAIN ?? "";
-  const auth0ClientId = process.env.EXPO_PUBLIC_AUTH0_CLIENT_ID ?? "";
+  // const authDomain = process.env.EXPO_PUBLIC_AUTH0_DOMAIN ?? "";
+  // const auth0ClientId = process.env.EXPO_PUBLIC_AUTH0_CLIENT_ID ?? "";
 
   useReactQueryDevTools(queryClient);
   const colorScheme = useColorScheme();
@@ -44,20 +44,18 @@ export default function RootLayout() {
     return null;
   }
 
+  // move query client provider to @providers
   return (
-    <Auth0Provider domain={authDomain} clientId={auth0ClientId}>
-    <QueryClientProvider client={queryClient}>
-      <GluestackUIProvider mode="light">
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </ThemeProvider>
-      </GluestackUIProvider>
-    </QueryClientProvider>
-    </Auth0Provider>
+    <AuthenticationProvider>
+      <QueryClientProvider client={queryClient}>
+        <GluestackUIProvider mode="light">
+          <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+          >
+            <ContextProvider />
+          </ThemeProvider>
+        </GluestackUIProvider>
+      </QueryClientProvider>
+    </AuthenticationProvider>
   );
 }

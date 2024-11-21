@@ -48,7 +48,7 @@ const Profile = () => {
       if (!user.sub) return;
       const data = await userService.findByAuth0Id(user.sub);
       if (!user.name || !user.email) return;
-      if (data._docs.length === 0){
+      if (data._docs.length === 0) {
         await userService.create({
           email: user.email,
           name: user.name,

@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { useState } from "react";
 
 // comps
-import { SelectDropDown } from "../layout";
+import { SelectDropDown } from "../reusables";
 import { AddNewExercise } from "./AddNewExercise";
 import { Button, ButtonText } from "@/components/ui/button";
 
