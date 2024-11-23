@@ -5,9 +5,9 @@ import { router } from "expo-router";
 // comps
 import { Button, ButtonText } from "@/components/ui/button";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ExerciseCard } from "@/components/workout";
 
 // deps
-import firestore from "@react-native-firebase/firestore";
 import { WorkoutService } from "@/services";
 
 // icons
@@ -18,24 +18,21 @@ type Workout = {
   name: string;
   timeStarted: string;
   timeEnded: string | null;
-  user: string;
+  user: string | null;
 };
 
 export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
-  // get user details - make available globally ??
-  // tanstack has built in cache. Will need get user details from auth
-
   const { mutate: handleStart } = useMutation({
-    mutationFn: async (data: Workout) => {
+    mutationFn: async () => {
       setIsLoading(true);
       const workoutService = new WorkoutService();
       let doc = await workoutService.create({
         name: "",
         timeStarted: new Date().toJSON(),
         timeEnded: null,
-        user: null, // need to pass user details
+        user: null,
       });
       router.push(`/workout/${doc.id}`);
       setIsLoading(false);
@@ -44,35 +41,6 @@ export default function TabTwoScreen() {
       console.log("Error creating workout", error);
     },
   });
-
-  /*
-    const { mutate } = useMutation({
-    mutationFn: async () => {
-      const workoutService = new WorkoutService();
-      await workoutService.update(id, { timeEnded: new Date().toJSON() });
-      router.back();
-    },
-    onError: (error) => {
-      console.log("Error finishing workout", error);
-    },
-  });
-  */
-
-  // const handleStart = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     let doc = await firestore().collection("Workouts").add({
-  //       name: "",
-  //       timeStarted: new Date().toJSON(),
-  //       timeEnded: null,
-  //       user: null,
-  //     });
-  //     router.push(`/workout/${doc.id}`);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   if (isLoading) {
     return (
@@ -94,6 +62,7 @@ export default function TabTwoScreen() {
         <Ionicons size={310} name="code-slash" style={styles.headerImage} />
       }
     >
+      <ExerciseCard />
       <Button
         size="md"
         variant="solid"

@@ -6,7 +6,7 @@ type Workout = {
   name: string;
   timeStarted: string;
   timeEnded: string | null;
-  user: string;
+  user: string | null;
 };
 
 class WorkoutRepository extends BaseRepository {
