@@ -13,6 +13,7 @@ import { WorkoutService } from "@/services";
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useMutation } from "@tanstack/react-query";
+import { ExerciseCardCarousel } from "@/components/workout/ExerciseCardCarousel";
 
 type Workout = {
   name: string;
@@ -53,7 +54,18 @@ export default function TabTwoScreen() {
         <Text>Loading...</Text>
       </ParallaxScrollView>
     );
-  }
+  };
+
+  let fakeData = [
+    {
+      name: "Chest and Triceps",
+      date: "November 23, 2024"
+    },
+    {
+      name: "Back and Biceps",
+      date: "November 20, 2024"
+    }
+  ]
 
   return (
     <ParallaxScrollView
@@ -62,7 +74,7 @@ export default function TabTwoScreen() {
         <Ionicons size={310} name="code-slash" style={styles.headerImage} />
       }
     >
-      <ExerciseCard />
+      <ExerciseCardCarousel data={fakeData}/>
       <Button
         size="md"
         variant="solid"
