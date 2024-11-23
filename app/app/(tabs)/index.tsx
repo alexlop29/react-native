@@ -9,6 +9,9 @@ import { useAuth0 } from "react-native-auth0";
 import { UserService } from "@/services/UserService";
 import { useQuery } from "@tanstack/react-query";
 
+// context
+import { useUser } from "@/providers";
+
 const LoginButton = () => {
   const { authorize } = useAuth0();
 
@@ -39,7 +42,10 @@ const LogoutButton = () => {
 
 const Profile = () => {
   const userService = new UserService();
-  const { user, error } = useAuth0();
+  // const { user, error } = useAuth0();
+
+  const user = useUser();
+  console.log("checking user in Profile", user);
 
   const { data } = useQuery({
     queryKey: ["user"],
@@ -75,7 +81,7 @@ const Profile = () => {
           <LoginButton />
         </ThemedView>
       )}
-      {error && <Text>{error.message}</Text>}
+      {/* {error && <Text>{error.message}</Text>} */}
     </>
   );
 };

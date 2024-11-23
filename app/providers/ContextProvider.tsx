@@ -6,12 +6,13 @@ import { useContext, createContext } from "react";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 
 // auth
-import { useAuth0 } from "react-native-auth0";
+import { useAuth0, User } from "react-native-auth0";
 
-const UserContext = createContext({});
+const UserContext = createContext<User>({} as User);
 
 const ContextProvider = () => {
   const { user, error, isLoading } = useAuth0();
+  console.log("checking user in ContextProvider", user);
 
   return (
     <>
