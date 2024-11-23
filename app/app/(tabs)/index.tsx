@@ -1,30 +1,31 @@
-import { Image, StyleSheet, Platform, Button, Text } from "react-native";
+import { Image, StyleSheet, Platform, Button, Text, View } from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-import { useAuth0 } from "react-native-auth0";
+import { useAuth0, User } from "react-native-auth0";
 import { UserService } from "@/services/UserService";
 import { useQuery } from "@tanstack/react-query";
 
 // context
 import { useUser } from "@/providers";
+import { WorkoutService } from "@/services";
 
-const LoginButton = () => {
-  const { authorize } = useAuth0();
+// const LoginButton = () => {
+//   const { authorize } = useAuth0();
 
-  const onPress = async () => {
-    try {
-      await authorize();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+//   const onPress = async () => {
+//     try {
+//       await authorize();
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   };
 
-  return <Button onPress={onPress} title="Log in" />;
-};
+//   return <Button onPress={onPress} title="Log in" />;
+// };
 
 const LogoutButton = () => {
   const { clearSession } = useAuth0();
@@ -40,12 +41,23 @@ const LogoutButton = () => {
   return <Button onPress={onPress} title="Log out" />;
 };
 
+const WorkoutHistory = (user: string) => {
+  const { data } = useQuery({
+    queryKey: ["workoutHistory"],
+    queryFn: async () => {
+      const userService = new WorkoutService();
+      return await userService.findByUserId(user);
+    },
+    enabled: !!user,
+  });
+
+  return <View>{JSON.stringify(data)}</View>;
+};
+
 const Profile = () => {
   const userService = new UserService();
-  // const { user, error } = useAuth0();
 
   const user = useUser();
-  console.log("checking user in Profile", user);
 
   const { data } = useQuery({
     queryKey: ["user"],
@@ -54,18 +66,20 @@ const Profile = () => {
       if (!user.sub) return;
       const data = await userService.findByAuth0Id(user.sub);
       if (!user.name || !user.email) return;
-      if (data._docs.length === 0) {
+      if (!data) {
         await userService.create({
           email: user.email,
           name: user.name,
           auth_token_identifier: user.sub,
         });
-        console.log("created user");
       }
       return data;
     },
     enabled: !!user,
   });
+
+  // need to get the user id too!
+  console.log(`checking data in Profile`, data);
 
   return (
     <>
@@ -75,12 +89,13 @@ const Profile = () => {
           <LogoutButton />
         </ThemedView>
       )}
-      {!user && (
+      {/* Should already be logged in ; if not, app error! */}
+      {/* {!user && (
         <ThemedView>
           <Text>Not logged in</Text>
           <LoginButton />
         </ThemedView>
-      )}
+      )} */}
       {/* {error && <Text>{error.message}</Text>} */}
     </>
   );

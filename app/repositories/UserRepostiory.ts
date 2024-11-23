@@ -18,10 +18,17 @@ class UserRepository extends BaseRepository {
   }
 
   async findByAuth0Id(auth0Id: string): Promise<any> {
-    return this.db
+    let data = await this.db
       .collection(COLLECTION)
       .where("auth_token_identifier", "==", auth0Id)
       .get();
+    let formatted = data.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+    return formatted[0];
   }
 }
 

@@ -28,6 +28,10 @@ class WorkoutService extends BaseService {
     return this.workoutRepository.findWorkoutById(id);
   }
 
+  findByUserId(userId: string) {
+    return this.workoutRepository.findWorkoutByUserId(userId);
+  }
+
   update(id: string, data: any) {
     return this.workoutRepository.updateWorkoutById(id, data);
   }

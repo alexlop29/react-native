@@ -17,6 +17,13 @@ class BaseRepository {
     return this.db.collection(collection).doc(id).get();
   }
 
+  async findByUserId(collection: string, userId: string): Promise<any> {
+    return await this.db
+      .collection(collection)
+      .where("user", "==", userId)
+      .get();
+  }
+
   async getAll(collection: string): Promise<any> {
     let data = await this.db.collection(collection).get();
     return data.docs.map((doc) => {
