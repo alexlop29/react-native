@@ -41,17 +41,26 @@ const LogoutButton = () => {
   return <Button onPress={onPress} title="Log out" />;
 };
 
-const WorkoutHistory = (user: string) => {
+const WorkoutHistory = ({ user }: { user: string }) => {
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
-      const userService = new WorkoutService();
-      return await userService.findByUserId(user);
+      const workoutService = new WorkoutService();
+      console.log(`checking workout history`, await workoutService.findByUserId(user));
+      return await workoutService.findByUserId(user);
     },
     enabled: !!user,
   });
 
-  return <View>{JSON.stringify(data)}</View>;
+  return (
+    <>
+      {data && (
+        <View>
+          <Text>{JSON.stringify(data)}</Text></View>
+        )}
+    </>
+  )
+
 };
 
 const Profile = () => {
@@ -83,9 +92,11 @@ const Profile = () => {
 
   return (
     <>
-      {user && (
+      {/* need loading comp! */}
+      {user && data && (
         <ThemedView>
           <Text>Logged in as {user.name}</Text>
+          <WorkoutHistory user={data.id} />
           <LogoutButton />
         </ThemedView>
       )}
