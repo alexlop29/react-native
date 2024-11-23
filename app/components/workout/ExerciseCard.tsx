@@ -8,7 +8,12 @@ import { Link, LinkText } from "../ui/link";
 import { Image } from "../ui/image";
 import { useQuery } from "@tanstack/react-query";
 
-const ExerciseCard = () => {
+type InputProps = {
+    name: string;
+    date: string;
+}
+
+const ExerciseCard = ({name, date}: InputProps) => {
   const { data } = useQuery({
     queryKey: ["unsplash"],
     queryFn: async () => {
@@ -25,20 +30,24 @@ const ExerciseCard = () => {
   return (
     <View>
       <Text>Last Workout</Text>
-      <Card className="p-5 rounded-lg max-w-[300px] m-3 shadow-md" variant="elevated">
-        {data && <Image
-          source={{
-            uri: `${data}`,
-          }}
-          className="mb-6 h-[180px] w-full rounded-md"
-          alt="image"
-        />
-        }
+      <Card
+        className="p-5 rounded-lg max-w-[300px] m-3 shadow-md"
+        variant="elevated"
+      >
+        {data && (
+          <Image
+            source={{
+              uri: `${data}`,
+            }}
+            className="mb-6 h-[180px] w-full rounded-md"
+            alt="image"
+          />
+        )}
         <Text className="text-sm font-normal mb-2 text-typography-700">
-          May 15, 2023
+          {date}
         </Text>
         <Heading size="md" className="mb-4">
-          The Power of Positive Thinking
+          {name}
         </Heading>
         <Link href="https://gluestack.io/" isExternal>
           <HStack className="items-center">
