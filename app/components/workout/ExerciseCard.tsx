@@ -25,14 +25,15 @@ const ExerciseCard = () => {
   return (
     <View>
       <Text>Last Workout</Text>
-      <Card className="p-5 rounded-lg max-w-[360px] m-3">
-        <Image
+      <Card className="p-5 rounded-lg max-w-[300px] m-3 shadow-md" variant="elevated">
+        {data && <Image
           source={{
             uri: `${data}`,
           }}
           className="mb-6 h-[180px] w-full rounded-md"
           alt="image"
         />
+        }
         <Text className="text-sm font-normal mb-2 text-typography-700">
           May 15, 2023
         </Text>
