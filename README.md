@@ -13,12 +13,13 @@ npx expo run:ios
 - [React-Native-Firebase](https://rnfirebase.io/)
 - [Firebase](https://firebase.google.com/)
 - [Auth0](https://auth0.com/)
+- [TanStack Query](https://tanstack.com/query/latest)
 - [Gluestack UI](https://gluestack.io/)
 - [NativeBase](https://nativebase.io/)
+- [Readt Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/)
 - [Unsplash API](https://unsplash.com/developers)
 - [Android Studio](https://developer.android.com/studio)
 - [Xcode](https://developer.apple.com/xcode/)
-- [TanStack Query](https://tanstack.com/query/latest)
 
 ### Service Repository Design Pattern
 > A service-repository pattern is a low-level design pattern mainly used to separate the concerns in a software project. It comprises two layers i.e; a service layer and a repository layer.
