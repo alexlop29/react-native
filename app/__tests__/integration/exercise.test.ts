@@ -6,7 +6,8 @@ import firestore, {
 } from "@react-native-firebase/firestore";
 
 describe("Should describe the process of interacting with exercises", () => {
-  let exercise: FirebaseFirestoreTypes.DocumentData;2
+  let exercise: FirebaseFirestoreTypes.DocumentData;
+  2;
 
   beforeAll(async () => {
     exercise = await firestore().collection("Exercises").add({
@@ -56,4 +57,3 @@ As a potential work around, attempt testing the underlying queries and mutations
 by wrapping the test in components, using the react-native
 testing library.
 */
-

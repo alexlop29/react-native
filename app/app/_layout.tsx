@@ -22,7 +22,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
 // handling gestures
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -51,15 +51,15 @@ export default function RootLayout() {
   return (
     <AuthenticationProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-      <QueryClientProvider client={queryClient}>
-        <GluestackUIProvider mode="light">
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            <ContextProvider />
-          </ThemeProvider>
-        </GluestackUIProvider>
-      </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <GluestackUIProvider mode="light">
+            <ThemeProvider
+              value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            >
+              <ContextProvider />
+            </ThemeProvider>
+          </GluestackUIProvider>
+        </QueryClientProvider>
       </GestureHandlerRootView>
     </AuthenticationProvider>
   );

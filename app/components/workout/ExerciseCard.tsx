@@ -9,11 +9,11 @@ import { Image } from "../ui/image";
 import { useQuery } from "@tanstack/react-query";
 
 type InputProps = {
-    name: string;
-    date: string;
-}
+  name: string;
+  date: string;
+};
 
-const ExerciseCard = ({name, date}: InputProps) => {
+const ExerciseCard = ({ name, date }: InputProps) => {
   const { data } = useQuery({
     queryKey: ["unsplash"],
     queryFn: async () => {
@@ -22,14 +22,12 @@ const ExerciseCard = ({name, date}: InputProps) => {
       const data = await fetch(url);
       if (!data) return null;
       const json = await data.json();
-      console.log(`alex check json`, json);
       return json.urls.raw;
     },
   });
 
   return (
     <View>
-      <Text>Last Workout</Text>
       <Card
         className="p-5 rounded-lg max-w-[300px] m-3 shadow-md"
         variant="elevated"

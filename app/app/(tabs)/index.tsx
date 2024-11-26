@@ -46,7 +46,10 @@ const WorkoutHistory = ({ user }: { user: string }) => {
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      console.log(`checking workout history`, await workoutService.findByUserId(user));
+      console.log(
+        `checking workout history`,
+        await workoutService.findByUserId(user)
+      );
       return await workoutService.findByUserId(user);
     },
     enabled: !!user,
@@ -56,11 +59,11 @@ const WorkoutHistory = ({ user }: { user: string }) => {
     <>
       {data && (
         <View>
-          <Text>{JSON.stringify(data)}</Text></View>
-        )}
+          <Text>{JSON.stringify(data)}</Text>
+        </View>
+      )}
     </>
-  )
-
+  );
 };
 
 const Profile = () => {

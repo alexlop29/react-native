@@ -5,7 +5,7 @@ import { router } from "expo-router";
 // comps
 import { Button, ButtonText } from "@/components/ui/button";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ExerciseCard } from "@/components/workout";
+import { HStack } from "@/components/ui/hstack";
 
 // deps
 import { WorkoutService } from "@/services";
@@ -14,6 +14,7 @@ import { WorkoutService } from "@/services";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useMutation } from "@tanstack/react-query";
 import { ExerciseCardCarousel } from "@/components/workout/ExerciseCardCarousel";
+import { Heading } from "@/components/ui/heading";
 
 type Workout = {
   name: string;
@@ -54,18 +55,18 @@ export default function TabTwoScreen() {
         <Text>Loading...</Text>
       </ParallaxScrollView>
     );
-  };
+  }
 
   let fakeData = [
     {
       name: "Chest and Triceps",
-      date: "November 23, 2024"
+      date: "November 23, 2024",
     },
     {
       name: "Back and Biceps",
-      date: "November 20, 2024"
-    }
-  ]
+      date: "November 20, 2024",
+    },
+  ];
 
   return (
     <ParallaxScrollView
@@ -74,7 +75,15 @@ export default function TabTwoScreen() {
         <Ionicons size={310} name="code-slash" style={styles.headerImage} />
       }
     >
-      <ExerciseCardCarousel data={fakeData}/>
+      <HStack reversed={false} className="justify-between content-center">
+        <Heading>Recent Workouts</Heading>
+        <Button size="md" variant="solid" action="primary">
+          <ButtonText>
+            <Text>View All</Text>
+          </ButtonText>
+        </Button>
+      </HStack>
+      <ExerciseCardCarousel data={fakeData} />
       <Button
         size="md"
         variant="solid"
