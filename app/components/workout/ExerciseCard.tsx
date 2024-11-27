@@ -1,20 +1,23 @@
 import { View, Text } from "react-native";
+import { router } from "expo-router";
 
 // comps
 import { Card } from "../ui/card";
 import { Heading } from "../ui/heading";
-import { HStack } from "../ui/hstack";
-import { Link, LinkText } from "../ui/link";
 import { Image } from "../ui/image";
+import { Button, ButtonText } from "@/components/ui/button"
+
+// deps
 import { useQuery } from "@tanstack/react-query";
 
 type InputProps = {
+  id?: string;
   name: string;
   date: string | null;
   showImage?: boolean;
 };
 
-const ExerciseCard = ({ name, date, showImage=true }: InputProps) => {
+const ExerciseCard = ({ id="1", name, date, showImage=true }: InputProps) => {
   const { data } = useQuery({
     queryKey: ["unsplash"],
     queryFn: async () => {
@@ -26,6 +29,10 @@ const ExerciseCard = ({ name, date, showImage=true }: InputProps) => {
       return json.urls.raw;
     },
   });
+
+  const handleOpen = () => {
+    router.push(`/workout/${id}`)
+  };
 
   return (
     <View>
@@ -48,21 +55,16 @@ const ExerciseCard = ({ name, date, showImage=true }: InputProps) => {
         <Heading size="md" className="mb-4">
           {name}
         </Heading>
-        <Link href="https://gluestack.io/" isExternal>
-          <HStack className="items-center">
-            <LinkText
-              size="sm"
-              className="font-semibold text-info-600 no-underline"
-            >
-              Read Blog
-            </LinkText>
-            {/* <Icon
-              as={ArrowRightIcon}
-              size="sm"
-              className="text-info-600 mt-0.5 ml-0.5"
-            /> */}
-          </HStack>
-        </Link>
+        <Button
+        size="md"
+        variant="solid"
+        action="primary"
+        onPress={() => handleOpen()}
+      >
+        <ButtonText>
+          <Text>View Workout</Text>
+        </ButtonText>
+      </Button>
       </Card>
     </View>
   );

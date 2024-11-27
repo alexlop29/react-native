@@ -45,7 +45,7 @@ export default function TabTwoScreen() {
   });
 
   const handleViewAll = () => {
-    router.push("/viewall/${1}")  // need to replace with user id
+    router.push("/viewall/${1}"); // need to replace with user id
   };
 
   if (isLoading) {
@@ -81,7 +81,12 @@ export default function TabTwoScreen() {
     >
       <HStack reversed={false} className="justify-between content-center">
         <Heading>Recent Workouts</Heading>
-        <Button size="md" variant="solid" action="primary" onPress={() => handleViewAll()}>
+        <Button
+          size="md"
+          variant="solid"
+          action="primary"
+          onPress={() => handleViewAll()}
+        >
           <ButtonText>
             <Text>View All</Text>
           </ButtonText>
