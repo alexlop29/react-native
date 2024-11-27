@@ -33,7 +33,7 @@ const ViewAll = () => {
   >
     <VStack space="sm">
       {data?.map((item, index: number) => (
-        <ExerciseCard key={index} name={item.name} date={item.timeEnded} />
+        <ExerciseCard key={index} name={item.name} date={item.timeEnded} showImage={false} />
       ))}
     </VStack>
     </ParallaxScrollView>

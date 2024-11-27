@@ -11,9 +11,10 @@ import { useQuery } from "@tanstack/react-query";
 type InputProps = {
   name: string;
   date: string | null;
+  showImage?: boolean;
 };
 
-const ExerciseCard = ({ name, date }: InputProps) => {
+const ExerciseCard = ({ name, date, showImage=true }: InputProps) => {
   const { data } = useQuery({
     queryKey: ["unsplash"],
     queryFn: async () => {
@@ -32,7 +33,7 @@ const ExerciseCard = ({ name, date }: InputProps) => {
         className="p-5 rounded-lg max-w-[300px] m-3 shadow-md"
         variant="elevated"
       >
-        {data && (
+        {showImage && data && (
           <Image
             source={{
               uri: `${data}`,
