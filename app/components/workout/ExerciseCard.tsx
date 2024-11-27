@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 
 type InputProps = {
   name: string;
-  date: string;
+  date: string | null;
 };
 
 const ExerciseCard = ({ name, date }: InputProps) => {

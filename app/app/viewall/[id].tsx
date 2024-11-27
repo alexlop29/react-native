@@ -1,33 +1,56 @@
-import { View } from "react-native";
+import { StyleSheet } from "react-native";
 
 // comps
 import { VStack } from "@/components/ui/vstack";
 import { ExerciseCard } from "@/components/workout";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
 
-type WorkoutSummary = {
-  name: string;
-  date: string;
-};
+// icons
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+// deps
+import { useUser } from "@/providers";
+import { WorkoutService } from "@/services";
+import { useQuery } from "@tanstack/react-query";
 
 const ViewAll = () => {
-  const fakeData = [
-    {
-      name: "Chest and Triceps",
-      date: "November 23, 2024",
+  const { user } = useUser();
+  const { data } = useQuery({
+    queryKey: ["workoutHistory"],
+    queryFn: async () => {
+      const workoutService = new WorkoutService();
+      return await workoutService.findByUserId(user);
     },
-    {
-      name: "Back and Biceps",
-      date: "November 20, 2024",
-    },
-  ];
+    enabled: !!user,
+  });
 
   return (
-    <VStack space="xl" className="mr-4 ml-4 w-100 min-w-full">
-      {fakeData.map((item: WorkoutSummary, index: number) => (
-        <ExerciseCard key={index} name={item.name} date={item.date} />
+    <ParallaxScrollView
+    headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
+    headerImage={
+      <Ionicons size={310} name="code-slash" style={styles.headerImage} />
+    }
+  >
+    <VStack space="sm">
+      {data?.map((item, index: number) => (
+        <ExerciseCard key={index} name={item.name} date={item.timeEnded} />
       ))}
     </VStack>
+    </ParallaxScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  headerImage: {
+    color: "#808080",
+    bottom: -90,
+    left: -35,
+    position: "absolute",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    gap: 8,
+  },
+});
 
 export default ViewAll;

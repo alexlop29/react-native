@@ -8,6 +8,10 @@ type Workout = {
   user: string | null;
 };
 
+interface WorkoutWithId extends Workout {
+  id: string;
+}
+
 class WorkoutService extends BaseService {
   workoutRepository: WorkoutRepository;
 
@@ -28,7 +32,7 @@ class WorkoutService extends BaseService {
     return this.workoutRepository.findWorkoutById(id);
   }
 
-  findByUserId(userId: string) {
+  findByUserId(userId: string): Promise<WorkoutWithId[]> {
     return this.workoutRepository.findWorkoutByUserId(userId);
   }
 
