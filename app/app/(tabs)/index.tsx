@@ -27,12 +27,17 @@ const LogoutButton = () => {
 
 const Profile = () => {
   const { user } = useUser();
-  if (user){console.log(`checking user in Profile`, user)};
+  if (user) {
+    console.log(`checking user in Profile`, user);
+  }
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      console.log(`checking workoutService`, await workoutService.findTotalByUserId(user));
+      console.log(
+        `checking workoutService`,
+        await workoutService.findTotalByUserId(user)
+      );
       return await workoutService.findTotalByUserId(user);
     },
     enabled: !!user,
@@ -58,7 +63,7 @@ export default function HomeScreen() {
         />
       }
     >
-      <Profile/>
+      <Profile />
       <LogoutButton />
     </ParallaxScrollView>
   );

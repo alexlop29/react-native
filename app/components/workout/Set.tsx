@@ -1,5 +1,12 @@
 import { Box } from "../ui/box";
-import { Table, TableHeader, TableBody, TableHead, TableData, TableRow } from "../ui/table";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableHead,
+  TableData,
+  TableRow,
+} from "../ui/table";
 
 type InputProps = {
   sets: Set[];
@@ -9,9 +16,9 @@ type Set = {
   set_number: number;
   weight: number;
   reps: number;
-}
+};
 
-const Set = ({sets}: InputProps) => {
+const Sets = ({ sets }: InputProps) => {
   return (
     <Box className="border border-solid border-outline-200 rounded-lg overflow-hidden w-full">
       <Table className="w-full max-w-none">
@@ -38,4 +45,4 @@ const Set = ({sets}: InputProps) => {
   );
 };
 
-export { Set };
+export { Sets };

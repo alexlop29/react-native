@@ -27,7 +27,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
   useReactQueryDevTools(queryClient);
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({

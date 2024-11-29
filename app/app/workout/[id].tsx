@@ -3,7 +3,6 @@ import { usePathname, router } from "expo-router";
 import { useState } from "react";
 
 // comps
-import { Input, InputField } from "@/components/ui/input";
 import { Button, ButtonText } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -25,25 +24,16 @@ import {
   AccordionTitleText,
 } from "@/components/ui/accordion";
 import { Divider } from "@/components/ui/divider";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableData,
-  TableRow,
-  TableCaption,
-} from "@/components/ui/table";
 import { Box } from "@/components/ui/box";
 import { SelectExercise } from "@/components/workout";
-import { Set } from "@/components/workout";
+import { Sets } from "@/components/workout";
 
 // icons
 import { ChevronDown } from "lucide-react-native";
 import { ChevronUp } from "lucide-react-native";
 
 // deps
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { WorkoutService, SetService } from "@/services";
 import { TextInput } from "@/components/reusables";
 
@@ -64,16 +54,13 @@ type SetsGroupedByExercise = {
   [exerciseName: string]: SetWithExerciseDetails[];
 };
 
-type Exercise = {
-  name: string;
-};
-
 const Workout = () => {
   const pathname = usePathname();
   const id = pathname.split("/")[2];
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const handleClose = () => setShowAlertDialog(false);
   const [name, setName] = useState("");
+  const queryClient = useQueryClient();
 
   const { data: sets } = useQuery({
     queryKey: ["sets", id],
@@ -93,6 +80,28 @@ const Workout = () => {
     },
     onError: (error) => {
       console.log("Error updating exercise name", error);
+    },
+  });
+
+  const { mutate: handleAddSet } = useMutation({
+    mutationFn: async (exercise: string) => {
+      const details = sets?.[exercise][0].exercise;
+
+      const setService = new SetService();
+      return await setService.create({
+        workout: id,
+        exercise: details ? details : "",
+        set_number: sets ? [exercise].length + 1 : 1,
+        weight: 0,
+        reps: 0,
+      });
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["sets"] });
+      console.log("Set added", data);
+    },
+    onError: (error) => {
+      console.log("Error adding set", error);
     },
   });
 
@@ -145,12 +154,21 @@ const Workout = () => {
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionContent>
-                  <AccordionContentText>
+                  <AccordionContentText className="w-full">
                     <Box className="rounded-lg overflow-hidden w-full">
-                      <Set sets={exerciseSets} />
-                      <Text>Add Button</Text>
+                      <Sets sets={exerciseSets} />
                     </Box>
                   </AccordionContentText>
+                  <Button
+                    size="md"
+                    variant="solid"
+                    action="primary"
+                    onPress={() => handleAddSet(exerciseName)}
+                  >
+                    <ButtonText>
+                      <Text>Add Another Set</Text>
+                    </ButtonText>
+                  </Button>
                 </AccordionContent>
               </AccordionItem>
               <Divider />
