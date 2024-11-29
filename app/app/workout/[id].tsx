@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/table";
 import { Box } from "@/components/ui/box";
 import { SelectExercise } from "@/components/workout";
+import { Set } from "@/components/workout";
 
 // icons
 import { ChevronDown } from "lucide-react-native";
@@ -146,6 +147,7 @@ const Workout = () => {
                 <AccordionContent>
                   <AccordionContentText>
                     <Box className="rounded-lg overflow-hidden w-full">
+                      <Set/>
                       <Table className="w-full">
                         <TableHeader>
                           <TableRow>
