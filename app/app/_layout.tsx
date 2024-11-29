@@ -6,7 +6,6 @@ import {
 import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -28,8 +27,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // const authDomain = process.env.EXPO_PUBLIC_AUTH0_DOMAIN ?? "";
-  // const auth0ClientId = process.env.EXPO_PUBLIC_AUTH0_CLIENT_ID ?? "";
 
   useReactQueryDevTools(queryClient);
   const colorScheme = useColorScheme();
@@ -47,7 +44,6 @@ export default function RootLayout() {
     return null;
   }
 
-  // move query client provider to @providers
   return (
     <AuthenticationProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>

@@ -33,6 +33,8 @@ export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useUser();
+  console.log(`checking user in explore`, user);
+
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
