@@ -1,7 +1,17 @@
 import { Box } from "../ui/box";
 import { Table, TableHeader, TableBody, TableHead, TableData, TableRow } from "../ui/table";
 
-const Set = () => {
+type InputProps = {
+  sets: Set[];
+};
+
+type Set = {
+  set_number: number;
+  weight: number;
+  reps: number;
+}
+
+const Set = ({sets}: InputProps) => {
   return (
     <Box className="border border-solid border-outline-200 rounded-lg overflow-hidden w-full">
       <Table className="w-full max-w-none">
@@ -15,13 +25,13 @@ const Set = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableHead className="bg-background-50 border-0 border-solid border-r border-outline-200 font-medium">
-              1
-            </TableHead>
-            <TableData>30</TableData>
-            <TableData>15</TableData>
-          </TableRow>
+          {sets.map((set) => (
+            <TableRow key={set.set_number}>
+              <TableData>{set.set_number}</TableData>
+              <TableData>{set.weight}</TableData>
+              <TableData>{set.reps}</TableData>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </Box>

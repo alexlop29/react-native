@@ -147,28 +147,8 @@ const Workout = () => {
                 <AccordionContent>
                   <AccordionContentText>
                     <Box className="rounded-lg overflow-hidden w-full">
-                      <Set/>
-                      <Table className="w-full">
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Set</TableHead>
-                            <TableHead>Weight</TableHead>
-                            <TableHead>Reps</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {exerciseSets.map((set) => (
-                            <TableRow key={set.set_number}>
-                              <TableData>{set.set_number}</TableData>
-                              <TableData>{set.weight}</TableData>
-                              <TableData>{set.reps}</TableData>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                        <TableCaption>
-                          Add another set / Convert into pressable button
-                        </TableCaption>
-                      </Table>
+                      <Set sets={exerciseSets} />
+                      <Text>Add Button</Text>
                     </Box>
                   </AccordionContentText>
                 </AccordionContent>
