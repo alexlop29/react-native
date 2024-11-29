@@ -9,6 +9,8 @@ import { HStack } from "@/components/ui/hstack";
 
 // deps
 import { WorkoutService } from "@/services";
+import { useQuery } from "@tanstack/react-query";
+import { useUser } from "@/providers";
 
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -23,8 +25,22 @@ type Workout = {
   user: string | null;
 };
 
+interface WorkoutWithId extends Workout {
+  id: string;
+}
+
 export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useUser();
+  const { data } = useQuery({
+    queryKey: ["workoutHistory"],
+    queryFn: async () => {
+      const workoutService = new WorkoutService();
+      return await workoutService.findByUserId(user);
+    },
+    enabled: !!user,
+  });
 
   const { mutate: handleStart } = useMutation({
     mutationFn: async () => {
@@ -45,7 +61,7 @@ export default function TabTwoScreen() {
   });
 
   const handleViewAll = () => {
-    router.push("/viewall/${1}"); // need to replace with user id
+    router.push(`/viewall`);
   };
 
   if (isLoading) {
@@ -60,17 +76,6 @@ export default function TabTwoScreen() {
       </ParallaxScrollView>
     );
   }
-
-  let fakeData = [
-    {
-      name: "Chest and Triceps",
-      date: "November 23, 2024",
-    },
-    {
-      name: "Back and Biceps",
-      date: "November 20, 2024",
-    },
-  ];
 
   return (
     <ParallaxScrollView
@@ -92,7 +97,17 @@ export default function TabTwoScreen() {
           </ButtonText>
         </Button>
       </HStack>
-      <ExerciseCardCarousel data={fakeData} />
+      {data && (
+        <ExerciseCardCarousel
+          data={data.map((item: WorkoutWithId) => {
+            return {
+              name: item.name,
+              date: item.timeEnded ?? "",
+              id: item.id,
+            };
+          })}
+        />
+      )}
       <Button
         size="md"
         variant="solid"
