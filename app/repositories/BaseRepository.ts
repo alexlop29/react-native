@@ -30,6 +30,14 @@ class BaseRepository {
     });
   }
 
+  async findTotalByUserId(collection: string, userId: string): Promise<number> {
+    let data = await this.db
+      .collection(collection)
+      .where("user", "==", userId)
+      .get();
+    return data.docs.length;
+  }
+
   async getAll(collection: string): Promise<any> {
     let data = await this.db.collection(collection).get();
     return data.docs.map((doc) => {

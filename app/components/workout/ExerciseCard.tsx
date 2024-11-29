@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { Card } from "../ui/card";
 import { Heading } from "../ui/heading";
 import { Image } from "../ui/image";
-import { Button, ButtonText } from "@/components/ui/button"
+import { Button, ButtonText } from "@/components/ui/button";
 
 // deps
 import { useQuery } from "@tanstack/react-query";
@@ -17,7 +17,12 @@ type InputProps = {
   showImage?: boolean;
 };
 
-const ExerciseCard = ({ id="1", name, date, showImage=true }: InputProps) => {
+const ExerciseCard = ({
+  id = "1",
+  name,
+  date,
+  showImage = true,
+}: InputProps) => {
   const { data } = useQuery({
     queryKey: ["unsplash"],
     queryFn: async () => {
@@ -31,7 +36,7 @@ const ExerciseCard = ({ id="1", name, date, showImage=true }: InputProps) => {
   });
 
   const handleOpen = () => {
-    router.push(`/workout/${id}`)
+    router.push(`/workout/${id}`);
   };
 
   return (
@@ -56,15 +61,15 @@ const ExerciseCard = ({ id="1", name, date, showImage=true }: InputProps) => {
           {name}
         </Heading>
         <Button
-        size="md"
-        variant="solid"
-        action="primary"
-        onPress={() => handleOpen()}
-      >
-        <ButtonText>
-          <Text>View Workout</Text>
-        </ButtonText>
-      </Button>
+          size="md"
+          variant="solid"
+          action="primary"
+          onPress={() => handleOpen()}
+        >
+          <ButtonText>
+            <Text>View Workout</Text>
+          </ButtonText>
+        </Button>
       </Card>
     </View>
   );

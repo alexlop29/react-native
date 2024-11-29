@@ -36,6 +36,10 @@ class WorkoutService extends BaseService {
     return this.workoutRepository.findWorkoutByUserId(userId);
   }
 
+  findTotalByUserId(userId: string): Promise<number> {
+    return this.workoutRepository.findWorkoutTotalByUserId(userId);
+  }
+
   update(id: string, data: any) {
     return this.workoutRepository.updateWorkoutById(id, data);
   }

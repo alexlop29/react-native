@@ -26,6 +26,10 @@ class WorkoutRepository extends BaseRepository {
     return super.findByUserId(COLLECTION, userId);
   }
 
+  async findWorkoutTotalByUserId(userId: string) {
+    return super.findTotalByUserId(COLLECTION, userId);
+  }
+
   async updateWorkoutById(id: string, data: any) {
     return super.updateById(COLLECTION, id, data);
   }

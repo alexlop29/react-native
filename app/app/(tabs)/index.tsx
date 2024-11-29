@@ -1,31 +1,15 @@
-import { Image, StyleSheet, Platform, Button, Text, View } from "react-native";
+import { Image, StyleSheet, Button, Text } from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
+// comps
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { Card } from "@/components/ui/card";
+import { Divider } from "@/components/ui/divider";
 
-import { useAuth0, User } from "react-native-auth0";
-import { UserService } from "@/services/UserService";
-import { useQuery } from "@tanstack/react-query";
-
-// context
+// deps
+import { useAuth0 } from "react-native-auth0";
 import { useUser } from "@/providers";
+import { useQuery } from "@tanstack/react-query";
 import { WorkoutService } from "@/services";
-
-// const LoginButton = () => {
-//   const { authorize } = useAuth0();
-
-//   const onPress = async () => {
-//     try {
-//       await authorize();
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   };
-
-//   return <Button onPress={onPress} title="Log in" />;
-// };
 
 const LogoutButton = () => {
   const { clearSession } = useAuth0();
@@ -41,77 +25,25 @@ const LogoutButton = () => {
   return <Button onPress={onPress} title="Log out" />;
 };
 
-const WorkoutHistory = ({ user }: { user: string }) => {
+const Profile = () => {
+  const { user } = useUser();
+  if (user){console.log(`checking user in Profile`, user)};
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      console.log(
-        `checking workout history`,
-        await workoutService.findByUserId(user)
-      );
-      return await workoutService.findByUserId(user);
+      console.log(`checking workoutService`, await workoutService.findTotalByUserId(user));
+      return await workoutService.findTotalByUserId(user);
     },
     enabled: !!user,
   });
 
   return (
-    <>
-      {data && (
-        <View>
-          <Text>{JSON.stringify(data)}</Text>
-        </View>
-      )}
-    </>
-  );
-};
-
-const Profile = () => {
-  const userService = new UserService();
-
-  const user = useUser();
-
-  const { data } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      if (!user) return;
-      if (!user.sub) return;
-      const data = await userService.findByAuth0Id(user.sub);
-      if (!user.name || !user.email) return;
-      if (!data) {
-        await userService.create({
-          email: user.email,
-          name: user.name,
-          auth_token_identifier: user.sub,
-        });
-      }
-      return data;
-    },
-    enabled: !!user,
-  });
-
-  // need to get the user id too!
-  console.log(`checking data in Profile`, data);
-
-  return (
-    <>
-      {/* need loading comp! */}
-      {user && data && (
-        <ThemedView>
-          <Text>Logged in as {user.name}</Text>
-          <WorkoutHistory user={data.id} />
-          <LogoutButton />
-        </ThemedView>
-      )}
-      {/* Should already be logged in ; if not, app error! */}
-      {/* {!user && (
-        <ThemedView>
-          <Text>Not logged in</Text>
-          <LoginButton />
-        </ThemedView>
-      )} */}
-      {/* {error && <Text>{error.message}</Text>} */}
-    </>
+    <Card className="gap-y-4">
+      <Text>Email Address</Text>
+      <Divider />
+      <Text>Total Workouts Finished: {data}</Text>
+    </Card>
   );
 };
 
@@ -126,7 +58,8 @@ export default function HomeScreen() {
         />
       }
     >
-      <Profile />
+      <Profile/>
+      <LogoutButton />
     </ParallaxScrollView>
   );
 }
