@@ -1,11 +1,13 @@
 import { Input, InputField } from "@/components/ui/input";
 
 type InputProps = {
-  handleOnBlur: () => void;
+  id: string;
+  category: string;
   value?: string;
+  handleOnBlur: (id: string, category: string, value: string) => void;
 };
 
-const NumberInput = ({ handleOnBlur, value }: InputProps) => {
+const NumberInput = ({ handleOnBlur, id, category, value }: InputProps) => {
   return (
     <Input
       variant="outline"
@@ -17,7 +19,7 @@ const NumberInput = ({ handleOnBlur, value }: InputProps) => {
       <InputField
         placeholder="Enter a number"
         value={value ?? undefined}
-        onBlur={() => handleOnBlur()}
+        onBlur={() => handleOnBlur(id, category, value ?? "")}
       />
     </Input>
   );
