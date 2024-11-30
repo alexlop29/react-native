@@ -61,6 +61,10 @@ class SetService extends BaseService {
 
     return groupedSets;
   }
+
+  update(id: string, data: any) {
+    return this.setRepostiory.updateSetById(id, data);
+  }
 }
 
 export { SetService };

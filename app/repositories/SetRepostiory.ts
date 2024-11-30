@@ -14,6 +14,10 @@ class SetRepository extends BaseRepository {
   async getAllSetsByWorkoutId(id: string) {
     return this.db.collection(COLLECTION).where("workout", "==", id).get();
   }
+
+  async updateSetById(id: string, data: any) {
+    return super.updateById(COLLECTION, id, data);
+  }
 }
 
 export { SetRepository };
