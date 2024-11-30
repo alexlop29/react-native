@@ -18,7 +18,12 @@ type Set = {
   reps: number;
 };
 
+// need to build handler to update the set
+// may need to build repo and service for updating a set by id
+
 const Sets = ({ sets }: InputProps) => {
+  console.log(`alex checking sets in Sets`, sets);
+
   return (
     <Box className="border border-solid border-outline-200 rounded-lg overflow-hidden w-full">
       <Table className="w-full max-w-none">

@@ -30,7 +30,12 @@ class SetService extends BaseService {
   async getAllByWorkoutId(id: string) {
     // Retrieves all sets matching the provided workout id
     let data = await this.setRepostiory.getAllSetsByWorkoutId(id);
-    let sets = data.docs.map((doc) => doc.data());
+    let sets = data.docs.map((doc) => {
+      return {
+        set_id: doc.id,
+        ...doc.data(),
+      };
+    });
 
     // Retrieves the exercise name for each set
     let setsWithExerciseNames = await Promise.all(

@@ -44,6 +44,7 @@ type Set = {
   set_number: number;
   weight: number;
   reps: number;
+  set_id: string;
 };
 
 type SetWithExerciseDetails = Set & {
