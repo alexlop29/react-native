@@ -46,10 +46,10 @@ const Sets = ({ sets }: InputProps) => {
   });
 
   return (
-    <Box className="border border-solid border-outline-200 rounded-lg overflow-hidden w-full">
-      <Table className="w-full max-w-none">
+    <Box className="w-full min-w-full border border-solid border-outline-200 rounded-lg">
+      <Table className="">
         <TableHeader>
-          <TableRow className="bg-background-50">
+          <TableRow className="bg-background-50 w-full">
             <TableHead className="border-0 border-r border-solid border-outline-200">
               Set
             </TableHead>
@@ -59,14 +59,14 @@ const Sets = ({ sets }: InputProps) => {
         </TableHeader>
         <TableBody>
           {sets.map((set) => (
-            <TableRow key={set.set_number}>
+            <TableRow key={set.set_number} className="w-full">
               <TableData>{set.set_number}</TableData>
               <TableData>
                 <NumberInput
                   handleOnBlur={() => handleChange}
                   id={set.set_id}
                   category="weight"
-                  value={set.weight.toString()}
+                  value={set?.weight?.toString()}
                 />
               </TableData>
               <TableData>
@@ -74,7 +74,7 @@ const Sets = ({ sets }: InputProps) => {
                   handleOnBlur={() => handleChange}
                   id={set.set_id}
                   category="reps"
-                  value={set.reps.toString()}
+                  value={set?.reps?.toString()}
                 />
               </TableData>
             </TableRow>

@@ -27,6 +27,7 @@ import { Divider } from "@/components/ui/divider";
 import { Box } from "@/components/ui/box";
 import { SelectExercise } from "@/components/workout";
 import { Sets } from "@/components/workout";
+import { NumberInput } from "@/components/input";
 
 // icons
 import { ChevronDown } from "lucide-react-native";
@@ -155,10 +156,10 @@ const Workout = () => {
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionContent>
-                  <AccordionContentText className="w-full">
-                    <Box className="rounded-lg overflow-hidden w-full">
+                  <AccordionContentText size="lg" className="mb-2 grow">
+                    {/* <Box className="rounded-lg overflow-hidden w-full"> */}
                       <Sets sets={exerciseSets} />
-                    </Box>
+                    {/* </Box> */}
                   </AccordionContentText>
                   <Button
                     size="md"

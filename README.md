@@ -22,6 +22,14 @@ npx expo run:ios
 - [Android Studio](https://developer.android.com/studio)
 - [Xcode](https://developer.apple.com/xcode/)
 
+### Debugging React Native Applications
+- [React Native DevTools](https://reactnative.dev/docs/react-native-devtools)
+- [React Native - Debugging Basics](https://reactnative.dev/docs/debugging)
+```
+iOS Simulator: Cmd ⌘ + D (or Device > Shake)
+Android emulators: Cmd ⌘ + M (macOS) or Ctrl + M (Windows and Linux)
+```
+
 ### Service Repository Design Pattern
 > A service-repository pattern is a low-level design pattern mainly used to separate the concerns in a software project. It comprises two layers i.e; a service layer and a repository layer.
 
