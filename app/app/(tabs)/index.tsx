@@ -7,9 +7,11 @@ import { Divider } from "@/components/ui/divider";
 
 // deps
 import { useAuth0 } from "react-native-auth0";
-import { useUser } from "@/providers";
 import { useQuery } from "@tanstack/react-query";
 import { WorkoutService } from "@/services";
+
+import { useStore } from "@tanstack/react-store";
+import { store } from "@/providers";
 
 const LogoutButton = () => {
   const { clearSession } = useAuth0();
@@ -25,21 +27,20 @@ const LogoutButton = () => {
 };
 
 const Profile = () => {
-  const { user } = useUser();
-  if(user){console.log(`viewing user in index`, user)};
+  const { user } = useStore(store);
 
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      return await workoutService.findTotalByUserId(user);
+      if(user?.sub) return await workoutService.findTotalByUserId(user.sub);
     },
     enabled: !!user,
   });
 
   return (
     <Card className="gap-y-4">
-      <Text>Email Address: {user}</Text>
+      <Text>Email Address: {user?.email}</Text>
       <Divider />
       <Text>Total Workouts Finished: {data}</Text>
     </Card>

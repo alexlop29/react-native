@@ -10,7 +10,8 @@ import { HStack } from "@/components/ui/hstack";
 // deps
 import { WorkoutService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "@/providers";
+import { store } from "@/providers";
+import { useStore } from "@tanstack/react-store";
 
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -31,14 +32,13 @@ interface WorkoutWithId extends Workout {
 
 export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
-
-  const { user } = useUser();
+  const { user } = useStore(store);
 
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      return await workoutService.findByUserId(user);
+      if (user?.sub) return await workoutService.findByUserId(user?.sub);
     },
     enabled: !!user,
   });
