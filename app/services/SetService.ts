@@ -58,8 +58,6 @@ class SetService extends BaseService {
       }
       groupedSets[set.exerciseName].push(set);
     });
-
-    return groupedSets;
   }
 
   update(id: string, data: any) {

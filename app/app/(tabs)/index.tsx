@@ -18,7 +18,6 @@ const LogoutButton = () => {
     try {
       await clearSession();
     } catch (e) {
-      console.log(e);
     }
   };
 
@@ -27,17 +26,12 @@ const LogoutButton = () => {
 
 const Profile = () => {
   const { user } = useUser();
-  if (user) {
-    console.log(`checking user in Profile`, user);
-  }
+  if(user){console.log(`viewing user in index`, user)};
+
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      console.log(
-        `checking workoutService`,
-        await workoutService.findTotalByUserId(user)
-      );
       return await workoutService.findTotalByUserId(user);
     },
     enabled: !!user,
@@ -45,7 +39,7 @@ const Profile = () => {
 
   return (
     <Card className="gap-y-4">
-      <Text>Email Address</Text>
+      <Text>Email Address: {user}</Text>
       <Divider />
       <Text>Total Workouts Finished: {data}</Text>
     </Card>

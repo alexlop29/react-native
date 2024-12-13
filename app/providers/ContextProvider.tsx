@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Text, Button, Image } from "react-native";
+import { Text, Button, Image, View } from "react-native";
 import { useContext, createContext } from "react";
 
 // comps
@@ -12,7 +12,6 @@ const UserContext = createContext<User>({} as User);
 
 const ContextProvider = () => {
   const { user, error, isLoading } = useAuth0();
-  console.log("checking user in ContextProvider", user);
 
   return (
     <>
@@ -44,7 +43,6 @@ const SignInAndSignUpProvider = () => {
     try {
       await authorize();
     } catch (e) {
-      console.log(e);
     }
   };
 

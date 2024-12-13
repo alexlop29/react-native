@@ -48,7 +48,6 @@ const AddNewExercise = () => {
 
   const handleBlur = (text: string) => {
     setExercise({ name: text });
-    console.log(exercise);
   };
 
   const handleSave = async () => {
@@ -56,7 +55,6 @@ const AddNewExercise = () => {
       let exerciseService = new ExerciseService();
       return exerciseService.create(exercise);
     } catch (error) {
-      console.log(error);
     }
   };
 

@@ -33,7 +33,6 @@ export default function TabTwoScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useUser();
-  console.log(`checking user in explore`, user);
 
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
@@ -58,7 +57,6 @@ export default function TabTwoScreen() {
       setIsLoading(false);
     },
     onError: (error) => {
-      console.log("Error creating workout", error);
     },
   });
 

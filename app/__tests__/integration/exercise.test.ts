@@ -20,7 +20,6 @@ describe("Should describe the process of interacting with exercises", () => {
     const exercise = await exerciseRepository.createExercise({
       name: "Mock - Bench Press 2",
     });
-    console.log(exercise);
     // view output, then call jest to confirm the test passed
   });
 

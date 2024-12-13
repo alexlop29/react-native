@@ -68,7 +68,6 @@ const Workout = () => {
     queryKey: ["sets", id],
     queryFn: async () => {
       const sets = new SetService();
-      console.log(await sets.getAllByWorkoutId(id));
       return (await sets.getAllByWorkoutId(id)) as SetsGroupedByExercise;
     },
     enabled: !!id,
@@ -81,7 +80,6 @@ const Workout = () => {
       await workoutService.update(id, { name: name });
     },
     onError: (error) => {
-      console.log("Error updating exercise name", error);
     },
   });
 
@@ -100,10 +98,8 @@ const Workout = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["sets"] });
-      console.log("Set added", data);
     },
     onError: (error) => {
-      console.log("Error adding set", error);
     },
   });
 

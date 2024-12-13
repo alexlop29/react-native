@@ -41,7 +41,6 @@ const Sets = ({ sets }: InputProps) => {
       return await workoutService.update(id, data);
     },
     onError: (error) => {
-      console.log("Error updating the set", error);
     },
   });
 

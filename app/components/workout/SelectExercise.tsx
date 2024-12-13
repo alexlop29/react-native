@@ -58,7 +58,6 @@ export const SelectExercise = ({ workout }: InputProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sets"] });
-      console.log("successfully saved");
     },
     onError: (error) => {
       console.error("Error saving exercise:", error);
