@@ -6,6 +6,8 @@ import { router } from "expo-router";
 import { Button, ButtonText } from "@/components/ui/button";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { HStack } from "@/components/ui/hstack";
+import { ExerciseCardCarousel } from "@/components/workout/ExerciseCardCarousel";
+import { Heading } from "@/components/ui/heading";
 
 // deps
 import { WorkoutService } from "@/services";
@@ -16,8 +18,6 @@ import { useStore } from "@tanstack/react-store";
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useMutation } from "@tanstack/react-query";
-import { ExerciseCardCarousel } from "@/components/workout/ExerciseCardCarousel";
-import { Heading } from "@/components/ui/heading";
 
 type Workout = {
   name: string;
@@ -97,7 +97,7 @@ export default function TabTwoScreen() {
           </ButtonText>
         </Button>
       </HStack>
-      {data && (
+      {/* {data && (
         <ExerciseCardCarousel
           data={data.map((item: WorkoutWithId) => {
             return {
@@ -107,7 +107,7 @@ export default function TabTwoScreen() {
             };
           })}
         />
-      )}
+      )} */}
       <Button
         size="md"
         variant="solid"

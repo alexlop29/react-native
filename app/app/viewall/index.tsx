@@ -9,17 +9,18 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 // deps
-import { useUser } from "@/providers";
 import { WorkoutService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
+import { store } from "@/providers";
+import { useStore } from "@tanstack/react-store";
 
 const ViewAll = () => {
-  const { user } = useUser();
+  const { user } = useStore(store);
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      return await workoutService.findByUserId(user);
+      if (user?.sub) return await workoutService.findByUserId(user?.sub);
     },
     enabled: !!user,
   });
