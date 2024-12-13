@@ -79,8 +79,7 @@ const Workout = () => {
       const workoutService = new WorkoutService();
       await workoutService.update(id, { name: name });
     },
-    onError: (error) => {
-    },
+    onError: (error) => {},
   });
 
   const { mutate: handleAddSet } = useMutation({
@@ -99,8 +98,7 @@ const Workout = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["sets"] });
     },
-    onError: (error) => {
-    },
+    onError: (error) => {},
   });
 
   const { mutate } = useMutation({
@@ -154,7 +152,7 @@ const Workout = () => {
                 <AccordionContent>
                   <AccordionContentText size="lg" className="mb-2 grow">
                     {/* <Box className="rounded-lg overflow-hidden w-full"> */}
-                      <Sets sets={exerciseSets} />
+                    <Sets sets={exerciseSets} />
                     {/* </Box> */}
                   </AccordionContentText>
                   <Button

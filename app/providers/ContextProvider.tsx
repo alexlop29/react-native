@@ -34,7 +34,7 @@ const ContextProvider = () => {
     <>
       {user && (
         // <UserContext.Provider value={user}>
-          <LayoutProvider />
+        <LayoutProvider />
         // </UserContext.Provider>
       )}
       {!user && <SignInAndSignUpProvider />}
@@ -59,8 +59,7 @@ const SignInAndSignUpProvider = () => {
   const onPress = async () => {
     try {
       await authorize();
-    } catch (e) {
-    }
+    } catch (e) {}
   };
 
   return (

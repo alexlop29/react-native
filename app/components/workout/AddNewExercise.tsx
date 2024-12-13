@@ -54,8 +54,7 @@ const AddNewExercise = () => {
     try {
       let exerciseService = new ExerciseService();
       return exerciseService.create(exercise);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   // Add loading and error states

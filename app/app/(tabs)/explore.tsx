@@ -56,8 +56,7 @@ export default function TabTwoScreen() {
       router.push(`/workout/${doc.id}`);
       setIsLoading(false);
     },
-    onError: (error) => {
-    },
+    onError: (error) => {},
   });
 
   const handleViewAll = () => {

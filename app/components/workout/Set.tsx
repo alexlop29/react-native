@@ -40,8 +40,7 @@ const Sets = ({ sets }: InputProps) => {
       const data = { [category]: value };
       return await workoutService.update(id, data);
     },
-    onError: (error) => {
-    },
+    onError: (error) => {},
   });
 
   return (
