@@ -3,25 +3,16 @@ import { Image, StyleSheet } from "react-native";
 // comps
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { Card } from "@/components/ui/card";
-import { Box } from "@/components/ui/box";
-import {
-  Avatar,
-  AvatarFallbackText,
-  AvatarImage,
-} from "@/components/ui/avatar";
-import { VStack } from "@/components/ui/vstack";
-import { Heading } from "@/components/ui/heading";
-import { Text } from "@/components/ui/text";
 import { Button, ButtonText } from "@/components/ui/button";
+import { UserMetrics } from "@/components/profile/UserMetrics";
+import { UserDetails } from "@/components/profile/UserDetails";
 
 // deps
 import { useAuth0 } from "react-native-auth0";
 import { useQuery } from "@tanstack/react-query";
 import { WorkoutService } from "@/services";
-
 import { useStore } from "@tanstack/react-store";
 import { store } from "@/providers";
-import { UserMetrics } from "@/components/profile/UserMetrics";
 
 const LogoutButton = () => {
   const { clearSession } = useAuth0();
@@ -54,22 +45,7 @@ const Profile = () => {
 
   return (
     <Card className="p-6 rounded-lg max-w-[360px] m-3">
-      <Box className="flex-row">
-        <Avatar className="mr-4">
-          <AvatarFallbackText>JD</AvatarFallbackText>
-          <AvatarImage
-            source={{
-              uri: "https://gluestack.github.io/public-blog-video-assets/camera.png",
-            }}
-          />
-        </Avatar>
-        <VStack>
-          <Heading size="md" className="mb-1">
-            Jane Doe
-          </Heading>
-          <Text size="sm">{authUser?.email}</Text>
-        </VStack>
-      </Box>
+      <UserDetails />
       <UserMetrics
         metrics={[
           { title: "Workouts Finished", value: `${data}` },

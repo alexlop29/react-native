@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Stack } from "expo-router";
 import { Text, Button, Image } from "react-native";
 
@@ -12,7 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { UserService } from "@/services";
 
 // types
-import { User as DBUser } from "@/types";
+import { UserWithId as DBUser } from "@/types";
 interface AppState {
   authUser: User | undefined;
   dbUser: DBUser | undefined;
@@ -26,21 +26,22 @@ export const store = new Store<AppState>({
 const ContextProvider = () => {
   const { user, error, isLoading } = useAuth0();
 
-  if (user) {
-    const { data: details } = useQuery({
-      queryKey: ["user"],
-      queryFn: async () => {
-        const userRepository = new UserService();
-        if (user?.sub) return await userRepository.findByAuth0Id(user?.sub);
-      },
-    });
-    store.setState((state) => {
-      return {
-        ["authUser"]: user as User,
-        ["dbUser"]: details as DBUser,
-      };
-    });
-  }
+  const { data: details } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const userRepository = new UserService();
+      if (!user?.sub) return;
+      let data = await userRepository.findByAuth0Id(user?.sub);
+      store.setState((state) => {
+        return {
+          ["authUser"]: user as User,
+          ["dbUser"]: data as DBUser,
+        };
+      });
+      return data;
+    },
+    enabled: !!user,
+  });
 
   return (
     <>

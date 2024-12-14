@@ -1,3 +1,4 @@
+// default
 import React from "react";
 import { StyleSheet } from "react-native";
 
@@ -5,8 +6,14 @@ import { StyleSheet } from "react-native";
 import { Box } from "../ui/box";
 import { Avatar, AvatarFallbackText, AvatarImage } from "../ui/avatar";
 import { VStack } from "../ui/vstack";
-import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
+import { TextInput } from "../input/TextInput";
+
+// deps
+import { useStore } from "@tanstack/react-store";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { store } from "@/providers";
+import { UserService } from "@/services";
 
 // styles
 const styles = StyleSheet.create({
@@ -16,20 +23,33 @@ const styles = StyleSheet.create({
   },
 });
 
-// deps
-import { useStore } from "@tanstack/react-store";
-import { store } from "@/providers";
-
 const UserDetails = () => {
   const { dbUser } = useStore(store);
+  const queryClient = useQueryClient();
 
-  // get user details from firestore
-  // create text input to allow the user to save and edit their name
+  const { mutate: handleChange } = useMutation({
+    mutationFn: async ({ value }: { value: string }) => {
+      const userService = new UserService();
+      if (!dbUser?.id) return;
+      return await userService.updateById(dbUser?.id, {
+        ...dbUser,
+        name: value,
+      });
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+    onError: (error) => {},
+  });
+
+  // need to be able to handle email change (both in Auth0 and in the DB)
 
   return (
     <Box className="flex-row">
       <Avatar className="mr-4">
-        <AvatarFallbackText>JD</AvatarFallbackText>
+        <AvatarFallbackText>
+          {dbUser?.name ? dbUser?.name.charAt(0) : ""}
+        </AvatarFallbackText>
         <AvatarImage
           source={{
             uri: "https://gluestack.github.io/public-blog-video-assets/camera.png",
@@ -37,9 +57,11 @@ const UserDetails = () => {
         />
       </Avatar>
       <VStack>
-        <Heading size="md" className="mb-1">
-          Jane Doe
-        </Heading>
+        <TextInput
+          prompt={"Enter your name"}
+          handleOnBlur={() => handleChange}
+          value={dbUser?.name ?? ""}
+        />
         <Text size="sm">{dbUser?.email}</Text>
       </VStack>
     </Box>

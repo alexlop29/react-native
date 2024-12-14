@@ -4,4 +4,8 @@ type User = {
   auth_token_identifier: string;
 };
 
-export { User };
+type UserWithId = User & {
+  id: string;
+};
+
+export { User, UserWithId };
