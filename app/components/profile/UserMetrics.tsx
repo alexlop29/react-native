@@ -12,15 +12,14 @@ type Metric = {
 
 // styles
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
-    title: {
-      fontWeight: "bold",
-    },
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  title: {
+    fontWeight: "bold",
+  },
 });
-
 
 const UserMetrics = ({ metrics }: InputProps) => {
   return (

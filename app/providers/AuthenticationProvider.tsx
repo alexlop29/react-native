@@ -1,7 +1,7 @@
 import { Auth0Provider } from "react-native-auth0";
 
 type InputProps = {
-  children: React.ReactNode; // correct type ?
+  children: React.ReactNode;
 };
 
 const AuthenticationProvider = ({ children }: InputProps) => {

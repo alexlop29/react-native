@@ -1,11 +1,6 @@
 import { BaseService } from "./BaseService";
 import { UserRepository } from "@/repositories";
-
-type User = {
-  email: string;
-  name: string;
-  auth_token_identifier: string;
-};
+import { User } from "@/types";
 
 class UserService extends BaseService {
   userRepository: UserRepository;

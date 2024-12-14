@@ -15,14 +15,15 @@ import { store } from "@/providers";
 import { useStore } from "@tanstack/react-store";
 
 const ViewAll = () => {
-  const { user } = useStore(store);
+  const { authUser } = useStore(store);
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      if (user?.sub) return await workoutService.findByUserId(user?.sub);
+      if (authUser?.sub)
+        return await workoutService.findByUserId(authUser?.sub);
     },
-    enabled: !!user,
+    enabled: !!authUser,
   });
 
   return (

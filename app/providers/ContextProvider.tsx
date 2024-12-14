@@ -1,42 +1,50 @@
 import React from "react";
 import { Stack } from "expo-router";
-import { Text, Button, Image, View } from "react-native";
-import { useContext, createContext } from "react";
+import { Text, Button, Image } from "react-native";
 
 // comps
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 
-// auth
+// deps
 import { useAuth0, User } from "react-native-auth0";
 import { Store } from "@tanstack/store";
+import { useQuery } from "@tanstack/react-query";
+import { UserService } from "@/services";
 
+// types
+import { User as DBUser } from "@/types";
 interface AppState {
-  user: User | undefined;
+  authUser: User | undefined;
+  dbUser: DBUser | undefined;
 }
 
 export const store = new Store<AppState>({
-  user: undefined,
+  authUser: undefined,
+  dbUser: undefined,
 });
 
 const ContextProvider = () => {
   const { user, error, isLoading } = useAuth0();
 
   if (user) {
+    const { data: details } = useQuery({
+      queryKey: ["user"],
+      queryFn: async () => {
+        const userRepository = new UserService();
+        if (user?.sub) return await userRepository.findByAuth0Id(user?.sub);
+      },
+    });
     store.setState((state) => {
       return {
-        ...state,
-        ["user"]: user as User,
+        ["authUser"]: user as User,
+        ["dbUser"]: details as DBUser,
       };
     });
   }
 
   return (
     <>
-      {user && (
-        // <UserContext.Provider value={user}>
-        <LayoutProvider />
-        // </UserContext.Provider>
-      )}
+      {user && <LayoutProvider />}
       {!user && <SignInAndSignUpProvider />}
       {error && <Text>Oops... {error.message}</Text>}
       {isLoading && <Text>Loading...</Text>}
@@ -82,11 +90,5 @@ const SignInAndSignUpProvider = () => {
     </ParallaxScrollView>
   );
 };
-
-// export const useUser = () => {
-//   const context = useContext(UserContext);
-//   console.log("Context value:", context);
-//   return context;
-// };
 
 export { ContextProvider };

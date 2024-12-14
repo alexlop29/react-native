@@ -3,7 +3,6 @@ import { Image, StyleSheet } from "react-native";
 // comps
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { Card } from "@/components/ui/card";
-import { Divider } from "@/components/ui/divider";
 import { Box } from "@/components/ui/box";
 import {
   Avatar,
@@ -41,23 +40,17 @@ const LogoutButton = () => {
 };
 
 const Profile = () => {
-  const { user } = useStore(store);
+  const { authUser } = useStore(store);
 
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      if (user?.sub) return await workoutService.findTotalByUserId(user.sub);
+      if (authUser?.sub)
+        return await workoutService.findTotalByUserId(authUser.sub);
     },
-    enabled: !!user,
+    enabled: !!authUser,
   });
-
-  // return (
-  // <Card className="gap-y-4">
-  //   <Text>Email Address: {user?.email}</Text>
-  //   <Divider />
-  //   <Text>Total Workouts Finished: {data}</Text>
-  // </Card>
 
   return (
     <Card className="p-6 rounded-lg max-w-[360px] m-3">
@@ -74,7 +67,7 @@ const Profile = () => {
           <Heading size="md" className="mb-1">
             Jane Doe
           </Heading>
-          <Text size="sm">{user?.email}</Text>
+          <Text size="sm">{authUser?.email}</Text>
         </VStack>
       </Box>
       <UserMetrics
