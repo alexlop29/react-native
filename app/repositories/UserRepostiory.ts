@@ -29,7 +29,11 @@ class UserRepository extends BaseRepository {
       };
     });
     return formatted[0];
-  }
+  };
+
+  async updateById(id: string, data: any) {
+    return this.db.collection(COLLECTION).doc(id).update(data);
+  };
 }
 
 export { UserRepository };

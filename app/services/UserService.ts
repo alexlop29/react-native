@@ -26,6 +26,10 @@ class UserService extends BaseService {
   async findByAuth0Id(auth0Id: string) {
     return this.userRepository.findByAuth0Id(auth0Id);
   }
+
+  async updateById(id: string, data: any) {
+    return this.userRepository.updateById(id, data);
+  }
 }
 
 export { UserService };
