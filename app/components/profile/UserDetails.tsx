@@ -14,14 +14,25 @@ import { useStore } from "@tanstack/react-store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store } from "@/providers";
 import { UserService } from "@/services";
+import { UserPicture } from "./UserPicture";
 
 // styles
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
+  avatar: {},
 });
+
+/*
+  NOTE: (alopez) Configuring the functionality to allow user's to upload a profile pic
+
+  Helpful References:
+  - https://rnfirebase.io/storage/usage
+  - https://docs.expo.dev/versions/latest/sdk/imagepicker/
+  - https://docs.expo.dev/guides/using-firebase/#using-react-native-firebase
+*/
 
 const UserDetails = () => {
   const { dbUser } = useStore(store);
@@ -45,7 +56,8 @@ const UserDetails = () => {
   // need to be able to handle email change (both in Auth0 and in the DB)
 
   return (
-    <Box className="flex-row">
+    <Box style={styles.container}>
+      <UserPicture />
       <Avatar className="mr-4">
         <AvatarFallbackText>
           {dbUser?.name ? dbUser?.name.charAt(0) : ""}

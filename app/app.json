@@ -35,6 +35,12 @@
         {
           "domain": "dev-xxn2763opsyx3347.us.auth0.com"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you upload a profile image."
+        }
       ]
     ],
     "experiments": {
