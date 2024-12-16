@@ -7,6 +7,10 @@ nvm use 20.10.0
 npx expo run:ios
 ```
 
+```
+npx expo start
+``
+
 ### References
 - [React Native](https://reactnative.dev/)
 - [Expo](https://docs.expo.dev/)
