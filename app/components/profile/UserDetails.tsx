@@ -21,8 +21,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "center",
+    marginBottom: 16,
   },
-  avatar: {},
+  avatar: {
+    marginRight: 16,
+  },
 });
 
 /*
@@ -57,24 +60,16 @@ const UserDetails = () => {
 
   return (
     <Box style={styles.container}>
-      <UserPicture />
-      <Avatar className="mr-4">
-        <AvatarFallbackText>
-          {dbUser?.name ? dbUser?.name.charAt(0) : ""}
-        </AvatarFallbackText>
-        <AvatarImage
-          source={{
-            uri: "https://gluestack.github.io/public-blog-video-assets/camera.png",
-          }}
-        />
-      </Avatar>
+      <Box style={styles.avatar}>
+        <UserPicture />
+      </Box>
       <VStack>
         <TextInput
           prompt={"Enter your name"}
           handleOnBlur={() => handleChange}
           value={dbUser?.name ?? ""}
         />
-        <Text size="sm">{dbUser?.email}</Text>
+        <Text>{dbUser?.email}</Text>
       </VStack>
     </Box>
   );

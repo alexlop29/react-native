@@ -11,19 +11,31 @@
 import { useState } from "react";
 
 // comps
-import { Button, Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet, Pressable } from "react-native";
+import { Icon } from "@/components/ui/icon";
+import { User } from "lucide-react-native";
+import { Avatar } from "../ui/avatar";
+
+// deps
 import * as ImagePicker from "expo-image-picker";
 
 // styles
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   image: {
-    width: 200,
-    height: 200,
+    width: 60,
+    height: 60,
+    borderRadius: 60,
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 60,
+    backgroundColor: "#5a67d8",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  icon: {
+    color: "white",
   },
 });
 
@@ -45,10 +57,21 @@ const UserPicture = () => {
     }
   };
 
-  return <View style={styles.container}>
-    <Button title="Pick an image from camera roll" onPress={handlePickImage} />
-    {image && <Image source={{ uri: image }} style={styles.image} />}
-  </View>;
+  return (
+    <View>
+      {image ? (
+        <Pressable onPress={handlePickImage}>
+        <Image source={{ uri: image }} style={styles.image} />
+        </Pressable>
+      ) : (
+        <Pressable onPress={handlePickImage}>
+        <Avatar style={styles.avatar}>
+          <Icon as={User} style={styles.icon} />
+        </Avatar>
+        </Pressable>
+      )}
+    </View>
+  );
 };
 
 export { UserPicture };
