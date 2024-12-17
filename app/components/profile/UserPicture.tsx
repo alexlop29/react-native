@@ -61,13 +61,13 @@ const UserPicture = () => {
     <View>
       {image ? (
         <Pressable onPress={handlePickImage}>
-        <Image source={{ uri: image }} style={styles.image} />
+          <Image source={{ uri: image }} style={styles.image} />
         </Pressable>
       ) : (
         <Pressable onPress={handlePickImage}>
-        <Avatar style={styles.avatar}>
-          <Icon as={User} style={styles.icon} />
-        </Avatar>
+          <Avatar style={styles.avatar}>
+            <Icon as={User} style={styles.icon} />
+          </Avatar>
         </Pressable>
       )}
     </View>

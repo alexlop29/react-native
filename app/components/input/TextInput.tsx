@@ -5,10 +5,11 @@ import { Input, InputField } from "@/components/ui/input";
 type InputProps = {
   prompt: string;
   value: string;
+  styles?: any;
   handleOnBlur: (value: string) => void;
 };
 
-const TextInput = ({ prompt, value, handleOnBlur }: InputProps) => {
+const TextInput = ({ prompt, value, handleOnBlur, styles }: InputProps) => {
   return (
     <Input
       variant="outline"
@@ -16,6 +17,7 @@ const TextInput = ({ prompt, value, handleOnBlur }: InputProps) => {
       isDisabled={false}
       isInvalid={false}
       isReadOnly={false}
+      style={{ ...styles }}
     >
       <InputField
         placeholder={`${prompt}`}

@@ -27,7 +27,7 @@ const ContextProvider = () => {
   const { user, error, isLoading } = useAuth0();
 
   const { data: details } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["user", user?.sub],
     queryFn: async () => {
       const userRepository = new UserService();
       if (!user?.sub) return;
@@ -45,10 +45,10 @@ const ContextProvider = () => {
 
   return (
     <>
-      {user && <LayoutProvider />}
+      {user && details && <LayoutProvider />}
       {!user && <SignInAndSignUpProvider />}
       {error && <Text>Oops... {error.message}</Text>}
-      {isLoading && <Text>Loading...</Text>}
+      {(isLoading || !details) && <Text>Loading...</Text>}
     </>
   );
 };

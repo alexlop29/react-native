@@ -4,17 +4,16 @@ import { StyleSheet } from "react-native";
 
 // comps
 import { Box } from "../ui/box";
-import { Avatar, AvatarFallbackText, AvatarImage } from "../ui/avatar";
 import { VStack } from "../ui/vstack";
 import { Text } from "../ui/text";
 import { TextInput } from "../input/TextInput";
+import { UserPicture } from "./UserPicture";
 
 // deps
 import { useStore } from "@tanstack/react-store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store } from "@/providers";
 import { UserService } from "@/services";
-import { UserPicture } from "./UserPicture";
 
 // styles
 const styles = StyleSheet.create({
@@ -24,7 +23,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   avatar: {
-    marginRight: 16,
+    marginRight: 36,
+  },
+  user: {
+    marginBottom: 8,
   },
 });
 
@@ -64,11 +66,14 @@ const UserDetails = () => {
         <UserPicture />
       </Box>
       <VStack>
-        <TextInput
-          prompt={"Enter your name"}
-          handleOnBlur={() => handleChange}
-          value={dbUser?.name ?? ""}
-        />
+        <Box style={styles.user}>
+          <TextInput
+            prompt={"Enter your name"}
+            handleOnBlur={() => handleChange}
+            value={dbUser?.name ?? ""}
+            // styles={styles.heading}
+          />
+        </Box>
         <Text>{dbUser?.email}</Text>
       </VStack>
     </Box>
