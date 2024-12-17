@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button, ButtonText } from "@/components/ui/button";
 import { UserMetrics } from "@/components/profile/UserMetrics";
 import { UserDetails } from "@/components/profile/UserDetails";
+import { MeatBallMenu } from "@/components/reusables/MeatBallMenu";
 
 // deps
 import { useAuth0 } from "react-native-auth0";
@@ -45,6 +46,12 @@ const Profile = () => {
 
   return (
     <Card className="p-6 rounded-lg max-w-[360px] m-3">
+      <MeatBallMenu
+        items={[
+          { value: "Change Name", onPress: () => {} },
+          { value: "Change Email", onPress: () => {} },
+        ]}
+      />
       <UserDetails />
       <UserMetrics
         metrics={[

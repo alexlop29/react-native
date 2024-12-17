@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack } from "expo-router";
 import { Text, Button, Image } from "react-native";
 
