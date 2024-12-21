@@ -5,10 +5,11 @@ import { StyleSheet } from "react-native";
 import { Box } from "../ui/box";
 import { UserPicture } from "./UserPicture";
 import { Icon } from "../ui/icon";
-import { BellDot, CircleDot, SettingsIcon } from "lucide-react-native";
+import { SettingsIcon } from "lucide-react-native";
 import { Button } from "../ui/button";
 
 // styles
+import { Colors } from "@/constants/Colors";
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 16,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: Colors.blue.background,
     justifyContent: "center",
     alignItems: "center",
   },
