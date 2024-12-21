@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/card";
 import { Button, ButtonText } from "@/components/ui/button";
 import { UserMetrics } from "@/components/profile/UserMetrics";
 import { UserHeader } from "@/components/profile/UserHeader";
+import { Box } from "@/components/ui/box";
+import { Text } from "@/components/ui/text";
 
 // deps
 import { useAuth0 } from "react-native-auth0";
@@ -13,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { WorkoutService } from "@/services";
 import { useStore } from "@tanstack/react-store";
 import { store } from "@/providers";
+import { UserGreeting } from "@/components/profile/UserGreeting";
 
 // styles
 const styled = StyleSheet.create({
@@ -20,7 +23,7 @@ const styled = StyleSheet.create({
     padding: 32,
     alignItems: "center",
     justifyContent: "center",
-  },
+  }
 });
 
 const LogoutButton = () => {
@@ -40,7 +43,7 @@ const LogoutButton = () => {
 };
 
 const Profile = () => {
-  const { authUser } = useStore(store);
+  const { authUser, dbUser } = useStore(store);
 
   const { data } = useQuery({
     queryKey: ["workoutHistory"],
@@ -55,6 +58,8 @@ const Profile = () => {
   return (
     <Card className="p-6 rounded-lg max-w-[360px] m-3">
       <UserHeader />
+      {dbUser?.name && <UserGreeting name={dbUser?.name} />}
+      {/* Add box to start workout here */}
       <UserMetrics
         metrics={[
           { title: "Workouts Finished", value: `${data}` },
