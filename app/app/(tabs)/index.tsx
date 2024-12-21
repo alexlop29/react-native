@@ -1,12 +1,11 @@
-import { Image, StyleSheet } from "react-native";
+// default
+import { View, StyleSheet } from "react-native";
 
 // comps
-import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { Card } from "@/components/ui/card";
 import { Button, ButtonText } from "@/components/ui/button";
 import { UserMetrics } from "@/components/profile/UserMetrics";
-import { UserDetails } from "@/components/profile/UserDetails";
-import { MeatBallMenu } from "@/components/reusables/MeatBallMenu";
+import { UserHeader } from "@/components/profile/UserHeader";
 
 // deps
 import { useAuth0 } from "react-native-auth0";
@@ -14,6 +13,15 @@ import { useQuery } from "@tanstack/react-query";
 import { WorkoutService } from "@/services";
 import { useStore } from "@tanstack/react-store";
 import { store } from "@/providers";
+
+// styles
+const styled = StyleSheet.create({
+  container: {
+    padding: 32,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 const LogoutButton = () => {
   const { clearSession } = useAuth0();
@@ -46,13 +54,7 @@ const Profile = () => {
 
   return (
     <Card className="p-6 rounded-lg max-w-[360px] m-3">
-      <MeatBallMenu
-        items={[
-          { value: "Change Name", onPress: () => {} },
-          { value: "Change Email", onPress: () => {} },
-        ]}
-      />
-      <UserDetails />
+      <UserHeader />
       <UserMetrics
         metrics={[
           { title: "Workouts Finished", value: `${data}` },
@@ -66,36 +68,9 @@ const Profile = () => {
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
+    <View style={styled.container}>
       <Profile />
       <LogoutButton />
-    </ParallaxScrollView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});

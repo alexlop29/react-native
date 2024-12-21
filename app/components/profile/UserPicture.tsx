@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 60,
-    backgroundColor: "#5a67d8",
+    backgroundColor: "#e1f1f3",
     justifyContent: "center",
     alignItems: "center",
   },
   icon: {
-    color: "white",
+    color: "black",
   },
 });
 
