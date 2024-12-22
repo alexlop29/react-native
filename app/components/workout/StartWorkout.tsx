@@ -13,16 +13,15 @@ import { Colors } from "@/constants/Colors";
 const styled = StyleSheet.create({
   container: {
     borderRadius: 16,
-    padding: 16,
-    backgroundColor: Colors.blue.background,
-    justifyContent: "space-evenly",
+    padding: 32,
     alignItems: "center",
     flexDirection: "row",
   },
   iconContainer: {
     borderRadius: 32,
-    padding: 8,
+    padding: 12,
     backgroundColor: Colors.black.background,
+    marginRight: 8,
   },
   icon: {
     color: Colors.white.background,
@@ -30,23 +29,26 @@ const styled = StyleSheet.create({
   textContainer: {
     flexDirection: "column",
     alignContent: "center",
+    marginLeft: 8,
+    marginRight: 8,
   },
   heading: {
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginTop: 6,
   },
   subheading: {
-    fontSize: 18,
-    marginBottom: 16,
-  },
-  buttonContainer: {
-    alignItems: "center",
-    backgroundColor: Colors.white.background,
+    fontSize: 12,
+    marginBottom: 6,
   },
   button: {
-    justifyContent: "space-evenly",
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 12,
+    borderRadius: 16,
+    backgroundColor: Colors.white.background,
+    marginLeft: 32,
   },
   iconOne: {
     color: Colors.fadedGray.background,
@@ -67,15 +69,13 @@ const StartWorkout = () => {
       </Box>
       <Box style={styled.textContainer}>
         <Text style={styled.subheading}>New Challenge! 🔥</Text>
-        <Text style={styled.heading}>Start Your Workout</Text>
+        <Text style={styled.heading}>Start Workout</Text>
       </Box>
-      <Box style={styled.buttonContainer}>
-        <Button style={styled.button}>
-          <Icon as={ChevronRightIcon} style={styled.iconOne} size="sm" />
-          <Icon as={ChevronRightIcon} style={styled.iconTwo} size="md" />
-          <Icon as={ChevronRightIcon} style={styled.iconThree} size="lg" />
-        </Button>
-      </Box>
+      <Button style={styled.button}>
+        <Icon as={ChevronRightIcon} style={styled.iconOne} />
+        <Icon as={ChevronRightIcon} style={styled.iconTwo} />
+        <Icon as={ChevronRightIcon} style={styled.iconThree} />
+      </Button>
     </Box>
   );
 };
