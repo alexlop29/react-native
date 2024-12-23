@@ -26,6 +26,9 @@ export const Colors = {
   blue: {
     background: "#f5f5f5",
   },
+  orange: {
+    background: "#ffe9cb",
+  },
   black: {
     background: "#000",
   },

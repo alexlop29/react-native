@@ -16,6 +16,7 @@ const styled = StyleSheet.create({
     padding: 32,
     alignItems: "center",
     flexDirection: "row",
+    backgroundColor: Colors.orange.background,
   },
   iconContainer: {
     borderRadius: 32,

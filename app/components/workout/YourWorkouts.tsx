@@ -6,13 +6,23 @@ import { Box } from "../ui/box";
 import { Text } from "../ui/text";
 import { Icon } from "../ui/icon";
 import { ArrowRightIcon } from "lucide-react-native";
+import { Dumbbell } from "lucide-react-native";
 
 // styles
 import { Colors } from "@/constants/Colors";
 const styled = StyleSheet.create({
-  container: {},
-  header: {},
-  icon: {},
+  workoutHistoryContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 32
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  icon: {
+    color: Colors.gray.background
+  },
 });
 
 const YourWorkouts = () => {
@@ -29,9 +39,9 @@ const YourWorkouts = () => {
 
   return (
     <Box>
-      <Box>
-        <Text>Your Workouts</Text>
-        <Icon as={ArrowRightIcon} />
+      <Box style={styled.workoutHistoryContainer}>
+        <Text style={styled.header}>Your Workouts</Text>
+        <Icon style={styled.icon} as={ArrowRightIcon} />
       </Box>
       <Box>
         {sampleWorkouts.map((workout, index) => (
@@ -51,13 +61,46 @@ type InputProps = {
   description: string;
 };
 
+const styledWorkoutCard = StyleSheet.create({
+  container: {
+    marginBottom: 16,
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
+  innerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 16,
+    borderRadius: 16,
+    borderStyle: "solid",
+    borderColor: Colors.gray.background,
+    borderWidth: 1,
+  },
+  icon: {
+    color: Colors.gray.background,
+  },
+  iconContainer: {
+    borderRadius: 16,
+    backgroundColor: Colors.orange.background,
+    marginRight: 8,
+    padding: 12,
+  }
+});
+
 const WorkoutCard = ({ name, description }: InputProps) => {
   return (
-    <Box>
-      <Box>Icon</Box>
-      <Box>{name}</Box>
+    <Box style={styledWorkoutCard.container}>
+      <Box style={styledWorkoutCard.innerContainer}>
+      <Box style={styledWorkoutCard.iconContainer}>
+        <Icon as={Dumbbell} style={styled.icon} />
+      </Box>
+      <Box>
+        <Text>{name}</Text>
+      </Box>
       <Box>
         <Text>{description}</Text>
+      </Box>
       </Box>
     </Box>
   );

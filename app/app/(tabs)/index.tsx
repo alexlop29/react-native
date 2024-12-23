@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { WorkoutService } from "@/services";
 import { useStore } from "@tanstack/react-store";
 import { store } from "@/providers";
+import { YourWorkouts } from "@/components/workout/YourWorkouts";
 
 // styles
 const styled = StyleSheet.create({
@@ -23,6 +24,9 @@ const styled = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  card: {
+    backgroundColor: "#fff",
+  }
 });
 
 const LogoutButton = () => {
@@ -55,17 +59,18 @@ const Profile = () => {
   });
 
   return (
-    <Card className="p-6 rounded-lg max-w-[360px] m-3">
+    <Card style={styled.card}>
       <UserHeader />
       {dbUser?.name && <UserGreeting name={dbUser?.name} />}
       <StartWorkout />
-      <UserMetrics
+      <YourWorkouts />
+      {/* <UserMetrics
         metrics={[
           { title: "Workouts Finished", value: `${data}` },
           { title: "Weights Lifted", value: "15000" },
           { title: "Most Worked", value: "Biceps" },
         ]}
-      />
+      /> */}
     </Card>
   );
 };
