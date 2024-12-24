@@ -16,12 +16,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 16,
-  },
-  avatar: {
-    marginRight: 36,
-  },
-  menu: {
-    marginBottom: 8,
+    paddingRight: 32,
+    paddingLeft: 32,
   },
   button: {
     width: 60,
@@ -39,12 +35,12 @@ const styles = StyleSheet.create({
 const UserHeader = () => {
   return (
     <Box style={styles.container}>
-      <Box style={styles.menu}>
+      <Box>
         <Button style={styles.button}>
           <Icon as={SettingsIcon} size="xl" style={styles.icon} />
         </Button>
       </Box>
-      <Box style={styles.avatar}>
+      <Box>
         <UserPicture />
       </Box>
     </Box>

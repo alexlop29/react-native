@@ -12,6 +12,12 @@ type InputProps = {
 
 //styles
 const styled = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    marginBottom: 16,
+    paddingRight: 32,
+    paddingLeft: 32,
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
@@ -19,14 +25,13 @@ const styled = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
-    marginBottom: 16,
     color: "#666",
   },
 });
 
 const UserGreeting = ({ name }: InputProps) => {
   return (
-    <Box>
+    <Box style={styled.container}>
       <Text style={styled.title}>Hello {name}, </Text>
       <Text style={styled.subtitle}>Ready for a challenge?</Text>
     </Box>

@@ -12,8 +12,10 @@ import { Button } from "../ui/button";
 import { Colors } from "@/constants/Colors";
 const styled = StyleSheet.create({
   container: {
-    borderRadius: 16,
     padding: 32,
+    paddingLeft: 32,
+    paddingRight: 32,
+    borderRadius: 16,
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: Colors.orange.background,
