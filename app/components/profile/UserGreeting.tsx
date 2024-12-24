@@ -30,7 +30,7 @@ const styled = StyleSheet.create({
 const UserGreeting = ({ name }: InputProps) => {
   return (
     <Box style={styled.container}>
-      <Text style={styled.title}>Hello {name}, </Text>
+      <Text style={styled.title}>Hi {name}, </Text>
       <Text style={styled.subtitle}>Ready for a challenge?</Text>
     </Box>
   );
