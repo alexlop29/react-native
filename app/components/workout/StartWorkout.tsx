@@ -13,8 +13,6 @@ import { Colors } from "@/constants/Colors";
 const styled = StyleSheet.create({
   container: {
     padding: 32,
-    paddingLeft: 32,
-    paddingRight: 32,
     borderRadius: 16,
     alignItems: "center",
     flexDirection: "row",
@@ -51,7 +49,6 @@ const styled = StyleSheet.create({
     padding: 12,
     borderRadius: 16,
     backgroundColor: Colors.white.background,
-    marginLeft: 32,
   },
   iconOne: {
     color: Colors.fadedGray.background,

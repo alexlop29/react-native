@@ -15,8 +15,6 @@ const styled = StyleSheet.create({
   container: {
     flexDirection: "column",
     marginBottom: 16,
-    paddingRight: 32,
-    paddingLeft: 32,
   },
   title: {
     fontSize: 24,

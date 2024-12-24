@@ -64,8 +64,6 @@ type InputProps = {
 const styledWorkoutCard = StyleSheet.create({
   container: {
     marginBottom: 16,
-    paddingLeft: 32,
-    paddingRight: 32,
   },
   innerContainer: {
     flexDirection: "row",

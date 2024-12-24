@@ -7,6 +7,7 @@ import { UserHeader } from "@/components/profile/UserHeader";
 import { StartWorkout } from "@/components/workout/StartWorkout";
 import { UserGreeting } from "@/components/profile/UserGreeting";
 import { LogOut } from "@/components/reusables/LogOut";
+import { Box } from "@/components/ui/box";
 
 // deps
 import { useQuery } from "@tanstack/react-query";

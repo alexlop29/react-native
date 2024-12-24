@@ -16,8 +16,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 16,
-    paddingRight: 32,
-    paddingLeft: 32,
   },
   button: {
     width: 60,
