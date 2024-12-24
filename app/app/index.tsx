@@ -21,6 +21,7 @@ const styled = StyleSheet.create({
     padding: 32,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#fff",
   },
   card: {
     backgroundColor: "#fff",
