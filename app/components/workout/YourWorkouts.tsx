@@ -1,5 +1,6 @@
 // default
 import { StyleSheet } from "react-native";
+import { router } from "expo-router";
 
 // comps
 import { Box } from "../ui/box";
@@ -7,6 +8,7 @@ import { Text } from "../ui/text";
 import { Icon } from "../ui/icon";
 import { ArrowRightIcon } from "lucide-react-native";
 import { Dumbbell } from "lucide-react-native";
+import { Button } from "../ui/button";
 
 // styles
 import { Colors } from "@/constants/Colors";
@@ -37,11 +39,17 @@ const YourWorkouts = () => {
     },
   ];
 
+  const handleViewAll = () => {
+    router.push(`/viewall`);
+  };
+
   return (
     <Box>
       <Box style={styled.workoutHistoryContainer}>
         <Text style={styled.header}>Your Workouts</Text>
-        <Icon style={styled.icon} as={ArrowRightIcon} />
+        <Button onPress={() => handleViewAll()}>
+          <Icon style={styled.icon} as={ArrowRightIcon} />
+        </Button>
       </Box>
       <Box>
         {sampleWorkouts.map((workout, index) => (

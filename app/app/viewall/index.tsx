@@ -1,9 +1,11 @@
+// default
 import { StyleSheet } from "react-native";
 
 // comps
 import { VStack } from "@/components/ui/vstack";
 import { ExerciseCard } from "@/components/workout";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { Text } from "@/components/ui/text";
 
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -15,17 +17,41 @@ import { store } from "@/providers";
 import { useStore } from "@tanstack/react-store";
 
 const ViewAll = () => {
-  const { authUser } = useStore(store);
-  const { data } = useQuery({
+  const { dbUser } = useStore(store);
+  const { data, isLoading } = useQuery({
     queryKey: ["workoutHistory"],
     queryFn: async () => {
       const workoutService = new WorkoutService();
-      if (authUser?.sub)
-        return await workoutService.findByUserId(authUser?.sub);
+      if (dbUser) {
+        return await workoutService.findByUserId(dbUser?.id);
+      }
+      return [];
     },
-    enabled: !!authUser,
+    enabled: !!dbUser,
   });
 
+  // Loading state
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  // Empty state
+  if (!data || data.length === 0) {
+    return (
+      <ParallaxScrollView
+        headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
+        headerImage={
+          <Ionicons size={310} name="code-slash" style={styles.headerImage} />
+        }
+      >
+        <VStack space="sm">
+          <Text>No Workouts</Text>
+        </VStack>
+      </ParallaxScrollView>
+    );
+  }
+
+  // Data state
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
