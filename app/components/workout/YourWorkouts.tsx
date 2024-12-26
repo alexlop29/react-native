@@ -14,14 +14,14 @@ const styled = StyleSheet.create({
   workoutHistoryContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 32
+    padding: 32,
   },
   header: {
     fontSize: 20,
     fontWeight: "bold",
   },
   icon: {
-    color: Colors.gray.background
+    color: Colors.gray.background,
   },
 });
 
@@ -83,22 +83,22 @@ const styledWorkoutCard = StyleSheet.create({
     backgroundColor: Colors.orange.background,
     marginRight: 8,
     padding: 12,
-  }
+  },
 });
 
 const WorkoutCard = ({ name, description }: InputProps) => {
   return (
     <Box style={styledWorkoutCard.container}>
       <Box style={styledWorkoutCard.innerContainer}>
-      <Box style={styledWorkoutCard.iconContainer}>
-        <Icon as={Dumbbell} style={styled.icon} />
-      </Box>
-      <Box>
-        <Text>{name}</Text>
-      </Box>
-      <Box>
-        <Text>{description}</Text>
-      </Box>
+        <Box style={styledWorkoutCard.iconContainer}>
+          <Icon as={Dumbbell} style={styled.icon} />
+        </Box>
+        <Box>
+          <Text>{name}</Text>
+        </Box>
+        <Box>
+          <Text>{description}</Text>
+        </Box>
       </Box>
     </Box>
   );

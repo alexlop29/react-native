@@ -26,7 +26,7 @@ const styled = StyleSheet.create({
   },
   card: {
     backgroundColor: "#fff",
-  }
+  },
 });
 
 const Profile = () => {

@@ -1,3 +1,4 @@
+import React from "react";
 import { View, Text } from "react-native";
 import { usePathname, router } from "expo-router";
 import { useState } from "react";

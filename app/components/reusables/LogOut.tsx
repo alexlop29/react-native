@@ -20,7 +20,7 @@ const styled = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     padding: 16,
-  }
+  },
 });
 
 const LogOut = () => {
@@ -34,15 +34,14 @@ const LogOut = () => {
 
   return (
     <Box style={styled.container}>
-        <Button onPress={onPress} style={styled.button}>
-            <ButtonText>Log Out</ButtonText>
-        </Button>
+      <Button onPress={onPress} style={styled.button}>
+        <ButtonText>Log Out</ButtonText>
+      </Button>
     </Box>
-  )
-}
+  );
+};
 
 export { LogOut };
-
 
 /*
 const LogoutButton = () => {

@@ -1,5 +1,6 @@
 //default
 import { StyleSheet } from "react-native";
+import { router } from "expo-router";
 
 //comps
 import { Box } from "../ui/box";
@@ -7,6 +8,10 @@ import { Icon } from "../ui/icon";
 import { AlarmClock, ChevronRightIcon } from "lucide-react-native";
 import { Text } from "../ui/text";
 import { Button } from "../ui/button";
+
+//deps
+import { useMutation } from "@tanstack/react-query";
+import { WorkoutService } from "@/services";
 
 //styles
 import { Colors } from "@/constants/Colors";
@@ -62,6 +67,20 @@ const styled = StyleSheet.create({
 });
 
 const StartWorkout = () => {
+  const { mutate: handleStart } = useMutation({
+    mutationFn: async () => {
+      const workoutService = new WorkoutService();
+      let doc = await workoutService.create({
+        name: "",
+        timeStarted: new Date().toJSON(),
+        timeEnded: null,
+        user: null,
+      });
+      router.push(`/workout/${doc.id}`);
+    },
+    onError: (error) => {},
+  });
+
   return (
     <Box style={styled.container}>
       <Box style={styled.iconContainer}>
@@ -71,7 +90,7 @@ const StartWorkout = () => {
         <Text style={styled.subheading}>New Challenge! 🔥</Text>
         <Text style={styled.heading}>Start Workout</Text>
       </Box>
-      <Button style={styled.button}>
+      <Button style={styled.button} onPress={() => handleStart()}>
         <Icon as={ChevronRightIcon} style={styled.iconOne} />
         <Icon as={ChevronRightIcon} style={styled.iconTwo} />
         <Icon as={ChevronRightIcon} style={styled.iconThree} />
