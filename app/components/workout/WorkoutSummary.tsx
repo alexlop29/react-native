@@ -40,7 +40,7 @@ const styled = StyleSheet.create({
 //types
 type InputProps = {
   name: string;
-  description: string;
+  description: string | null;
 };
 
 const WorkoutSummary = ({ name, description }: InputProps) => {

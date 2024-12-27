@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 
 // comps
 import { VStack } from "@/components/ui/vstack";
-import { ExerciseCard } from "@/components/workout";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { Text } from "@/components/ui/text";
+import { WorkoutSummary } from "@/components/workout";
 
 // icons
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -23,6 +23,7 @@ const ViewAll = () => {
     queryFn: async () => {
       const workoutService = new WorkoutService();
       if (dbUser) {
+        // would like to also see the num of sets
         return await workoutService.findByUserId(dbUser?.id);
       }
       return [];
@@ -61,12 +62,10 @@ const ViewAll = () => {
     >
       <VStack space="sm">
         {data?.map((item, index: number) => (
-          <ExerciseCard
+          <WorkoutSummary
             key={index}
             name={item.name}
-            date={item.timeEnded}
-            showImage={false}
-            id={item.id}
+            description={item.timeEnded}
           />
         ))}
       </VStack>
