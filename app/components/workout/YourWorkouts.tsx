@@ -6,9 +6,11 @@ import { router } from "expo-router";
 import { Box } from "../ui/box";
 import { Text } from "../ui/text";
 import { Icon } from "../ui/icon";
-import { ArrowRightIcon } from "lucide-react-native";
-import { Dumbbell } from "lucide-react-native";
 import { Button } from "../ui/button";
+import { WorkoutSummary } from "./WorkoutSummary";
+
+// icons
+import { ArrowRightIcon } from "lucide-react-native";
 
 // styles
 import { Colors } from "@/constants/Colors";
@@ -53,60 +55,12 @@ const YourWorkouts = () => {
       </Box>
       <Box>
         {sampleWorkouts.map((workout, index) => (
-          <WorkoutCard
+          <WorkoutSummary
             key={index}
             name={workout.name}
             description={workout.description}
           />
         ))}
-      </Box>
-    </Box>
-  );
-};
-
-type InputProps = {
-  name: string;
-  description: string;
-};
-
-const styledWorkoutCard = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-  },
-  innerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 16,
-    borderRadius: 16,
-    borderStyle: "solid",
-    borderColor: Colors.gray.background,
-    borderWidth: 1,
-  },
-  icon: {
-    color: Colors.gray.background,
-  },
-  iconContainer: {
-    borderRadius: 16,
-    backgroundColor: Colors.orange.background,
-    marginRight: 8,
-    padding: 12,
-  },
-});
-
-const WorkoutCard = ({ name, description }: InputProps) => {
-  return (
-    <Box style={styledWorkoutCard.container}>
-      <Box style={styledWorkoutCard.innerContainer}>
-        <Box style={styledWorkoutCard.iconContainer}>
-          <Icon as={Dumbbell} style={styled.icon} />
-        </Box>
-        <Box>
-          <Text>{name}</Text>
-        </Box>
-        <Box>
-          <Text>{description}</Text>
-        </Box>
       </Box>
     </Box>
   );
