@@ -1,7 +1,9 @@
 # react-native
-Contains a series of coding snippets developed while leveraging the react native framework 
+
+Contains a series of coding snippets developed while leveraging the react native framework
 
 ### Getting Started
+
 ```
 nvm use 20.10.0
 npx expo run:ios
@@ -30,8 +32,10 @@ npx expo start
 - [React Native DevTools](https://reactnative.dev/docs/react-native-devtools)
 - [React Native - Debugging Basics](https://reactnative.dev/docs/debugging)
 ```
+
 iOS Simulator: Cmd ⌘ + D (or Device > Shake)
 Android emulators: Cmd ⌘ + M (macOS) or Ctrl + M (Windows and Linux)
+
 ```
 
 ### Service Repository Design Pattern
@@ -47,17 +51,23 @@ Android emulators: Cmd ⌘ + M (macOS) or Ctrl + M (Windows and Linux)
 
 ### Troubleshooting
 ```
+
 xcrun simctl boot 4B289012-0F41-4B56-B834-E6F7B37A1E6B exited with non-zero code: 60
 An error was encountered processing the command (domain=NSPOSIXErrorDomain, code=60):
 Unable to boot the Simulator.
 launchd failed to respond.
+
 ```
 Resources:
 - [GitHub Issue - Create React Native App - Issue #67](https://github.com/expo/create-react-native-app/issues/67)
 
 ```
-ERROR  Error: Native module RNFBAppModule not found. Re-check module install, linking, configuration,
+
+ERROR Error: Native module RNFBAppModule not found. Re-check module install, linking, configuration,
 build and install steps., js engine: hermes [Component Stack]
 ....
 npx expo run:ios
+
+```
+
 ```

@@ -38,7 +38,7 @@ export const SelectExercise = ({ workout }: InputProps) => {
   const { mutate } = useMutation({
     mutationFn: async (exerciseName: string) => {
       const exercise: Exercise | undefined = exercises?.find(
-        (exercise) => exercise.name === exerciseName
+        (exercise) => exercise.name === exerciseName,
       );
 
       if (!exercise) {

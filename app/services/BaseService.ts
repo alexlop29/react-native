@@ -5,7 +5,7 @@ class BaseService {
     throw new Error(
       `${message} - ${
         error ? JSON.stringify(error, Object.getOwnPropertyNames(error)) : ""
-      }`
+      }`,
     );
   }
 }

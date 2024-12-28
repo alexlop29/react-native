@@ -12,18 +12,19 @@ import { ChevronLeft } from "lucide-react-native";
 
 const Workout = () => {
   return (
-    <Stack
-      screenOptions={{
-        headerLeft: () => (
-          <Button onPress={() => router.back()}>
-            <Icon as={ChevronLeft} />
-          </Button>
-        ),
-        headerTitle: "",
-      }}
-    >
-      <Text>Workout</Text>
-    </Stack>
+    <Text>Workout</Text>
+    // <Stack
+    //   screenOptions={{
+    //     headerLeft: () => (
+    //       <Button onPress={() => router.back()}>
+    //         <Icon as={ChevronLeft} />
+    //       </Button>
+    //     ),
+    //     headerTitle: "",
+    //   }}
+    // >
+    //   <Text>Workout</Text>
+    // </Stack>
   );
 };
 

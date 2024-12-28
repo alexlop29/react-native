@@ -75,7 +75,7 @@ const Icon = React.forwardRef<React.ElementRef<typeof Svg>, IIConProps>(
         className={iconStyle({ size, class: className })}
       />
     );
-  }
+  },
 );
 
 export { Icon };
@@ -99,7 +99,7 @@ const createIconUI = ({ ...props }: ParameterTypes) => {
         ...inComingProps
       }: VariantProps<typeof iconStyle> &
         React.ComponentPropsWithoutRef<typeof UIIconCreateIcon>,
-      ref
+      ref,
     ) => {
       return (
         <UIIconCreateIcon
@@ -108,7 +108,7 @@ const createIconUI = ({ ...props }: ParameterTypes) => {
           className={iconStyle({ size, class: className })}
         />
       );
-    }
+    },
   );
 };
 export { createIconUI as createIcon };
