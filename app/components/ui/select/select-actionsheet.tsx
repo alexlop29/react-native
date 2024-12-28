@@ -367,7 +367,7 @@ const ActionsheetItemText = React.forwardRef<
 >(
   (
     { isTruncated, bold, underline, strikeThrough, size, className, ...props },
-    ref,
+    ref
   ) => {
     return (
       <UIActionsheet.ItemText
@@ -383,7 +383,7 @@ const ActionsheetItemText = React.forwardRef<
         {...props}
       />
     );
-  },
+  }
 );
 
 const ActionsheetDragIndicator = React.forwardRef<
@@ -517,7 +517,7 @@ const ActionsheetSectionHeaderText = React.forwardRef<
       highlight,
       ...props
     },
-    ref,
+    ref
   ) => {
     return (
       <UIActionsheet.SectionHeaderText
@@ -536,7 +536,7 @@ const ActionsheetSectionHeaderText = React.forwardRef<
         {...props}
       />
     );
-  },
+  }
 );
 
 const ActionsheetIcon = React.forwardRef<

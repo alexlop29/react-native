@@ -41,13 +41,13 @@ class SetService extends BaseService {
     let setsWithExerciseNames = await Promise.all(
       sets.map(async (set: any) => {
         let exercise = await this.exerciseRepository.findExerciseById(
-          set.exercise,
+          set.exercise
         );
         return {
           ...set,
           exerciseName: exercise._data.name,
         };
-      }),
+      })
     );
 
     // Group the sets by exercise name

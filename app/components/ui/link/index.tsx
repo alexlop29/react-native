@@ -79,7 +79,7 @@ const Link = React.forwardRef<React.ElementRef<typeof UILink>, ILinkProps>(
         className={linkStyle({ class: className })}
       />
     );
-  },
+  }
 );
 
 type ILinkTextProps = React.ComponentProps<typeof UILink.Text> &

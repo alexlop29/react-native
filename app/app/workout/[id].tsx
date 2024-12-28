@@ -1,9 +1,14 @@
+// default
+import React from "react";
+
 // comps
-import { Text } from "@/components/ui/text";
+import { WorkoutHeader } from "@/components/workout/WorkoutHeader";
 
 const Workout = () => {
   return (
-    <Text>Workout</Text>
+    <>
+      <WorkoutHeader />
+    </>
   );
 };
 

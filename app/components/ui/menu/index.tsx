@@ -110,7 +110,7 @@ const Separator = React.forwardRef(
         {...props}
       />
     );
-  },
+  }
 );
 export const UIMenu = createMenu({
   Root: Motion.View,
@@ -155,7 +155,7 @@ const Menu = React.forwardRef<React.ElementRef<typeof UIMenu>, IMenuProps>(
         {...props}
       />
     );
-  },
+  }
 );
 
 const MenuItem = UIMenu.Item;
@@ -177,7 +177,7 @@ const MenuItemLabel = React.forwardRef<
       highlight,
       ...props
     },
-    ref,
+    ref
   ) => {
     return (
       <UIMenu.ItemLabel
@@ -196,7 +196,7 @@ const MenuItemLabel = React.forwardRef<
         {...props}
       />
     );
-  },
+  }
 );
 
 const MenuSeparator = UIMenu.Separator;
