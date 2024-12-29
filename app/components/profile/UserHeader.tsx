@@ -6,7 +6,7 @@ import { Box } from "../ui/box";
 import { UserPicture } from "./UserPicture";
 import { Icon } from "../ui/icon";
 import { SettingsIcon } from "lucide-react-native";
-import { Button } from "../ui/button";
+import { RoundedButton } from "../reusables/RoundedButton";
 
 // styles
 import { Colors } from "@/constants/Colors";
@@ -17,26 +17,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 16,
   },
-  button: {
-    width: 60,
-    height: 60,
-    borderRadius: 16,
-    backgroundColor: Colors.blue.background,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  icon: {
-    color: "black",
-  },
 });
 
 const UserHeader = () => {
   return (
     <Box style={styles.container}>
       <Box>
-        <Button style={styles.button}>
-          <Icon as={SettingsIcon} size="xl" style={styles.icon} />
-        </Button>
+        <RoundedButton
+          icon={SettingsIcon}
+          backgroundColor={Colors.blue.background}
+          color="black"
+        />
       </Box>
       <Box>
         <UserPicture />
