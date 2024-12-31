@@ -5,6 +5,8 @@ import { View } from "react-native";
 
 // comps
 import { WorkoutHeader } from "@/components/workout/WorkoutHeader";
+import { WorkoutTable } from "@/components/workout/WorkoutTable";
+import { Finish } from "@/components/workout/Finish";
 
 // styles
 import { Card } from "@/components/ui/card";
@@ -25,6 +27,8 @@ const Workout = () => {
     <View style={styled.container}>
       <Card style={styled.card}>
         <WorkoutHeader />
+        <WorkoutTable />
+        <Finish />
       </Card>
     </View>
   );

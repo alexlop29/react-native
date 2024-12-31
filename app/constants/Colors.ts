@@ -44,4 +44,7 @@ export const Colors = {
   gray: {
     background: "#5d5d5d",
   },
+  green: {
+    background: "#c2e170",
+  }
 };
