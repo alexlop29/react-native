@@ -1,14 +1,32 @@
 // default
 import React from "react";
+import { StyleSheet } from "react-native";
+import { View } from "react-native";
 
 // comps
 import { WorkoutHeader } from "@/components/workout/WorkoutHeader";
 
+// styles
+import { Card } from "@/components/ui/card";
+const styled = StyleSheet.create({
+  container: {
+    padding: 32,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+  },
+  card: {
+    backgroundColor: "#fff",
+  },
+});
+
 const Workout = () => {
   return (
-    <>
-      <WorkoutHeader />
-    </>
+    <View style={styled.container}>
+      <Card style={styled.card}>
+        <WorkoutHeader />
+      </Card>
+    </View>
   );
 };
 

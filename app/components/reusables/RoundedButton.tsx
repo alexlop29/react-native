@@ -28,11 +28,12 @@ type InputProps = {
   icon: LucideIcon;
   backgroundColor?: string;
   color?: string;
+  handleEvent?: () => void;
 };
 
-const RoundedButton = ({ icon, backgroundColor, color }: InputProps) => {
+const RoundedButton = ({ icon, backgroundColor, color, handleEvent }: InputProps) => {
   return (
-    <Button style={[styles.button, { backgroundColor }]}>
+    <Button style={[styles.button, { backgroundColor }]} onPress={handleEvent}>
       <Icon as={icon} style={[styles.icon, { color }]} />
     </Button>
   );
